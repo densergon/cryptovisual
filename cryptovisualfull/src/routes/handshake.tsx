@@ -148,8 +148,8 @@ function HandshakeLayout() {
 
 					{showFps && engine && <FPSCounter engine={engine} />}
 
-					<div className="relative z-10 h-full overflow-auto p-6 md:p-10 pointer-events-none">
-						<div className="sticky top-0 z-20 mb-4 flex items-center gap-2 rounded-lg bg-surface-950/90 backdrop-blur-sm px-3 py-1.5 border border-surface-800/50 w-fit pointer-events-auto">
+					<div className="relative z-10 h-full overflow-y-auto">
+						<div className="sticky top-0 z-20 mb-4 ml-6 mt-4 md:ml-10 flex items-center gap-2 rounded-lg bg-surface-950/90 backdrop-blur-sm px-3 py-1.5 border border-surface-800/50 w-fit pointer-events-auto">
 							<span className="text-xs font-medium text-surface-400">
 								Step {currentStepIndex + 1} of 6
 							</span>
@@ -158,18 +158,20 @@ function HandshakeLayout() {
 								{STEP_LABELS[currentStep]}
 							</span>
 						</div>
-						<AnimatePresence mode="wait">
-							<motion.div
-								key={currentStep}
-								initial={{ opacity: 0, y: 12 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: -12 }}
-								transition={{ duration: reduced ? 0 : 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-								className="absolute inset-0 pointer-events-auto"
-							>
-								<Outlet />
-							</motion.div>
-						</AnimatePresence>
+						<div className="px-6 pb-6 md:px-10 md:pb-10">
+							<AnimatePresence mode="wait">
+								<motion.div
+									key={currentStep}
+									initial={{ opacity: 0, y: 12 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -12 }}
+									transition={{ duration: reduced ? 0 : 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+									className="pointer-events-auto"
+								>
+									<Outlet />
+								</motion.div>
+							</AnimatePresence>
+						</div>
 					</div>
 				</div>
 				<StepNavigation />
