@@ -1,0 +1,56 @@
+- generic [active] [ref=f4e1]:
+  - button "Deep Space" [ref=f4e3]:
+    - img [ref=f4e4]
+    - generic [ref=f4e6]: Deep Space
+  - generic [ref=f4e7]:
+    - complementary [ref=f4e8]:
+      - navigation [ref=f4e9]:
+        - button "1 Key Generation" [ref=f4e10]:
+          - generic [ref=f4e11]: "1"
+          - generic [ref=f4e12]: Key Generation
+        - button "2 Session Key" [disabled] [ref=f4e13]:
+          - generic [ref=f4e14]: "2"
+          - generic [ref=f4e15]: Session Key
+        - button "3 AES Cipher" [disabled] [ref=f4e16]:
+          - generic [ref=f4e17]: "3"
+          - generic [ref=f4e18]: AES Cipher
+        - button "4 Hybrid Envelope" [disabled] [ref=f4e19]:
+          - generic [ref=f4e20]: "4"
+          - generic [ref=f4e21]: Hybrid Envelope
+        - button "5 Wire Simulation" [disabled] [ref=f4e22]:
+          - generic [ref=f4e23]: "5"
+          - generic [ref=f4e24]: Wire Simulation
+        - button "6 Decrypt" [disabled] [ref=f4e25]:
+          - generic [ref=f4e26]: "6"
+          - generic [ref=f4e27]: Decrypt
+        - generic [ref=f4e28]: Step 1 of 6
+    - main [ref=f4e29]:
+      - generic [ref=f4e30]:
+        - generic [ref=f4e31]:
+          - generic [ref=f4e32]:
+            - link "← Home" [ref=f4e33] [cursor=pointer]:
+              - /url: /
+            - generic [ref=f4e35]:
+              - heading "Hybrid Handshake" [level=1] [ref=f4e36]
+              - paragraph [ref=f4e37]: Secure Communication Channel
+          - generic [ref=f4e39]:
+            - generic [ref=f4e40]: 1.0x
+            - slider "Animation speed" [ref=f4e41]: "1"
+        - generic [ref=f4e50]:
+          - generic [ref=f4e51]:
+            - img [ref=f4e53]
+            - generic [ref=f4e57]:
+              - heading "Key Generation" [level=2] [ref=f4e58]
+              - button "Learn about this step" [ref=f4e60]:
+                - img [ref=f4e61]
+              - paragraph [ref=f4e63]: Step 1 of 6
+          - paragraph [ref=f4e64]: "The secure handshake begins by generating an asymmetric RSA key pair. Think of this as creating your unique identity on the web: a public key that the world uses to send you secret messages, and a private key that you keep guarded to unlock them."
+          - button "Generate Keys" [ref=f4e68]
+          - paragraph [ref=f4e69]: RSA key sizes typically range from 2048 to 4096 bits. Larger keys provide stronger security but slower performance.
+        - generic [ref=f4e70]:
+          - button "Back" [disabled] [ref=f4e71]:
+            - img [ref=f4e72]
+            - text: Back
+          - button "Next" [ref=f4e74]:
+            - text: Next
+            - img [ref=f4e75]

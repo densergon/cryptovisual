@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "./styles/themes.css";
+@import "./styles/tokens.css";
+
+@theme {
+  --color-asymmetric-50: var(--color-asymmetric-50);
+  --color-asymmetric-100: var(--color-asymmetric-100);
+  --color-asymmetric-200: var(--color-asymmetric-200);
+  --color-asymmetric-300: var(--color-asymmetric-300);
+  --color-asymmetric-400: var(--color-asymmetric-400);
+  --color-asymmetric-500: var(--color-asymmetric-500);
+  --color-asymmetric-600: var(--color-asymmetric-600);
+  --color-asymmetric-700: var(--color-asymmetric-700);
+  --color-asymmetric-800: var(--color-asymmetric-800);
+  --color-asymmetric-900: var(--color-asymmetric-900);
+
+  --color-symmetric-50: var(--color-symmetric-50);
+  --color-symmetric-100: var(--color-symmetric-100);
+  --color-symmetric-200: var(--color-symmetric-200);
+  --color-symmetric-300: var(--color-symmetric-300);
+  --color-symmetric-400: var(--color-symmetric-400);
+  --color-symmetric-500: var(--color-symmetric-500);
+  --color-symmetric-600: var(--color-symmetric-600);
+  --color-symmetric-700: var(--color-symmetric-700);
+  --color-symmetric-800: var(--color-symmetric-800);
+  --color-symmetric-900: var(--color-symmetric-900);
+
+  --color-hybrid-50: var(--color-hybrid-50);
+  --color-hybrid-100: var(--color-hybrid-100);
+  --color-hybrid-200: var(--color-hybrid-200);
+  --color-hybrid-300: var(--color-hybrid-300);
+  --color-hybrid-400: var(--color-hybrid-400);
+  --color-hybrid-500: var(--color-hybrid-500);
+  --color-hybrid-600: var(--color-hybrid-600);
+  --color-hybrid-700: var(--color-hybrid-700);
+  --color-hybrid-800: var(--color-hybrid-800);
+  --color-hybrid-900: var(--color-hybrid-900);
+
+  --color-surface-50: var(--color-surface-50);
+  --color-surface-100: var(--color-surface-100);
+  --color-surface-200: var(--color-surface-200);
+  --color-surface-300: var(--color-surface-300);
+  --color-surface-400: var(--color-surface-400);
+  --color-surface-500: var(--color-surface-500);
+  --color-surface-600: var(--color-surface-600);
+  --color-surface-700: var(--color-surface-700);
+  --color-surface-800: var(--color-surface-800);
+  --color-surface-900: var(--color-surface-900);
+  --color-surface-950: var(--color-surface-950);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+}

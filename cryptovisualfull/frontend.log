@@ -1,0 +1,231 @@
+$ vite dev --port 3000
+
+  VITE v8.1.0  ready in 546 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+6:53:41 PM [vite] (ssr) connected.
+
+PWA v1.3.0
+mode      generateSW
+precache  1 entries (0.00 KiB)
+files generated
+  dev-dist/sw.js
+  dev-dist/workbox-5d155c7a.js
+warnings
+  One of the glob patterns doesn't match any files. Please remove or fix the following: {
+  "globDirectory": "/Users/danielserna/Documents/crypto/cryptovisualfull/dev-dist",
+  "globPattern": "**/*.{js,css,html,ico,png,svg,woff2}",
+  "globIgnores": [
+    "**/node_modules/**/*",
+    "sw.js",
+    "workbox-*.js"
+  ]
+}
+
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] %o
+
+%s
+
+%s
+ {
+  name: 'Error',
+  message: 'Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.',
+  stack: 'Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.\n' +
+    '    at Object.get (http://localhost:3000/@id/__vite-browser-external:node:events:3:11)\n' +
+    '    at http://localhost:3000/src/services/websocket.service.ts:1:52'
+} The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+[Client] ErrorBoundary caught: {
+  name: 'Error',
+  message: 'Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.',
+  stack: 'Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.\n' +
+    '    at Object.get (http://localhost:3000/@id/__vite-browser-external:node:events:3:11)\n' +
+    '    at http://localhost:3000/src/services/websocket.service.ts:1:52'
+} {
+  componentStack: '\n' +
+    '    at Lazy (<anonymous>)\n' +
+    '    at MatchInnerImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:125:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at MatchView (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:69:22)\n' +
+    '    at MatchImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:19:47)\n' +
+    '    at OutletImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:254:17)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at MotionDOMComponent (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:10550:35)\n' +
+    '    at PopChildMeasure (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:9399:23)\n' +
+    '    at PopChild (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:9426:21)\n' +
+    '    at PresenceChild (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:9484:24)\n' +
+    '    at AnimatePresence (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:9662:26)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at main (<anonymous>)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at SplitPane (http://localhost:3000/src/features/wizard/components/split-pane.tsx:3:29)\n' +
+    '    at HandshakeLayout (http://localhost:3000/src/routes/handshake.tsx?tsr-split=component:45:44)\n' +
+    '    at CanvasProvider (http://localhost:3000/src/shared/providers/CanvasProvider.tsx:8:34)\n' +
+    '    at AnimationSpeedProvider (http://localhost:3000/src/shared/providers/AnimationSpeedProvider.tsx:8:42)\n' +
+    '    at WizardProvider (http://localhost:3000/src/state/wizard-provider.tsx:18:34)\n' +
+    '    at HandshakeWrapper (<anonymous>)\n' +
+    '    at Lazy (<anonymous>)\n' +
+    '    at MatchInnerImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:125:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at MatchView (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:69:22)\n' +
+    '    at MatchImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:19:47)\n' +
+    '    at Suspense (<anonymous>)\n' +
+    '    at OutletImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:254:17)\n' +
+    '    at MatchInnerImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:125:57)\n' +
+    '    at CatchBoundaryImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=083e7248:21:3)\n' +
+    '    at CatchBoundary (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=083e7248:6:31)\n' +
+    '    at CatchNotFound (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/not-found.js?v=083e7248:10:17)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at WizardProvider (http://localhost:3000/src/state/wizard-provider.tsx:18:34)\n' +
+    '    at CryptoWorkerProvider (http://localhost:3000/src/shared/providers/CryptoWorkerProvider.tsx:8:40)\n' +
+    '    at Providers (http://localhost:3000/src/app/providers.tsx:5:29)\n' +
+    '    at TutorialProvider (http://localhost:3000/src/shared/providers/TutorialProvider.tsx:7:36)\n' +
+    '    at ErrorBoundary (http://localhost:3000/src/shared/components/ErrorBoundary.tsx:4:8)\n' +
+    '    at ThemeProvider (http://localhost:3000/src/shared/providers/ThemeProvider.tsx:13:33)\n' +
+    '    at body (<anonymous>)\n' +
+    '    at html (<anonymous>)\n' +
+    '    at RootDocument (http://localhost:3000/src/routes/__root.tsx:417:25)\n' +
+    '    at MatchView (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:69:22)\n' +
+    '    at MatchImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:19:47)\n' +
+    '    at CatchBoundaryImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=083e7248:21:3)\n' +
+    '    at CatchBoundary (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=083e7248:6:31)\n' +
+    '    at MatchesInner (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Matches.js?v=083e7248:30:17)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at Matches (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Matches.js?v=083e7248:20:17)\n' +
+    '    at RouterContextProvider (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js?v=083e7248:12:34)\n' +
+    '    at RouterProvider (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js?v=083e7248:37:27)\n' +
+    '    at AwaitInner (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/awaited.js?v=083e7248:27:15)\n' +
+    '    at Await (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/awaited.js?v=083e7248:20:12)\n' +
+    '    at StartClient (<anonymous>)'
+}
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] %o
+
+%s
+
+%s
+ {
+  name: 'Error',
+  message: 'Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.',
+  stack: 'Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.\n' +
+    '    at Object.get (http://localhost:3000/@id/__vite-browser-external:node:events:3:11)\n' +
+    '    at http://localhost:3000/src/services/websocket.service.ts:1:52'
+} The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+[Client] ErrorBoundary caught: {
+  name: 'Error',
+  message: 'Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.',
+  stack: 'Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.\n' +
+    '    at Object.get (http://localhost:3000/@id/__vite-browser-external:node:events:3:11)\n' +
+    '    at http://localhost:3000/src/services/websocket.service.ts:1:52'
+} {
+  componentStack: '\n' +
+    '    at Lazy (<anonymous>)\n' +
+    '    at MatchInnerImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:125:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at MatchView (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:69:22)\n' +
+    '    at MatchImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:19:47)\n' +
+    '    at OutletImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:254:17)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at MotionDOMComponent (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:10550:35)\n' +
+    '    at PopChildMeasure (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:9399:23)\n' +
+    '    at PopChild (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:9426:21)\n' +
+    '    at PresenceChild (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:9484:24)\n' +
+    '    at AnimatePresence (http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=083e7248:9662:26)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at main (<anonymous>)\n' +
+    '    at div (<anonymous>)\n' +
+    '    at SplitPane (http://localhost:3000/src/features/wizard/components/split-pane.tsx:3:29)\n' +
+    '    at HandshakeLayout (http://localhost:3000/src/routes/handshake.tsx?tsr-split=component:45:44)\n' +
+    '    at CanvasProvider (http://localhost:3000/src/shared/providers/CanvasProvider.tsx:8:34)\n' +
+    '    at AnimationSpeedProvider (http://localhost:3000/src/shared/providers/AnimationSpeedProvider.tsx:8:42)\n' +
+    '    at WizardProvider (http://localhost:3000/src/state/wizard-provider.tsx:18:34)\n' +
+    '    at HandshakeWrapper (<anonymous>)\n' +
+    '    at Lazy (<anonymous>)\n' +
+    '    at MatchInnerImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:125:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at MatchView (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:69:22)\n' +
+    '    at MatchImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:19:47)\n' +
+    '    at Suspense (<anonymous>)\n' +
+    '    at OutletImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:254:17)\n' +
+    '    at MatchInnerImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:125:57)\n' +
+    '    at CatchBoundaryImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=083e7248:21:3)\n' +
+    '    at CatchBoundary (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=083e7248:6:31)\n' +
+    '    at CatchNotFound (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/not-found.js?v=083e7248:10:17)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at WizardProvider (http://localhost:3000/src/state/wizard-provider.tsx:18:34)\n' +
+    '    at CryptoWorkerProvider (http://localhost:3000/src/shared/providers/CryptoWorkerProvider.tsx:8:40)\n' +
+    '    at Providers (http://localhost:3000/src/app/providers.tsx:5:29)\n' +
+    '    at TutorialProvider (http://localhost:3000/src/shared/providers/TutorialProvider.tsx:7:36)\n' +
+    '    at ErrorBoundary (http://localhost:3000/src/shared/components/ErrorBoundary.tsx:4:8)\n' +
+    '    at ThemeProvider (http://localhost:3000/src/shared/providers/ThemeProvider.tsx:13:33)\n' +
+    '    at body (<anonymous>)\n' +
+    '    at html (<anonymous>)\n' +
+    '    at RootDocument (http://localhost:3000/src/routes/__root.tsx:417:25)\n' +
+    '    at MatchView (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:69:22)\n' +
+    '    at MatchImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Match.js?v=083e7248:19:47)\n' +
+    '    at CatchBoundaryImpl (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=083e7248:21:3)\n' +
+    '    at CatchBoundary (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=083e7248:6:31)\n' +
+    '    at MatchesInner (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Matches.js?v=083e7248:30:17)\n' +
+    '    at SafeFragment (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=083e7248:5:57)\n' +
+    '    at Matches (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/Matches.js?v=083e7248:20:17)\n' +
+    '    at RouterContextProvider (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js?v=083e7248:12:34)\n' +
+    '    at RouterProvider (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js?v=083e7248:37:27)\n' +
+    '    at AwaitInner (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/awaited.js?v=083e7248:27:15)\n' +
+    '    at Await (http://localhost:3000/node_modules/.pnpm/@tanstack+react-router@1.170.16_react-dom@19.2.7_react@19.2.7__react@19.2.7/node_modules/@tanstack/react-router/dist/esm/awaited.js?v=083e7248:20:12)\n' +
+    '    at StartClient (<anonymous>)'
+}
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+[Client] src/shared/components/PWAUpdatePrompt.tsx:29:7 [PWA] Service worker registered: /dev-sw.js?dev-sw
+7:52:52 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-5.tsx?tsr-split=component
+7:53:01 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-5.tsx?tsr-split=component
+7:53:51 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-5.tsx?tsr-split=component
+8:14:45 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-5.tsx?tsr-split=component
+8:16:16 PM [vite] (client) hmr update /src/styles.css?direct, /src/state/wizard-provider.tsx, /src/features/wizard/components/step-sidebar.tsx
+8:16:16 PM [vite] (ssr) page reload src/state/machines/handshake.machine.ts
+8:16:16 PM [vite] (ssr) program reload
+8:16:53 PM [vite] (client) hmr update /src/styles.css?direct, /src/state/wizard-provider.tsx, /src/features/wizard/components/step-sidebar.tsx
+8:16:53 PM [vite] (ssr) page reload src/state/machines/handshake.machine.ts
+8:17:35 PM [vite] (client) hmr update /src/styles.css?direct, /src/state/wizard-provider.tsx, /src/features/wizard/components/step-sidebar.tsx
+8:17:35 PM [vite] (ssr) page reload src/state/machines/handshake.machine.ts
+8:18:35 PM [vite] (client) hmr update /src/styles.css?direct, /src/state/wizard-provider.tsx
+8:18:35 PM [vite] (ssr) page reload src/state/wizard-provider.tsx
+8:22:18 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx?tsr-split=component
+8:23:13 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx, /src/routes/handshake.step-3.tsx?tsr-split=component
+8:23:13 PM [vite] (ssr) page reload src/routes/handshake.step-3.tsx
+8:24:56 PM [vite] (client) hmr update /src/styles.css?direct, /src/shared/providers/CryptoWorkerProvider.tsx
+8:24:56 PM [vite] (ssr) page reload src/workers/worker-client.ts
+8:26:16 PM [vite] (client) hmr update /src/styles.css?direct, /src/shared/providers/CryptoWorkerProvider.tsx
+8:26:16 PM [vite] (ssr) page reload src/workers/worker-client.ts
+8:27:27 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx, /src/routes/handshake.step-3.tsx?tsr-split=component
+8:27:27 PM [vite] (ssr) page reload src/routes/handshake.step-3.tsx
+8:29:33 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx, /src/routes/handshake.step-3.tsx?tsr-split=component
+8:29:33 PM [vite] (ssr) page reload src/routes/handshake.step-3.tsx
+8:31:31 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx, /src/routes/handshake.step-3.tsx?tsr-split=component
+8:31:31 PM [vite] (ssr) page reload src/routes/handshake.step-3.tsx

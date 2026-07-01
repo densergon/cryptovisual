@@ -1,0 +1,6 @@
+[     121ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=083e7248:14335
+[     232ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3000/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3000/src/routes/__root.tsx:193
+[  116284ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=083e7248:14335
+[  116401ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3000/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3000/src/routes/__root.tsx:193

@@ -1,0 +1,23 @@
+[     193ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=083e7248:14335
+[     334ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3000/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3000/src/routes/__root.tsx:193
+[   24869ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=083e7248:14335
+[   24981ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3000/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3000/src/routes/__root.tsx:193
+[  188366ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=083e7248:14335
+[  188488ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3000/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3000/src/routes/__root.tsx:193
+[  199744ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3000/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3000/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3000/src/routes/__root.tsx:193
+[  199744ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3000/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3000/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=083e7248:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3000/src/routes/__root.tsx:193

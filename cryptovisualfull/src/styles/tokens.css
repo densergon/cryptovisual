@@ -1,0 +1,60 @@
+:root {
+	/* Asymmetric (RSA) — Magenta/Purple */
+	--color-asymmetric-50: #fdf4ff;
+	--color-asymmetric-100: #fae8ff;
+	--color-asymmetric-200: #f5d0fe;
+	--color-asymmetric-300: #f0abfc;
+	--color-asymmetric-400: #e879f9;
+	--color-asymmetric-500: #d946ef;
+	--color-asymmetric-600: #c026d3;
+	--color-asymmetric-700: #a21caf;
+	--color-asymmetric-800: #86198f;
+	--color-asymmetric-900: #701a75;
+
+	/* Symmetric (AES) — Cyan/Teal */
+	--color-symmetric-50: #ecfeff;
+	--color-symmetric-100: #cffafe;
+	--color-symmetric-200: #a5f3fc;
+	--color-symmetric-300: #67e8f9;
+	--color-symmetric-400: #22d3ee;
+	--color-symmetric-500: #06b6d4;
+	--color-symmetric-600: #0891b2;
+	--color-symmetric-700: #0e7490;
+	--color-symmetric-800: #155e75;
+	--color-symmetric-900: #164e63;
+
+	/* Hybrid — Gold/Amber */
+	--color-hybrid-50: #fffbeb;
+	--color-hybrid-100: #fef3c7;
+	--color-hybrid-200: #fde68a;
+	--color-hybrid-300: #fcd34d;
+	--color-hybrid-400: #fbbf24;
+	--color-hybrid-500: #f59e0b;
+	--color-hybrid-600: #d97706;
+	--color-hybrid-700: #b45309;
+	--color-hybrid-800: #92400e;
+	--color-hybrid-900: #78350f;
+
+	/* Surface / Background */
+	--color-surface-50: #f8fafc;
+	--color-surface-100: #f1f5f9;
+	--color-surface-200: #e2e8f0;
+	--color-surface-300: #cbd5e1;
+	--color-surface-400: #94a3b8;
+	--color-surface-500: #64748b;
+	--color-surface-600: #475569;
+	--color-surface-700: #334155;
+	--color-surface-800: #1e293b;
+	--color-surface-900: #0f172a;
+	--color-surface-950: #020617;
+
+	/* Semantic */
+	--color-success: #22c55e;
+	--color-warning: #f59e0b;
+	--color-error: #ef4444;
+	--color-info: #3b82f6;
+
+	/* Typography */
+	--font-sans: "Inter", system-ui, -apple-system, sans-serif;
+	--font-mono: "JetBrains Mono", "Fira Code", monospace;
+}

@@ -1,0 +1,70 @@
+- generic [active] [ref=e1]:
+  - button "Deep Space" [ref=e3]:
+    - img [ref=e4]
+    - generic [ref=e6]: Deep Space
+  - generic [ref=e7]:
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - img [ref=e15]
+          - generic [ref=e19]: RSA
+        - generic [ref=e20]: +
+        - generic [ref=e21]:
+          - img [ref=e23]
+          - generic [ref=e26]: AES
+        - generic [ref=e27]: =
+        - generic [ref=e28]:
+          - img [ref=e30]
+          - generic [ref=e32]: Hybrid
+      - heading "CryptoVisual" [level=1] [ref=e33]
+      - paragraph [ref=e34]: Master the art of hybrid encryption. Visualize RSA, AES, and the TLS handshake through high-performance animations.
+      - generic [ref=e35]:
+        - link "Start the Experience" [ref=e36] [cursor=pointer]:
+          - /url: /handshake/step-1
+          - generic [ref=e37]: Start the Experience
+          - img [ref=e38]
+        - link "Explore Features" [ref=e40] [cursor=pointer]:
+          - /url: "#features"
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - heading "The Encryption Journey" [level=2] [ref=e44]
+        - paragraph [ref=e45]: A step-by-step visual guide to modern security
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - img [ref=e49]
+          - generic [ref=e53]:
+            - heading "Asymmetric Magic" [level=3] [ref=e54]
+            - generic [ref=e55]: RSA-OAEP
+          - paragraph [ref=e56]: Explore RSA key generation. Watch public and private keys emerge from mathematical primes in a stunning sphere-splitting animation.
+        - generic [ref=e57]:
+          - img [ref=e59]
+          - generic [ref=e62]:
+            - heading "Symmetric Strength" [level=3] [ref=e63]
+            - generic [ref=e64]: AES-GCM
+          - paragraph [ref=e65]: Dive into the AES-256 state matrix. Visualize SubBytes, ShiftRows, and MixColumns as they scramble data into oblivion.
+        - generic [ref=e66]:
+          - img [ref=e68]
+          - generic [ref=e70]:
+            - heading "Hybrid Harmony" [level=3] [ref=e71]
+            - generic [ref=e72]: TLS Handshake
+          - paragraph [ref=e73]: See it all come together. Simulate a real network wire transfer where RSA protects the AES key, and AES protects the data.
+    - generic [ref=e75]:
+      - heading "Experience the Speed" [level=2] [ref=e76]
+      - paragraph [ref=e77]: Curious about how fast these operations are? Jump straight into the simulation and control the flow of time.
+      - link "Enter the Sandbox" [ref=e78] [cursor=pointer]:
+        - /url: /sandbox
+        - text: Enter the Sandbox
+        - img [ref=e79]
+    - contentinfo [ref=e81]:
+      - generic [ref=e82]:
+        - generic [ref=e83]: CryptoVisual
+        - paragraph [ref=e84]:
+          - text: Built for engineers, students, and the curious.
+          - text: Exploring the intersection of Mathematics, Security, and Art.
+        - generic [ref=e85]:
+          - link "GitHub" [ref=e86] [cursor=pointer]:
+            - /url: "#"
+          - link "Docs" [ref=e87] [cursor=pointer]:
+            - /url: "#"
+          - link "Contact" [ref=e88] [cursor=pointer]:
+            - /url: "#"

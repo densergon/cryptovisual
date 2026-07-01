@@ -1,0 +1,107 @@
+{
+	"translation": {
+		"common": {
+			"loading": "Loading...",
+			"error": "Error",
+			"success": "Success",
+			"cancel": "Cancel",
+			"save": "Save",
+			"close": "Close",
+			"next": "Next",
+			"back": "Back",
+			"reset": "Reset",
+			"play": "Play",
+			"stop": "Stop"
+		},
+		"navigation": {
+			"home": "Home",
+			"handshake": "Handshake Wizard",
+			"sandbox": "Sandbox",
+			"bitFlipper": "Bit Flipper",
+			"about": "About"
+		},
+		"handshake": {
+			"title": "Hybrid Encryption Handshake",
+			"step": "Step {{number}} of {{total}}",
+			"step1": {
+				"title": "Key Generation",
+				"description": "Generate RSA key pair for asymmetric encryption",
+				"generateKeys": "Generate Keys",
+				"publicKey": "Public Key",
+				"privateKey": "Private Key",
+				"keySize": "Key Size",
+				"bits": "bits"
+			},
+			"step2": {
+				"title": "AES Key Exchange",
+				"description": "Generate symmetric AES key and encrypt with RSA",
+				"generateAESKey": "Generate AES Key",
+				"encryptWithRSA": "Encrypt with RSA",
+				"sessionKey": "Session Key",
+				"encryptedKey": "Encrypted Key"
+			},
+			"step3": {
+				"title": "AES State Matrix",
+				"description": "Visualize AES encryption round operations",
+				"subBytes": "SubBytes - S-box substitution",
+				"shiftRows": "ShiftRows - Row cyclic shifting",
+				"mixColumns": "MixColumns - Column mixing",
+				"addRoundKey": "AddRoundKey - XOR with round key",
+				"avalanche": "Avalanche Effect - Single bit flip demonstration"
+			},
+			"step4": {
+				"title": "Message Encryption",
+				"description": "Encrypt message with AES session key",
+				"enterMessage": "Enter your message",
+				"encrypt": "Encrypt",
+				"ciphertext": "Ciphertext"
+			},
+			"step5": {
+				"title": "Wire Simulation",
+				"description": "Transmit encrypted payload over network",
+				"startTransmission": "Start Transmission",
+				"transmitting": "Transmitting...",
+				"connected": "Connected",
+				"connecting": "Connecting...",
+				"disconnected": "Disconnected"
+			},
+			"step6": {
+				"title": "Decryption",
+				"description": "Decrypt message on recipient side",
+				"decrypt": "Decrypt",
+				"decryptedMessage": "Decrypted Message"
+			}
+		},
+		"sandbox": {
+			"bitFlipper": {
+				"title": "Bit Flipper Sandbox",
+				"subtitle": "Interactive ciphertext manipulation",
+				"description": "Click on individual bits to flip them and observe how small changes in ciphertext affect the encrypted data.",
+				"totalBits": "Total Bits",
+				"flippedBits": "Flipped Bits",
+				"flipPercentage": "Flip Percentage",
+				"flipRandom": "Flip 5 Random Bits",
+				"resetAll": "Reset All",
+				"howItWorks": "How It Works",
+				"avalancheEffect": "Avalanche Effect"
+			},
+			"performance": {
+				"title": "Animation Speed",
+				"subtitle": "Control visualization playback speed",
+				"slow": "Slow",
+				"fast": "Fast",
+				"currentSpeed": "Current: {{speed}}x"
+			}
+		},
+		"accessibility": {
+			"skipToContent": "Skip to main content",
+			"keyboardNav": "Use arrow keys to navigate between steps",
+			"screenReaderAnnouncements": {
+				"stepChanged": "Now on step {{number}}: {{title}}",
+				"animationStarted": "Animation started",
+				"animationCompleted": "Animation completed",
+				"errorOccurred": "An error occurred: {{message}}"
+			}
+		}
+	}
+}

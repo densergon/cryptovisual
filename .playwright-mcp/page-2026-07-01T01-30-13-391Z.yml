@@ -1,0 +1,72 @@
+- generic [active] [ref=f8e1]:
+  - button "Deep Space" [ref=f8e3]:
+    - img [ref=f8e4]
+    - generic [ref=f8e6]: Deep Space
+  - generic [ref=f8e7]:
+    - complementary [ref=f8e8]:
+      - navigation [ref=f8e9]:
+        - button "1 Key Generation" [ref=f8e10]:
+          - generic [ref=f8e11]: "1"
+          - generic [ref=f8e12]: Key Generation
+        - button "2 Session Key" [disabled] [ref=f8e13]:
+          - generic [ref=f8e14]: "2"
+          - generic [ref=f8e15]: Session Key
+        - button "3 AES Cipher" [disabled] [ref=f8e16]:
+          - generic [ref=f8e17]: "3"
+          - generic [ref=f8e18]: AES Cipher
+        - button "4 Hybrid Envelope" [disabled] [ref=f8e19]:
+          - generic [ref=f8e20]: "4"
+          - generic [ref=f8e21]: Hybrid Envelope
+        - button "5 Wire Simulation" [disabled] [ref=f8e22]:
+          - generic [ref=f8e23]: "5"
+          - generic [ref=f8e24]: Wire Simulation
+        - button "6 Decrypt" [disabled] [ref=f8e25]:
+          - generic [ref=f8e26]: "6"
+          - generic [ref=f8e27]: Decrypt
+        - generic [ref=f8e28]: Step 1 of 6
+    - main [ref=f8e29]:
+      - generic [ref=f8e30]:
+        - generic [ref=f8e31]:
+          - generic [ref=f8e32]:
+            - link "← Home" [ref=f8e33] [cursor=pointer]:
+              - /url: /
+            - generic [ref=f8e35]:
+              - heading "Hybrid Handshake" [level=1] [ref=f8e36]
+              - paragraph [ref=f8e37]: Secure Communication Channel
+          - generic [ref=f8e39]:
+            - generic [ref=f8e40]: 1.0x
+            - slider "Animation speed" [ref=f8e41]: "1"
+        - generic [ref=f8e50]:
+          - generic [ref=f8e51]:
+            - img [ref=f8e53]
+            - generic [ref=f8e57]:
+              - heading "Key Generation" [level=2] [ref=f8e58]
+              - button "Learn about this step" [ref=f8e60]:
+                - img [ref=f8e61]
+              - paragraph [ref=f8e63]: Step 1 of 6
+          - paragraph [ref=f8e64]: "The secure handshake begins by generating an asymmetric RSA key pair. Think of this as creating your unique identity on the web: a public key that the world uses to send you secret messages, and a private key that you keep guarded to unlock them."
+          - generic [ref=f8e67]:
+            - button "Generate Keys" [ref=f8e68]
+            - button "Continue" [ref=f8e94]
+          - generic [ref=f8e95]:
+            - heading "RSA Key Pair Generated" [level=3] [ref=f8e96]
+            - generic [ref=f8e97]:
+              - generic [ref=f8e98]:
+                - text: Public Key
+                - generic [ref=f8e99]: "{ \"alg\": \"RSA-OAEP-256\", \"e\": \"AQAB\", \"ext\": true, \"key_ops\": [ \"encrypt\" ], \"kty\": \"RSA\", \"n\": \"n_XSU9597oH2ka9nRZeNwxdexd52JGgi-0Y4Jfzy_gkDYhJ3XzvFloKR_7GsfFgBg-CR_llPeeiWVln5y-BwEG2brYgXCUOdPbEHfNPQhQ8yyWG_MVPM6FkJuJMWLldVtHloWitax2wXrO3AB6pR4hbmtG4LQmamd-69TuP-zvhN9EEQEzlEjGfJNyqU8Wxyj4KXhYDVfAifedwMM-aEMARk9Jcnz7nw7Cq21AGz0nenwgt-IUZF22lPbUqVsAPYToxG2z0gF5ThLlXvndPdN1uIORa2txh7WeJ3_8dGAAzFWsICp7ZI4dLxXH-3WRlMsAA_xsuAH6vgou1-iYTr5w\" }"
+              - generic [ref=f8e100]:
+                - text: Private Key (secret)
+                - generic [ref=f8e101]: "{ \"alg\": \"RSA-OAEP-256\", \"d\": \"GOXxhB54qZxPHeQYhguOBFTp6pCzAP24nDYU3UzfIc2TWjuXmxo5qjDOuucT-xLTwYw-DUInjck3RV-h8ysPJm95MOyi8U0193lLuhFaPqvb8t6lHO93UJ8zVSiH5lSvwXS4WnivG6VmlgM3xbmsHy4DYQhT9lT2Cmr9yn7QlbRvphH5_YmeY-qb4bNUq-VdOn2-9xcnlY-45Lk8XKfipps2iwC1Li5Eszwmi3_KJ_nsZ91J3uZ5ax3c0UKhLV0AWpACzZ5LbahHdLvpU96Ktr3f22lQ5lVThZr61xy2aJtSjS2ASu2PwfL7WCIMgD2kHvrOqlatnQztBoi61Cq46Q\", \"dp\": \"xXMG9fJSupMa8lYJPLsN34kQ7amGS3YncNMzU38SWL3TdzUr_obrtfAh4leX5ICeNacdRHWTkcH5iUomuYeV5vU9rbbHdd447G3_gA-WH58XzJDuvFioiE_YPJMkGW2QyA0Yui0PPYjOI23dek8ySdyjcElm2kKyklLLQezfPcU\", \"dq\": \"YmgzGGSndjdcGmCPP353_iaXksYvFQyAabhzzkJGHJN4lT7q07kfBTh4SAQTpeqrjqIAsx9qziwoYtaErRA-hgmNMDFmyrjAv1yGOboG5kMuSrJ8X1nsbdt3_cg217ESx4RT7ISXsIQOxMMWyDs9qtgb8ihzQ0Dp3dca_-BibEE\", \"e\": \"AQAB\", \"ext\": true, \"key_ops\": [ \"decrypt\" ], \"kty\": \"RSA\", \"n\": \"n_XSU9597oH2ka9nRZeNwxdexd52JGgi-0Y4Jfzy_gkDYhJ3XzvFloKR_7GsfFgBg-CR_llPeeiWVln5y-BwEG2brYgXCUOdPbEHfNPQhQ8yyWG_MVPM6FkJuJMWLldVtHloWitax2wXrO3AB6pR4hbmtG4LQmamd-69TuP-zvhN9EEQEzlEjGfJNyqU8Wxyj4KXhYDVfAifedwMM-aEMARk9Jcnz7nw7Cq21AGz0nenwgt-IUZF22lPbUqVsAPYToxG2z0gF5ThLlXvndPdN1uIORa2txh7WeJ3_8dGAAzFWsICp7ZI4dLxXH-3WRlMsAA_xsuAH6vgou1-iYTr5w\", \"p\": \"zBkmDCJvvFGmJGRYCJwPg-ynMGf2loc-SCgiuB0o6uZHz6WRXXPupCg_UlGvJiBUNDBeHBDMDEPIUyjm-Q5ttQ5q0WHa40hLb3owfkviw37a4DGYvHqKXmdR0Gq6WfvC4BXW1BGT8dob0BSMMMtsUgKOncP2rfe77ZPLl9wFPls\", \"q\": \"yKNG-zgxp8-5SsXXu88AGbqZHSmu6zG9Z8u8QzPFHqigXz9U4xsJSfeR6EUH2kSx1Ywp9tOC-a8i6CmZ1RivhDSnIkQ6ldmbx6fdhGXyPX_4-YHna9pgJECGQP07wyc0Dvcr12szAuWd86eHzKnHeJdv1bq5HdngY2aFeKLelmU\", \"qi\": \"LnQ_3lQmZ3rDrF6agsLZtu95zH1z67uCc80h6NjpI1P1AQdM0AqKoJkOnq88v-u2drByfATpkybkastmOBbBR3AmYrH4ZbQzKW64KtsSc6ZfpGdZQB5U3ioZqI5b3vPrp6p22PgRsNltjhhjNNrczask24AfmtGtP7l6LoqJhHg\" }"
+              - generic [ref=f8e102]:
+                - generic [ref=f8e103]: "Key Size: 2048 bits"
+                - generic [ref=f8e104]: "Generation Time: 15.10ms"
+          - paragraph [ref=f8e69]: RSA key sizes typically range from 2048 to 4096 bits. Larger keys provide stronger security but slower performance.
+        - generic [ref=f8e70]:
+          - button "Back" [disabled] [ref=f8e71]:
+            - img [ref=f8e72]
+            - text: Back
+          - button "Next" [ref=f8e74]:
+            - text: Next
+            - img [ref=f8e75]
+  - button "Open TanStack Devtools" [ref=f8e92] [cursor=pointer]:
+    - img "TanStack Devtools" [ref=f8e93]

@@ -1,0 +1,107 @@
+{
+	"translation": {
+		"common": {
+			"loading": "Cargando...",
+			"error": "Error",
+			"success": "Éxito",
+			"cancel": "Cancelar",
+			"save": "Guardar",
+			"close": "Cerrar",
+			"next": "Siguiente",
+			"back": "Atrás",
+			"reset": "Reiniciar",
+			"play": "Reproducir",
+			"stop": "Detener"
+		},
+		"navigation": {
+			"home": "Inicio",
+			"handshake": "Asistente de Handshake",
+			"sandbox": "Sandbox",
+			"bitFlipper": "Bit Flipper",
+			"about": "Acerca de"
+		},
+		"handshake": {
+			"title": "Handshake de Cifrado Híbrido",
+			"step": "Paso {{number}} de {{total}}",
+			"step1": {
+				"title": "Generación de Claves",
+				"description": "Generar par de claves RSA para cifrado asimétrico",
+				"generateKeys": "Generar Claves",
+				"publicKey": "Clave Pública",
+				"privateKey": "Clave Privada",
+				"keySize": "Tamaño de Clave",
+				"bits": "bits"
+			},
+			"step2": {
+				"title": "Intercambio de Clave AES",
+				"description": "Generar clave simétrica AES y cifrar con RSA",
+				"generateAESKey": "Generar Clave AES",
+				"encryptWithRSA": "Cifrar con RSA",
+				"sessionKey": "Clave de Sesión",
+				"encryptedKey": "Clave Cifrada"
+			},
+			"step3": {
+				"title": "Matriz de Estado AES",
+				"description": "Visualizar operaciones de ronda de cifrado AES",
+				"subBytes": "SubBytes - Sustitución S-box",
+				"shiftRows": "ShiftRows - Desplazamiento cíclico de filas",
+				"mixColumns": "MixColumns - Mezcla de columnas",
+				"addRoundKey": "AddRoundKey - XOR con clave de ronda",
+				"avalanche": "Efecto Avalancha - Demostración de inversión de un bit"
+			},
+			"step4": {
+				"title": "Cifrado de Mensaje",
+				"description": "Cifrar mensaje con clave de sesión AES",
+				"enterMessage": "Ingrese su mensaje",
+				"encrypt": "Cifrar",
+				"ciphertext": "Texto Cifrado"
+			},
+			"step5": {
+				"title": "Simulación de Red",
+				"description": "Transmitir payload cifrado por la red",
+				"startTransmission": "Iniciar Transmisión",
+				"transmitting": "Transmitiendo...",
+				"connected": "Conectado",
+				"connecting": "Conectando...",
+				"disconnected": "Desconectado"
+			},
+			"step6": {
+				"title": "Descifrado",
+				"description": "Descifrar mensaje en el lado del receptor",
+				"decrypt": "Descifrar",
+				"decryptedMessage": "Mensaje Descifrado"
+			}
+		},
+		"sandbox": {
+			"bitFlipper": {
+				"title": "Sandbox Bit Flipper",
+				"subtitle": "Manipulación interactiva de texto cifrado",
+				"description": "Haga clic en bits individuales para invertirlos y observe cómo los pequeños cambios en el texto cifrado afectan los datos cifrados.",
+				"totalBits": "Bits Totales",
+				"flippedBits": "Bits Invertidos",
+				"flipPercentage": "Porcentaje de Inversión",
+				"flipRandom": "Invertir 5 Bits Aleatorios",
+				"resetAll": "Reiniciar Todo",
+				"howItWorks": "Cómo Funciona",
+				"avalancheEffect": "Efecto Avalancha"
+			},
+			"performance": {
+				"title": "Velocidad de Animación",
+				"subtitle": "Controlar velocidad de reproducción de visualización",
+				"slow": "Lento",
+				"fast": "Rápido",
+				"currentSpeed": "Actual: {{speed}}x"
+			}
+		},
+		"accessibility": {
+			"skipToContent": "Saltar al contenido principal",
+			"keyboardNav": "Use las teclas de flecha para navegar entre pasos",
+			"screenReaderAnnouncements": {
+				"stepChanged": "Ahora en paso {{number}}: {{title}}",
+				"animationStarted": "Animación iniciada",
+				"animationCompleted": "Animación completada",
+				"errorOccurred": "Ocurrió un error: {{message}}"
+			}
+		}
+	}
+}

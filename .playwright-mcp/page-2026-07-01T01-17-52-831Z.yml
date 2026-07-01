@@ -1,0 +1,14 @@
+- generic [active] [ref=e1]:
+  - button "Deep Space" [ref=e3]:
+    - img [ref=e4]
+    - generic [ref=e6]: Deep Space
+  - alert [ref=e287]:
+    - heading "Something went wrong" [level=2] [ref=e288]
+    - paragraph [ref=e289]: A technical error occurred in this section.
+    - paragraph [ref=e290]: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    - generic [ref=e291]:
+      - button "Try Again" [ref=e292]
+      - link "Go Home" [ref=e293] [cursor=pointer]:
+        - /url: /
+  - button "Open TanStack Devtools" [ref=e174] [cursor=pointer]:
+    - img "TanStack Devtools" [ref=e175]

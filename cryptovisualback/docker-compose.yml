@@ -1,0 +1,69 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: cryptovisual
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d cryptovisual"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cryptovisual
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - cryptovisual
+
+  backend:
+    build: .
+    ports:
+      - "4000:4000"
+      - "4001:4001"
+    environment:
+      PORT: "4000"
+      WS_PORT: "4001"
+      CORS_ORIGIN: "http://localhost:3000"
+      DATABASE_URL: "postgresql://user:password@postgres:5432/cryptovisual"
+      REDIS_URL: "redis://redis:6379"
+      WS_API_KEY: "dev-secret-key"
+      WS_ALLOWED_ORIGINS: "http://localhost:3000"
+      LOG_LEVEL: "info"
+      AUDIT_RETENTION_DAYS: "365"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4000', (r) => { const { statusCode } = r; process.exit(statusCode === 200 ? 0 : 1); })"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - cryptovisual
+
+networks:
+  cryptovisual:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:

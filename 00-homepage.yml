@@ -1,0 +1,68 @@
+- generic [active] [ref=f13e1]:
+  - button "Deep Space" [ref=f13e3]:
+    - img [ref=f13e4]
+    - generic [ref=f13e6]: Deep Space
+  - generic [ref=f13e89]:
+    - complementary [ref=f13e90]:
+      - navigation [ref=f13e91]:
+        - button "1 Key Generation" [ref=f13e92]:
+          - generic [ref=f13e93]: "1"
+          - generic [ref=f13e94]: Key Generation
+        - button "2 Session Key" [disabled] [ref=f13e95]:
+          - generic [ref=f13e96]: "2"
+          - generic [ref=f13e97]: Session Key
+        - button "3 AES Cipher" [disabled] [ref=f13e98]:
+          - generic [ref=f13e99]: "3"
+          - generic [ref=f13e100]: AES Cipher
+        - button "4 Hybrid Envelope" [disabled] [ref=f13e101]:
+          - generic [ref=f13e102]: "4"
+          - generic [ref=f13e103]: Hybrid Envelope
+        - button "5 Wire Simulation" [disabled] [ref=f13e104]:
+          - generic [ref=f13e105]: "5"
+          - generic [ref=f13e106]: Wire Simulation
+        - button "6 Decrypt" [disabled] [ref=f13e107]:
+          - generic [ref=f13e108]: "6"
+          - generic [ref=f13e109]: Decrypt
+        - generic [ref=f13e110]: Step 1 of 6
+    - main [ref=f13e111]:
+      - generic [ref=f13e112]:
+        - generic [ref=f13e113]:
+          - generic [ref=f13e114]:
+            - link "← Home" [ref=f13e115] [cursor=pointer]:
+              - /url: /
+            - generic [ref=f13e117]:
+              - heading "Hybrid Handshake" [level=1] [ref=f13e118]
+              - paragraph [ref=f13e119]: Secure Communication Channel
+          - generic [ref=f13e121]:
+            - generic [ref=f13e122]: 1.0x
+            - slider "Animation speed" [ref=f13e123]: "1"
+        - generic [ref=f13e132]:
+          - generic [ref=f13e133]:
+            - img [ref=f13e135]
+            - generic [ref=f13e139]:
+              - heading "Key Generation" [level=2] [ref=f13e140]
+              - button "Learn about this step" [ref=f13e142]:
+                - img [ref=f13e143]
+              - paragraph [ref=f13e145]: Step 1 of 6
+          - paragraph [ref=f13e146]: "The secure handshake begins by generating an asymmetric RSA key pair. Think of this as creating your unique identity on the web: a public key that the world uses to send you secret messages, and a private key that you keep guarded to unlock them."
+          - button "Generate Keys" [ref=f13e150]
+          - paragraph [ref=f13e151]: RSA key sizes typically range from 2048 to 4096 bits. Larger keys provide stronger security but slower performance.
+        - generic [ref=f13e152]:
+          - button "Back" [disabled] [ref=f13e153]:
+            - img [ref=f13e154]
+            - text: Back
+          - button "Next" [ref=f13e156]:
+            - text: Next
+            - img [ref=f13e157]
+  - generic [ref=f13e160]:
+    - button [ref=f13e161]:
+      - img [ref=f13e162]
+    - paragraph [ref=f13e165]: Welcome to CryptoVisual! Let's learn how a secure hybrid handshake works.
+    - generic [ref=f13e166]:
+      - button [disabled] [ref=f13e167]:
+        - img [ref=f13e168]
+      - generic [ref=f13e170]: Step 1 of 7
+      - button [ref=f13e171]:
+        - img [ref=f13e172]
+  - button "Open TanStack Devtools" [ref=f13e174] [cursor=pointer]:
+    - img "TanStack Devtools" [ref=f13e175]

@@ -1,0 +1,138 @@
+[     257ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[     379ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[   15561ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[   15712ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  252433ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  252592ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[ 1156310ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:14:45 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-5.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1156310ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:14:45 PM [vite] (ssr) page reload src/services/websocket.service.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1247615ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:16 PM [vite] (client) hmr update /src/styles.css?direct, /src/state/wizard-provider.tsx, /src/features/wizard/components/step-sidebar.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1247615ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:16 PM [vite] (ssr) page reload src/state/machines/handshake.machine.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1247615ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:16 PM [vite] (ssr) program reload @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1247654ms] [ERROR] %o
+
+%s
+
+%s
+ Error: useWizard must be used within a WizardProvider
+    at useWizard (http://localhost:3001/src/state/wizard-provider.tsx:131:9)
+    at HandshakeLayout (http://localhost:3001/src/routes/handshake.tsx?tsr-split=component:45:44)
+    at Object.react_stack_bottom_frame (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:12866:12)
+    at renderWithHooks (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:4213:19)
+    at updateFunctionComponent (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5569:16)
+    at beginWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:6140:20)
+    at runWithFiberInDEV (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:851:66)
+    at performUnitOfWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8429:92)
+    at workLoopSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8325:37)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8309:6) The above error occurred in the <HandshakeLayout> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[ 1247657ms] [ERROR] ErrorBoundary caught: Error: useWizard must be used within a WizardProvider
+    at useWizard (http://localhost:3001/src/state/wizard-provider.tsx:131:9)
+    at HandshakeLayout (http://localhost:3001/src/routes/handshake.tsx?tsr-split=component:45:44)
+    at Object.react_stack_bottom_frame (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:12866:12)
+    at renderWithHooks (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:4213:19)
+    at updateFunctionComponent (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5569:16)
+    at beginWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:6140:20)
+    at runWithFiberInDEV (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:851:66)
+    at performUnitOfWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8429:92)
+    at workLoopSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8325:37)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8309:6) {componentStack: 
+    at HandshakeLayout (http://localhost:3001/src…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[ 1247677ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:16 PM [vite] (client) hmr invalidate /src/state/wizard-provider.tsx Could not Fast Refresh ("useWizard" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1247677ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:16 PM [vite] (client) hmr update /src/app/providers.tsx, /src/routes/handshake.step-1.tsx?tsr-split=component, /src/routes/handshake.tsx?tsr-split=component, /src/features/wizard/components/step-navigation.tsx, /src/features/wizard/components/step-sidebar.tsx, /src/routes/handshake.step-2.tsx?tsr-split=component, /src/routes/handshake.step-5.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1284085ms] [ERROR] %o
+
+%s
+
+%s
+ Error: useWizard must be used within a WizardProvider
+    at useWizard (http://localhost:3001/src/state/wizard-provider.tsx?t=1782872176695:131:9)
+    at HandshakeLayout (http://localhost:3001/src/routes/handshake.tsx?t=1782872176695&tsr-split=component:45:44)
+    at Object.react_stack_bottom_frame (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:12866:12)
+    at renderWithHooks (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:4213:19)
+    at updateFunctionComponent (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5569:16)
+    at beginWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:6140:20)
+    at runWithFiberInDEV (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:851:66)
+    at performUnitOfWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8429:92)
+    at workLoopSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8325:37)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8309:6) The above error occurred in the <HandshakeLayout> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[ 1284086ms] [ERROR] ErrorBoundary caught: Error: useWizard must be used within a WizardProvider
+    at useWizard (http://localhost:3001/src/state/wizard-provider.tsx?t=1782872176695:131:9)
+    at HandshakeLayout (http://localhost:3001/src/routes/handshake.tsx?t=1782872176695&tsr-split=component:45:44)
+    at Object.react_stack_bottom_frame (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:12866:12)
+    at renderWithHooks (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:4213:19)
+    at updateFunctionComponent (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5569:16)
+    at beginWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:6140:20)
+    at runWithFiberInDEV (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:851:66)
+    at performUnitOfWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8429:92)
+    at workLoopSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8325:37)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8309:6) {componentStack: 
+    at HandshakeLayout (http://localhost:3001/src…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[ 1284092ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:53 PM [vite] (client) hmr update /src/styles.css?direct, /src/state/wizard-provider.tsx, /src/features/wizard/components/step-sidebar.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1284092ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:53 PM [vite] (ssr) page reload src/state/machines/handshake.machine.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1284092ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:53 PM [vite] (client) hmr invalidate /src/state/wizard-provider.tsx Could not Fast Refresh ("useWizard" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1284092ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:16:53 PM [vite] (client) hmr update /src/app/providers.tsx, /src/routes/handshake.step-1.tsx?tsr-split=component, /src/routes/handshake.tsx?tsr-split=component, /src/features/wizard/components/step-navigation.tsx, /src/features/wizard/components/step-sidebar.tsx, /src/routes/handshake.step-2.tsx?tsr-split=component, /src/routes/handshake.step-5.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1326007ms] [ERROR] %o
+
+%s
+
+%s
+ Error: useWizard must be used within a WizardProvider
+    at useWizard (http://localhost:3001/src/state/wizard-provider.tsx?t=1782872213164:131:9)
+    at HandshakeLayout (http://localhost:3001/src/routes/handshake.tsx?t=1782872213164&tsr-split=component:45:44)
+    at Object.react_stack_bottom_frame (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:12866:12)
+    at renderWithHooks (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:4213:19)
+    at updateFunctionComponent (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5569:16)
+    at beginWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:6140:20)
+    at runWithFiberInDEV (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:851:66)
+    at performUnitOfWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8429:92)
+    at workLoopSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8325:37)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8309:6) The above error occurred in the <HandshakeLayout> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[ 1326007ms] [ERROR] ErrorBoundary caught: Error: useWizard must be used within a WizardProvider
+    at useWizard (http://localhost:3001/src/state/wizard-provider.tsx?t=1782872213164:131:9)
+    at HandshakeLayout (http://localhost:3001/src/routes/handshake.tsx?t=1782872213164&tsr-split=component:45:44)
+    at Object.react_stack_bottom_frame (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:12866:12)
+    at renderWithHooks (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:4213:19)
+    at updateFunctionComponent (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5569:16)
+    at beginWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:6140:20)
+    at runWithFiberInDEV (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:851:66)
+    at performUnitOfWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8429:92)
+    at workLoopSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8325:37)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8309:6) {componentStack: 
+    at HandshakeLayout (http://localhost:3001/src…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[ 1326017ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:17:35 PM [vite] (client) hmr update /src/styles.css?direct, /src/state/wizard-provider.tsx, /src/features/wizard/components/step-sidebar.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1326017ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:17:35 PM [vite] (ssr) page reload src/state/machines/handshake.machine.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1326017ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:17:35 PM [vite] (client) hmr invalidate /src/state/wizard-provider.tsx Could not Fast Refresh ("useWizard" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1326017ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:17:35 PM [vite] (client) hmr update /src/app/providers.tsx, /src/routes/handshake.step-1.tsx?tsr-split=component, /src/routes/handshake.tsx?tsr-split=component, /src/features/wizard/components/step-navigation.tsx, /src/features/wizard/components/step-sidebar.tsx, /src/routes/handshake.step-2.tsx?tsr-split=component, /src/routes/handshake.step-5.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1386788ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:18:35 PM [vite] (client) hmr update /src/styles.css?direct, /src/state/wizard-provider.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1386788ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:18:35 PM [vite] (ssr) page reload src/state/wizard-provider.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1386788ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:18:35 PM [vite] (client) hmr invalidate /src/state/wizard-provider.tsx Could not Fast Refresh ("useWizard" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1386788ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:18:35 PM [vite] (client) hmr update /src/app/providers.tsx, /src/routes/handshake.step-1.tsx?tsr-split=component, /src/routes/handshake.tsx?tsr-split=component, /src/features/wizard/components/step-navigation.tsx, /src/features/wizard/components/step-sidebar.tsx, /src/routes/handshake.step-2.tsx?tsr-split=component, /src/routes/handshake.step-5.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1609556ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:22:18 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1609556ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:22:18 PM [vite] (ssr) page reload src/visualization/scenes/state-matrix-scene.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1664491ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:23:13 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx, /src/routes/handshake.step-3.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1664491ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:23:13 PM [vite] (ssr) page reload src/routes/handshake.step-3.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1767763ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:24:56 PM [vite] (client) hmr update /src/styles.css?direct, /src/shared/providers/CryptoWorkerProvider.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1767764ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:24:56 PM [vite] (ssr) page reload src/workers/worker-client.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1767764ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:24:56 PM [vite] (client) hmr invalidate /src/shared/providers/CryptoWorkerProvider.tsx Could not Fast Refresh ("useCryptoWorker" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1767764ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:24:56 PM [vite] (client) hmr update /src/app/providers.tsx, /src/routes/handshake.step-1.tsx?tsr-split=component, /src/routes/handshake.step-2.tsx?tsr-split=component, /src/routes/handshake.step-3.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1847254ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:26:16 PM [vite] (client) hmr update /src/styles.css?direct, /src/shared/providers/CryptoWorkerProvider.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1847254ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:26:16 PM [vite] (ssr) page reload src/workers/worker-client.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1847254ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:26:16 PM [vite] (client) hmr invalidate /src/shared/providers/CryptoWorkerProvider.tsx Could not Fast Refresh ("useCryptoWorker" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1847254ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:26:16 PM [vite] (client) hmr update /src/app/providers.tsx, /src/routes/handshake.step-1.tsx?tsr-split=component, /src/routes/handshake.step-2.tsx?tsr-split=component, /src/routes/handshake.step-3.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1918834ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:27:27 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx, /src/routes/handshake.step-3.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 1918834ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:27:27 PM [vite] (ssr) page reload src/routes/handshake.step-3.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 2043968ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:29:33 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx, /src/routes/handshake.step-3.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 2043968ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:29:33 PM [vite] (ssr) page reload src/routes/handshake.step-3.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 2162638ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:31:31 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-3.tsx, /src/routes/handshake.step-3.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[ 2162638ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 8:31:31 PM [vite] (ssr) page reload src/routes/handshake.step-3.tsx @ http://localhost:3001/src/routes/__root.tsx:259
+[ 2522793ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/src/routes/__root.tsx:193
+[ 2522800ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:3001/__tsd/console-pipe/sse:0
+[ 2523264ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[ 2523452ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx?t=1782872776339:193

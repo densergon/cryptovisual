@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Handshake {
+	id          String   @id @default(cuid())
+	initiatorId String
+	responderId String
+	sessionId   String
+	status      String   @default("pending")
+	metadata    Json?
+	createdAt   DateTime @default(now())
+	completedAt DateTime?
+
+	@@index([sessionId])
+	@@index([initiatorId])
+	@@index([responderId])
+	@@index([createdAt])
+}
+
+model HandshakeSession {
+  id        String   @id @default(cuid())
+  status    String   @default("PENDING")
+  challenge String?
+  createdAt DateTime @default(now())
+  expiresAt DateTime?
+
+  publicKeys PublicKey[]
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model PublicKey {
+  id           String             @id @default(cuid())
+  kid          String
+  publicKeyPem String
+  algorithm    String
+  ownerId      String
+  sessionId    String
+  createdAt    DateTime           @default(now())
+
+  session HandshakeSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([kid])
+  @@index([sessionId])
+  @@index([createdAt])
+}
+
+model AuditLog {
+  id            String   @id @default(cuid())
+  eventType     String
+  actorId       String
+  targetId      String?
+  actionPayload Json?
+  details       Json?
+  timestamp     DateTime @default(now())
+  createdAt     DateTime @default(now())
+
+  @@index([eventType])
+  @@index([actorId])
+  @@index([createdAt])
+}
+
+model PerformanceMetric {
+  id                String   @id @default(cuid())
+  operationType     String
+  durationMs        Float
+  clientEnvironment Json?
+  recordedAt        DateTime @default(now())
+
+  @@index([operationType])
+  @@index([recordedAt])
+}
+
+model PeerConnection {
+  id               String   @id @default(cuid())
+  sourceSessionId  String
+  targetSessionId  String
+  status           String   @default("ACTIVE")
+  establishedAt    DateTime @default(now())
+
+  @@index([sourceSessionId])
+  @@index([status])
+}
+
+model HistoricalSession {
+  id              String   @id @default(cuid())
+  durationSeconds Int
+  totalEvents     Int
+  endedAt         DateTime
+  createdAt       DateTime @default(now())
+
+  @@index([endedAt])
+}

@@ -1,0 +1,70 @@
+- generic [active] [ref=f13e1]:
+  - button "Deep Space" [ref=f13e3]:
+    - img [ref=f13e4]
+    - generic [ref=f13e6]: Deep Space
+  - generic [ref=f13e7]:
+    - generic [ref=f13e11]:
+      - generic [ref=f13e12]:
+        - generic [ref=f13e13]:
+          - img [ref=f13e15]
+          - generic [ref=f13e19]: RSA
+        - generic [ref=f13e20]: +
+        - generic [ref=f13e21]:
+          - img [ref=f13e23]
+          - generic [ref=f13e26]: AES
+        - generic [ref=f13e27]: =
+        - generic [ref=f13e28]:
+          - img [ref=f13e30]
+          - generic [ref=f13e32]: Hybrid
+      - heading "CryptoVisual" [level=1] [ref=f13e33]
+      - paragraph [ref=f13e34]: Master the art of hybrid encryption. Visualize RSA, AES, and the TLS handshake through high-performance animations.
+      - generic [ref=f13e35]:
+        - link "Start the Experience" [ref=f13e36] [cursor=pointer]:
+          - /url: /handshake/step-1
+          - generic [ref=f13e37]: Start the Experience
+          - img [ref=f13e38]
+        - link "Explore Features" [ref=f13e40] [cursor=pointer]:
+          - /url: "#features"
+    - generic [ref=f13e42]:
+      - generic [ref=f13e43]:
+        - heading "The Encryption Journey" [level=2] [ref=f13e44]
+        - paragraph [ref=f13e45]: A step-by-step visual guide to modern security
+      - generic [ref=f13e46]:
+        - generic [ref=f13e47]:
+          - img [ref=f13e49]
+          - generic [ref=f13e53]:
+            - heading "Asymmetric Magic" [level=3] [ref=f13e54]
+            - generic [ref=f13e55]: RSA-OAEP
+          - paragraph [ref=f13e56]: Explore RSA key generation. Watch public and private keys emerge from mathematical primes in a stunning sphere-splitting animation.
+        - generic [ref=f13e57]:
+          - img [ref=f13e59]
+          - generic [ref=f13e62]:
+            - heading "Symmetric Strength" [level=3] [ref=f13e63]
+            - generic [ref=f13e64]: AES-GCM
+          - paragraph [ref=f13e65]: Dive into the AES-256 state matrix. Visualize SubBytes, ShiftRows, and MixColumns as they scramble data into oblivion.
+        - generic [ref=f13e66]:
+          - img [ref=f13e68]
+          - generic [ref=f13e70]:
+            - heading "Hybrid Harmony" [level=3] [ref=f13e71]
+            - generic [ref=f13e72]: TLS Handshake
+          - paragraph [ref=f13e73]: See it all come together. Simulate a real network wire transfer where RSA protects the AES key, and AES protects the data.
+    - generic [ref=f13e75]:
+      - heading "Experience the Speed" [level=2] [ref=f13e76]
+      - paragraph [ref=f13e77]: Curious about how fast these operations are? Jump straight into the simulation and control the flow of time.
+      - link "Enter the Sandbox" [ref=f13e78] [cursor=pointer]:
+        - /url: /sandbox
+        - text: Enter the Sandbox
+        - img [ref=f13e79]
+    - contentinfo [ref=f13e81]:
+      - generic [ref=f13e82]:
+        - generic [ref=f13e83]: CryptoVisual
+        - paragraph [ref=f13e84]:
+          - text: Built for engineers, students, and the curious.
+          - text: Exploring the intersection of Mathematics, Security, and Art.
+        - generic [ref=f13e85]:
+          - link "GitHub" [ref=f13e86] [cursor=pointer]:
+            - /url: "#"
+          - link "Docs" [ref=f13e87] [cursor=pointer]:
+            - /url: "#"
+          - link "Contact" [ref=f13e88] [cursor=pointer]:
+            - /url: "#"

@@ -1,0 +1,82 @@
+- generic [active] [ref=f7e1]:
+  - button "Deep Space" [ref=f7e3]:
+    - img [ref=f7e4]
+    - generic [ref=f7e6]: Deep Space
+  - generic [ref=f7e7]:
+    - generic [ref=f7e11]:
+      - generic [ref=f7e12]:
+        - generic [ref=f7e13]:
+          - img [ref=f7e15]
+          - generic [ref=f7e19]: RSA
+        - generic [ref=f7e20]: +
+        - generic [ref=f7e21]:
+          - img [ref=f7e23]
+          - generic [ref=f7e26]: AES
+        - generic [ref=f7e27]: =
+        - generic [ref=f7e28]:
+          - img [ref=f7e30]
+          - generic [ref=f7e32]: Hybrid
+      - heading "CryptoVisual" [level=1] [ref=f7e33]
+      - paragraph [ref=f7e34]: Master the art of hybrid encryption. Visualize RSA, AES, and the TLS handshake through high-performance animations.
+      - generic [ref=f7e35]:
+        - link "Start the Experience" [ref=f7e36] [cursor=pointer]:
+          - /url: /handshake/step-1
+          - generic [ref=f7e37]: Start the Experience
+          - img [ref=f7e38]
+        - link "Explore Features" [ref=f7e40] [cursor=pointer]:
+          - /url: "#features"
+    - generic [ref=f7e42]:
+      - generic [ref=f7e43]:
+        - heading "The Encryption Journey" [level=2] [ref=f7e44]
+        - paragraph [ref=f7e45]: A step-by-step visual guide to modern security
+      - generic [ref=f7e46]:
+        - generic [ref=f7e47]:
+          - img [ref=f7e49]
+          - generic [ref=f7e53]:
+            - heading "Asymmetric Magic" [level=3] [ref=f7e54]
+            - generic [ref=f7e55]: RSA-OAEP
+          - paragraph [ref=f7e56]: Explore RSA key generation. Watch public and private keys emerge from mathematical primes in a stunning sphere-splitting animation.
+        - generic [ref=f7e57]:
+          - img [ref=f7e59]
+          - generic [ref=f7e62]:
+            - heading "Symmetric Strength" [level=3] [ref=f7e63]
+            - generic [ref=f7e64]: AES-GCM
+          - paragraph [ref=f7e65]: Dive into the AES-256 state matrix. Visualize SubBytes, ShiftRows, and MixColumns as they scramble data into oblivion.
+        - generic [ref=f7e66]:
+          - img [ref=f7e68]
+          - generic [ref=f7e70]:
+            - heading "Hybrid Harmony" [level=3] [ref=f7e71]
+            - generic [ref=f7e72]: TLS Handshake
+          - paragraph [ref=f7e73]: See it all come together. Simulate a real network wire transfer where RSA protects the AES key, and AES protects the data.
+    - generic [ref=f7e75]:
+      - heading "Experience the Speed" [level=2] [ref=f7e76]
+      - paragraph [ref=f7e77]: Curious about how fast these operations are? Jump straight into the simulation and control the flow of time.
+      - link "Enter the Sandbox" [ref=f7e78] [cursor=pointer]:
+        - /url: /sandbox
+        - text: Enter the Sandbox
+        - img [ref=f7e79]
+    - contentinfo [ref=f7e81]:
+      - generic [ref=f7e82]:
+        - generic [ref=f7e83]: CryptoVisual
+        - paragraph [ref=f7e84]:
+          - text: Built for engineers, students, and the curious.
+          - text: Exploring the intersection of Mathematics, Security, and Art.
+        - generic [ref=f7e85]:
+          - link "GitHub" [ref=f7e86] [cursor=pointer]:
+            - /url: "#"
+          - link "Docs" [ref=f7e87] [cursor=pointer]:
+            - /url: "#"
+          - link "Contact" [ref=f7e88] [cursor=pointer]:
+            - /url: "#"
+  - generic [ref=f7e90]:
+    - button [ref=f7e91]:
+      - img [ref=f7e92]
+    - paragraph [ref=f7e95]: Welcome to CryptoVisual! Let's learn how a secure hybrid handshake works.
+    - generic [ref=f7e96]:
+      - button [disabled] [ref=f7e97]:
+        - img [ref=f7e98]
+      - generic [ref=f7e100]: Step 1 of 7
+      - button [ref=f7e101]:
+        - img [ref=f7e102]
+  - button "Open TanStack Devtools" [ref=f7e104] [cursor=pointer]:
+    - img "TanStack Devtools" [ref=f7e105]

@@ -1,0 +1,76 @@
+- generic [ref=e1]:
+  - button "Deep Space" [ref=e3]:
+    - img [ref=e4]
+    - generic [ref=e6]: Deep Space
+  - generic [ref=e89]:
+    - complementary [ref=e90]:
+      - navigation [ref=e91]:
+        - button "Key Generation" [ref=e187]:
+          - img [ref=e188]
+          - generic [ref=e94]: Key Generation
+        - button "Session Key" [ref=e210]:
+          - img [ref=e211]
+          - generic [ref=e97]: Session Key
+        - button "AES Cipher" [ref=e255]:
+          - img [ref=e256]
+          - generic [ref=e100]: AES Cipher
+        - button "4 Hybrid Envelope" [ref=e101]:
+          - generic [ref=e102]: "4"
+          - generic [ref=e103]: Hybrid Envelope
+        - button "5 Wire Simulation" [disabled] [ref=e104]:
+          - generic [ref=e105]: "5"
+          - generic [ref=e106]: Wire Simulation
+        - button "6 Decrypt" [disabled] [ref=e107]:
+          - generic [ref=e108]: "6"
+          - generic [ref=e109]: Decrypt
+        - generic [ref=e110]: Step 4 of 6
+    - main [ref=e111]:
+      - generic [ref=e112]:
+        - generic [ref=e113]:
+          - generic [ref=e114]:
+            - link "← Home" [ref=e115] [cursor=pointer]:
+              - /url: /
+            - generic [ref=e117]:
+              - heading "Hybrid Handshake" [level=1] [ref=e118]
+              - paragraph [ref=e119]: Secure Communication Channel
+          - generic [ref=e121]:
+            - generic [ref=e122]: 1.0x
+            - slider "Animation speed" [ref=e123]: "1"
+        - generic [ref=e259]:
+          - generic [ref=e260]:
+            - img [ref=e262]
+            - generic [ref=e269]:
+              - heading "Hybrid Envelope" [level=2] [ref=e270]
+              - button "Learn about this step" [ref=e272]:
+                - img [ref=e273]
+              - paragraph [ref=e275]: Step 4 of 6
+          - paragraph [ref=e278]: The AES session key is now wrapped using the RSA public key. This creates a secure digital envelope, combining the speed of AES for the bulk payload with the mathematical security of RSA for the key exchange.
+          - generic [ref=e279]:
+            - heading "Digital Envelope" [level=3] [ref=e280]
+            - generic [ref=e281]:
+              - generic [ref=e282]:
+                - text: Wrapped Session Key (RSA Encrypted)
+                - generic [ref=e283]: 0xB8 0x2A 0xF4 0x1C 0x9D 0xE3 ...
+              - generic [ref=e284]:
+                - text: AES-Encrypted Payload (The Box)
+                - generic [ref=e285]: 0x7E 0x1B 0xA3 0xCC 0x59 0xF8 ...
+          - paragraph [ref=e286]: The envelope contains both the wrapped session key and the encrypted message, ensuring only the owner of the corresponding RSA private key can open it.
+        - generic [ref=e152]:
+          - button "Back" [ref=e153]:
+            - img [ref=e154]
+            - text: Back
+          - button "Next" [active] [ref=e156]:
+            - text: Next
+            - img [ref=e157]
+  - generic [ref=e160]:
+    - button [ref=e161]:
+      - img [ref=e162]
+    - paragraph [ref=e165]: Welcome to CryptoVisual! Let's learn how a secure hybrid handshake works.
+    - generic [ref=e166]:
+      - button [disabled] [ref=e167]:
+        - img [ref=e168]
+      - generic [ref=e170]: Step 1 of 7
+      - button [ref=e171]:
+        - img [ref=e172]
+  - button "Open TanStack Devtools" [ref=e174] [cursor=pointer]:
+    - img "TanStack Devtools" [ref=e175]

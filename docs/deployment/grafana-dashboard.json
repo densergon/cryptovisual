@@ -1,0 +1,51 @@
+{
+  "title": "CryptoVisual — WebSocket & API Overview",
+  "tags": ["cryptovisual", "websocket", "performance"],
+  "schemaVersion": 39,
+  "panels": [
+    {
+      "title": "Active WebSocket Connections",
+      "type": "graph",
+      "targets": [{ "expr": "ws_connections_active", "legendFormat": "connections" }],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }
+    },
+    {
+      "title": "Active Peers",
+      "type": "graph",
+      "targets": [{ "expr": "ws_active_peers", "legendFormat": "peers" }],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 }
+    },
+    {
+      "title": "Handshake Duration (p50/p95/p99)",
+      "type": "graph",
+      "targets": [
+        { "expr": "histogram_quantile(0.5, rate(handshake_duration_ms_bucket[5m]))", "legendFormat": "p50" },
+        { "expr": "histogram_quantile(0.95, rate(handshake_duration_ms_bucket[5m]))", "legendFormat": "p95" },
+        { "expr": "histogram_quantile(0.99, rate(handshake_duration_ms_bucket[5m]))", "legendFormat": "p99" }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 }
+    },
+    {
+      "title": "Peer Message Latency (p50/p95/p99)",
+      "type": "graph",
+      "targets": [
+        { "expr": "histogram_quantile(0.5, rate(peer_message_latency_ms_bucket[5m]))", "legendFormat": "p50" },
+        { "expr": "histogram_quantile(0.95, rate(peer_message_latency_ms_bucket[5m]))", "legendFormat": "p95" },
+        { "expr": "histogram_quantile(0.99, rate(peer_message_latency_ms_bucket[5m]))", "legendFormat": "p99" }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 }
+    },
+    {
+      "title": "HTTP Request Rate",
+      "type": "graph",
+      "targets": [{ "expr": "rate(http_requests_total[5m])", "legendFormat": "{{method}} {{path}}" }],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 }
+    },
+    {
+      "title": "HTTP Request Duration (p95)",
+      "type": "graph",
+      "targets": [{ "expr": "histogram_quantile(0.95, rate(http_request_duration_ms_bucket[5m]))", "legendFormat": "p95" }],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 }
+    }
+  ]
+}

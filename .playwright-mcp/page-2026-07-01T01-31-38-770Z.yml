@@ -1,0 +1,81 @@
+- generic [ref=f8e1]:
+  - button "Deep Space" [ref=f8e3]:
+    - img [ref=f8e4]
+    - generic [ref=f8e6]: Deep Space
+  - generic [ref=f8e7]:
+    - complementary [ref=f8e8]:
+      - navigation [ref=f8e9]:
+        - button "Key Generation" [ref=f8e105]:
+          - img [ref=f8e106]
+          - generic [ref=f8e12]: Key Generation
+        - button "Session Key" [ref=f8e137]:
+          - img [ref=f8e138]
+          - generic [ref=f8e15]: Session Key
+        - button "3 AES Cipher" [ref=f8e16]:
+          - generic [ref=f8e17]: "3"
+          - generic [ref=f8e18]: AES Cipher
+        - button "4 Hybrid Envelope" [disabled] [ref=f8e19]:
+          - generic [ref=f8e20]: "4"
+          - generic [ref=f8e21]: Hybrid Envelope
+        - button "5 Wire Simulation" [disabled] [ref=f8e22]:
+          - generic [ref=f8e23]: "5"
+          - generic [ref=f8e24]: Wire Simulation
+        - button "6 Decrypt" [disabled] [ref=f8e25]:
+          - generic [ref=f8e26]: "6"
+          - generic [ref=f8e27]: Decrypt
+        - generic [ref=f8e28]: Step 3 of 6
+    - main [ref=f8e29]:
+      - generic [ref=f8e30]:
+        - generic [ref=f8e31]:
+          - generic [ref=f8e32]:
+            - link "← Home" [ref=f8e33] [cursor=pointer]:
+              - /url: /
+            - generic [ref=f8e35]:
+              - heading "Hybrid Handshake" [level=1] [ref=f8e36]
+              - paragraph [ref=f8e37]: Secure Communication Channel
+          - generic [ref=f8e39]:
+            - generic [ref=f8e40]: 1.0x
+            - slider "Animation speed" [ref=f8e41]: "1"
+        - generic [ref=f8e141]:
+          - generic [ref=f8e143]:
+            - img [ref=f8e145]
+            - generic [ref=f8e147]:
+              - heading "AES Cipher" [level=2] [ref=f8e148]
+              - button "Learn about this step" [ref=f8e150]:
+                - img [ref=f8e151]
+              - paragraph [ref=f8e153]: Step 3 of 6
+          - paragraph [ref=f8e154]: The plaintext message is encrypted using the AES-256 session key. The AES algorithm operates on a 4x4 state matrix through multiple rounds of substitution and permutation, effectively 'blending' the data until it's indistinguishable from random noise.
+          - generic [ref=f8e155]:
+            - generic [ref=f8e156]:
+              - heading "AES State Matrix" [level=3] [ref=f8e157]
+              - generic [ref=f8e158]:
+                - button "Play Animation" [ref=f8e159]:
+                  - img [ref=f8e160]
+                  - text: Play Animation
+                - button "Key Schedule" [ref=f8e162]:
+                  - img [ref=f8e163]
+                  - text: Key Schedule
+            - generic [ref=f8e167]: Visualization on shared canvas
+          - generic [ref=f8e168]:
+            - generic [ref=f8e169]:
+              - heading "SubBytes" [level=4] [ref=f8e170]
+              - paragraph [ref=f8e171]: Non-linear substitution using S-box
+            - generic [ref=f8e172]:
+              - heading "ShiftRows" [level=4] [ref=f8e173]
+              - paragraph [ref=f8e174]: Cyclic shift of state matrix rows
+            - generic [ref=f8e175]:
+              - heading "MixColumns" [level=4] [ref=f8e176]
+              - paragraph [ref=f8e177]: Column mixing via Galois Field multiplication
+            - generic [ref=f8e178]:
+              - heading "AddRoundKey" [level=4] [ref=f8e179]
+              - paragraph [ref=f8e180]: XOR operation with round key
+          - paragraph [ref=f8e181]: AES-256 uses 14 rounds of substitution-permutation operations for strong encryption.
+        - generic [ref=f8e70]:
+          - button "Back" [ref=f8e71]:
+            - img [ref=f8e72]
+            - text: Back
+          - button "Next" [active] [ref=f8e74]:
+            - text: Next
+            - img [ref=f8e75]
+  - button "Open TanStack Devtools" [ref=f8e92] [cursor=pointer]:
+    - img "TanStack Devtools" [ref=f8e93]

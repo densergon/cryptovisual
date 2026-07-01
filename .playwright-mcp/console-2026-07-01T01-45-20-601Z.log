@@ -1,0 +1,306 @@
+[     141ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[     265ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[   72997ms] [LOG] Avalanche effect: 1 bytes changed (6.3%) @ http://localhost:3001/src/routes/__root.tsx:193
+[   95343ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[   95343ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  104794ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  104935ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  126624ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  126624ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  149088ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  149144ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  149144ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  149145ms] Error: There was an error during concurrent rendering but React was able to recover by instead synchronously rendering the entire root.
+    at throwException (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5370:43)
+    at throwAndUnwindWorkLoop (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8462:9)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8306:137)
+    at performWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:7957:181)
+    at performSyncWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:9067:4)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8984:302)
+    at flushPassiveEffects (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8816:5)
+    at http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8562:6
+    at MessagePort.performWorkUntilDeadline (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:36:38)
+[  149145ms] Error: There was an error during concurrent rendering but React was able to recover by instead synchronously rendering the entire root.
+    at throwException (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5370:43)
+    at throwAndUnwindWorkLoop (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8462:9)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8306:137)
+    at performWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:7957:181)
+    at performSyncWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:9067:4)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8984:302)
+    at flushPassiveEffects (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8816:5)
+    at http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8562:6
+    at MessagePort.performWorkUntilDeadline (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:36:38)
+[  149210ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  161418ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  161502ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  172291ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  172291ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  173916ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  173952ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  173952ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  173954ms] Error: There was an error during concurrent rendering but React was able to recover by instead synchronously rendering the entire root.
+    at throwException (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5370:43)
+    at throwAndUnwindWorkLoop (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8462:9)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8306:137)
+    at performWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:7957:181)
+    at performSyncWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:9067:4)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8984:302)
+    at flushPassiveEffects (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8816:5)
+    at http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8562:6
+    at MessagePort.performWorkUntilDeadline (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:36:38)
+[  173954ms] Error: There was an error during concurrent rendering but React was able to recover by instead synchronously rendering the entire root.
+    at throwException (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5370:43)
+    at throwAndUnwindWorkLoop (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8462:9)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8306:137)
+    at performWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:7957:181)
+    at performSyncWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:9067:4)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8984:302)
+    at flushPassiveEffects (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8816:5)
+    at http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8562:6
+    at MessagePort.performWorkUntilDeadline (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:36:38)
+[  174017ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  192647ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  192735ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  207012ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  207013ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  209072ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  209072ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  218486ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  218630ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  247491ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  247595ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  249546ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  249663ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  271480ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  271626ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  306867ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  307009ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  338816ms] [ERROR] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Froutes%2Fhandshake.step-3.tsx%3A86%3A4%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF AES animation error: TypeError: Cannot read properties of undefined (reading '0')
+    at StateMatrixVisualizer.highlightCell (http://localhost:3001/src/visualization/scenes/state-matrix-scene.ts:106:31)
+    at StateMatrixVisualizer.animateAvalancheEffect (http://localhost:3001/src/visualization/scenes/state-matrix-scene.ts:277:10)
+    at runAESAnimation (http://localhost:3001/src/routes/handshake.step-3.tsx?tsr-split=component:305:21) @ http://localhost:3001/src/routes/__root.tsx:193
+[  340400ms] [ERROR] %o
+
+%s
+
+%s
+ Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  340401ms] [ERROR] ErrorBoundary caught: Error: Module "node:events" has been externalized for browser compatibility. Cannot access "node:events.EventEmitter" in client code.  See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+    at Object.get (http://localhost:3001/@id/__vite-browser-external:node:events:3:11)
+    at http://localhost:3001/src/services/websocket.service.ts:1:52 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  354206ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  354304ms] [ERROR] %o
+
+%s
+
+%s
+ TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  354304ms] [ERROR] ErrorBoundary caught: TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  354305ms] Error: There was an error during concurrent rendering but React was able to recover by instead synchronously rendering the entire root.
+    at throwException (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5370:43)
+    at throwAndUnwindWorkLoop (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8462:9)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8306:137)
+    at performWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:7957:181)
+    at performSyncWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:9067:4)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8984:302)
+    at flushPassiveEffects (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8816:5)
+    at http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8562:6
+    at MessagePort.performWorkUntilDeadline (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:36:38)
+[  354305ms] Error: There was an error during concurrent rendering but React was able to recover by instead synchronously rendering the entire root.
+    at throwException (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:5370:43)
+    at throwAndUnwindWorkLoop (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8462:9)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8306:137)
+    at performWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:7957:181)
+    at performSyncWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:9067:4)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8984:302)
+    at flushPassiveEffects (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8816:5)
+    at http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:8562:6
+    at MessagePort.performWorkUntilDeadline (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:36:38)
+[  354353ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  366726ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  366883ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  377592ms] [ERROR] %o
+
+%s
+
+%s
+ TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  377592ms] [ERROR] ErrorBoundary caught: TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  386369ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  386519ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  397269ms] [ERROR] %o
+
+%s
+
+%s
+ TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  397269ms] [ERROR] ErrorBoundary caught: TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  407612ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  407776ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  418476ms] [ERROR] %o
+
+%s
+
+%s
+ TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  418476ms] [ERROR] ErrorBoundary caught: TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  431251ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  431401ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  442111ms] [ERROR] %o
+
+%s
+
+%s
+ TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 The above error occurred in the <Lazy> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://localhost:3001/src/routes/__root.tsx:193
+[  442111ms] [ERROR] ErrorBoundary caught: TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts:2:39 {componentStack: 
+    at Lazy (<anonymous>)
+    at MatchInnerImpl (…=c4eab148:20:12)
+    at StartClient (<anonymous>)} @ http://localhost:3001/src/routes/__root.tsx:193
+[  451574ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 7:52:52 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-5.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[  451574ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 7:52:52 PM [vite] (ssr) page reload src/services/websocket.service.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[  451574ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 7:52:52 PM [vite] (ssr) program reload @ http://localhost:3001/src/routes/__root.tsx:259
+[  460539ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 7:53:01 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-5.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[  460539ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 7:53:01 PM [vite] (ssr) page reload src/services/websocket.service.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[  467273ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  467448ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  511029ms] [ERROR] [vite] TypeError: Class extends value undefined is not a constructor or null
+    at http://localhost:3001/src/services/websocket.service.ts?t=1782870831604:2:39 @ http://localhost:3001/src/routes/__root.tsx:193
+[  511029ms] [ERROR] [vite] Failed to reload /src/routes/handshake.step-5.tsx?tsr-split=component. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3001/src/routes/__root.tsx:193
+[  511055ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 7:53:51 PM [vite] (client) hmr update /src/styles.css?direct, /src/routes/handshake.step-5.tsx?tsr-split=component @ http://localhost:3001/src/routes/__root.tsx:259
+[  511055ms] [LOG] %c[Server]%c color: #9333ea; font-weight: bold; color: inherit; 7:53:51 PM [vite] (ssr) page reload src/services/websocket.service.ts @ http://localhost:3001/src/routes/__root.tsx:259
+[  519198ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  519385ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  556796ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=c4eab148:14335
+[  556947ms] [LOG] %cLOG%c %cGo to Source: http://localhost:3001/__tsd/open-source?source=%2Fsrc%2Fshared%2Fcomponents%2FPWAUpdatePrompt.tsx%3A29%3A7%c 
+ →  color:#A0A color:#FFF color:#55F color:#FFF [PWA] Service worker registered: /dev-sw.js?dev-sw @ http://localhost:3001/src/routes/__root.tsx:193
+[  592642ms] [LOG] Avalanche effect: 1 bytes changed (6.3%) @ http://localhost:3001/src/routes/__root.tsx:193

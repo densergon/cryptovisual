@@ -1,0 +1,58 @@
+- generic [ref=f8e1]:
+  - button "Deep Space" [ref=f8e3]:
+    - img [ref=f8e4]
+    - generic [ref=f8e6]: Deep Space
+  - generic [ref=f8e7]:
+    - complementary [ref=f8e8]:
+      - navigation [ref=f8e9]:
+        - button "Key Generation" [ref=f8e105]:
+          - img [ref=f8e106]
+          - generic [ref=f8e12]: Key Generation
+        - button "2 Session Key" [ref=f8e13]:
+          - generic [ref=f8e14]: "2"
+          - generic [ref=f8e15]: Session Key
+        - button "3 AES Cipher" [disabled] [ref=f8e16]:
+          - generic [ref=f8e17]: "3"
+          - generic [ref=f8e18]: AES Cipher
+        - button "4 Hybrid Envelope" [disabled] [ref=f8e19]:
+          - generic [ref=f8e20]: "4"
+          - generic [ref=f8e21]: Hybrid Envelope
+        - button "5 Wire Simulation" [disabled] [ref=f8e22]:
+          - generic [ref=f8e23]: "5"
+          - generic [ref=f8e24]: Wire Simulation
+        - button "6 Decrypt" [disabled] [ref=f8e25]:
+          - generic [ref=f8e26]: "6"
+          - generic [ref=f8e27]: Decrypt
+        - generic [ref=f8e28]: Step 2 of 6
+    - main [ref=f8e29]:
+      - generic [ref=f8e30]:
+        - generic [ref=f8e31]:
+          - generic [ref=f8e32]:
+            - link "← Home" [ref=f8e33] [cursor=pointer]:
+              - /url: /
+            - generic [ref=f8e35]:
+              - heading "Hybrid Handshake" [level=1] [ref=f8e36]
+              - paragraph [ref=f8e37]: Secure Communication Channel
+          - generic [ref=f8e39]:
+            - generic [ref=f8e40]: 1.0x
+            - slider "Animation speed" [ref=f8e41]: "1"
+        - generic [ref=f8e109]:
+          - generic [ref=f8e110]:
+            - img [ref=f8e112]
+            - generic [ref=f8e115]:
+              - heading "Session Key" [level=2] [ref=f8e116]
+              - button "Learn about this step" [ref=f8e118]:
+                - img [ref=f8e119]
+              - paragraph [ref=f8e121]: Step 2 of 6
+          - paragraph [ref=f8e122]: Since RSA is too slow for large amounts of data, we generate a temporary AES-256 session key. This symmetric key handles the bulk encryption with incredible speed, while the RSA keys from Step 1 will be used only to securely transport this session key.
+          - button "Generate Session Key" [ref=f8e126]
+          - paragraph [ref=f8e127]: AES-256 provides a 256-bit key space — 2²⁵⁶ possible combinations, which is currently infeasible to brute force.
+        - generic [ref=f8e70]:
+          - button "Back" [ref=f8e71]:
+            - img [ref=f8e72]
+            - text: Back
+          - button "Next" [active] [ref=f8e74]:
+            - text: Next
+            - img [ref=f8e75]
+  - button "Open TanStack Devtools" [ref=f8e92] [cursor=pointer]:
+    - img "TanStack Devtools" [ref=f8e93]
