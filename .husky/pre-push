@@ -1,6 +1,4 @@
 #!/bin/sh
 echo "Running pre-push pipeline..."
-cd cryptovisualfull && pnpm typecheck
-cd cryptovisualfull && pnpm lint
-cd cryptovisualfull && pnpm test
+cd cryptovisualfull && pnpm typecheck && pnpm lint && pnpm test
 echo "Pipeline passed!"
