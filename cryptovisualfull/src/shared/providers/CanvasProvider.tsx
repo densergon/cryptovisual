@@ -28,6 +28,7 @@ export function CanvasProvider({ children }: CanvasProviderProps) {
 		containerElement.id = "viz-container";
 		containerElement.style.width = "100%";
 		containerElement.style.height = "100%";
+		containerElement.style.position = "relative";
 		canvasRef.current.appendChild(containerElement);
 
 		const vizEngine = new VisualizationEngine(containerElement);
