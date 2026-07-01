@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AlertTriangle, Loader2, Unlock } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useWizard } from "../state/wizard-provider";
 import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
 import { Celebration } from "../shared/components/Celebration";
@@ -23,7 +23,7 @@ function Step6Decrypt() {
 	const [unwrapDuration, setUnwrapDuration] = useState<number | undefined>();
 	const [aesDuration, setAesDuration] = useState<number | undefined>();
 	const [tampered, setTampered] = useState(false);
-	const attemptedRef = useRef(false);
+	const [shouldDecrypt, setShouldDecrypt] = useState(true);
 
 	const uint8ArrayToHex = (arr: Uint8Array) =>
 		Array.from(arr)
@@ -36,11 +36,9 @@ function Step6Decrypt() {
 			!wrappedSessionKey ||
 			!ciphertext ||
 			!worker ||
-			attemptedRef.current
+			!shouldDecrypt
 		)
 			return;
-
-		attemptedRef.current = true;
 
 		const doDecrypt = async () => {
 			setIsDecrypting(true);
@@ -81,7 +79,7 @@ function Step6Decrypt() {
 		};
 
 		doDecrypt();
-	}, [rsaKeyPair, wrappedSessionKey, ciphertext, worker, tampered]);
+	}, [rsaKeyPair, wrappedSessionKey, ciphertext, worker, tampered, shouldDecrypt]);
 
 	return (
 		<motion.div
@@ -89,7 +87,7 @@ function Step6Decrypt() {
 			animate={{ opacity: 1 }}
 			transition={{ delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
 		>
-			<Celebration />
+			{decryptedText && !tampered && <Celebration />}
 			<div className="mb-6 flex items-center gap-3">
 				<div className="flex h-10 w-10 items-center justify-center rounded-lg bg-asymmetric-500/10">
 					<Unlock size={20} className="text-asymmetric-400" />
@@ -156,16 +154,27 @@ function Step6Decrypt() {
 								: "AES session key decrypts the payload"}
 						</p>
 					</div>
-					<div className="rounded bg-surface-800/60 p-3">
-						<span className="text-xs text-success font-bold">
-							3. Integrity Verified: Message Authentic
+					<motion.div
+						initial={decryptedText ? { opacity: 0, scale: 0.95 } : undefined}
+						animate={decryptedText ? { opacity: 1, scale: 1 } : undefined}
+						transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+						className={`rounded bg-surface-800/60 p-3 ${decryptedText && !tampered ? "ring-1 ring-success/30" : ""}`}
+					>
+						<span className={`text-xs font-bold ${tampered ? "text-red-400" : "text-success"}`}>
+							{isDecrypting
+								? "Decrypting..."
+								: tampered
+									? "3. Integrity Check Failed: Message Tampered"
+									: "3. Integrity Verified: Message Authentic"}
 						</span>
 						<pre className="mt-1 text-sm text-surface-300 font-mono">
 							{isDecrypting
 								? "Decrypting..."
-								: decryptedText ?? plaintext}
+								: tampered
+									? "[decryption rejected — auth tag mismatch]"
+									: decryptedText ?? plaintext}
 						</pre>
-					</div>
+					</motion.div>
 				</div>
 			</div>
 
@@ -186,14 +195,14 @@ function Step6Decrypt() {
 				</div>
 			)}
 
-			<div className="mt-4 flex gap-3">
+			<div className="mt-4 flex flex-wrap gap-3">
 				<button
 					onClick={() => {
-						attemptedRef.current = false;
 						setDecryptedText(null);
 						setUnwrapDuration(undefined);
 						setAesDuration(undefined);
 						setTampered(false);
+						setShouldDecrypt(true);
 					}}
 					className="rounded-lg bg-symmetric-600 px-6 py-2.5 font-medium text-white hover:bg-symmetric-500 transition-colors text-sm"
 				>
@@ -201,16 +210,24 @@ function Step6Decrypt() {
 				</button>
 				<button
 					onClick={() => {
-						attemptedRef.current = false;
 						setDecryptedText(null);
 						setUnwrapDuration(undefined);
 						setAesDuration(undefined);
 						setTampered(true);
+						setShouldDecrypt(true);
 					}}
 					className="rounded-lg bg-red-700 px-6 py-2.5 font-medium text-white hover:bg-red-600 transition-colors text-sm"
 				>
 					Simulate Tampered Packet
 				</button>
+				{decryptedText && (
+					<button
+						onClick={() => window.location.href = "/handshake/step-1"}
+						className="rounded-lg bg-surface-700 px-6 py-2.5 font-medium text-white hover:bg-surface-600 transition-colors text-sm"
+					>
+						Start Over
+					</button>
+				)}
 			</div>
 
 			<p className="mt-6 text-sm text-surface-500">

@@ -33,6 +33,7 @@ function Step2SessionKey() {
 		return new Uint8Array(match ? match.map((byte) => parseInt(byte, 16)) : []);
 	};
 
+	const [error, setError] = useState<string | null>(null);
 	const [keyData, setKeyData] = useState<{
 		keyBytes?: string;
 		iv?: string;
@@ -71,6 +72,7 @@ function Step2SessionKey() {
 
 	const handleGenerateKey = async () => {
 		setIsGenerating(true);
+		setError(null);
 		try {
 			if (!worker) throw new Error("Crypto worker not ready");
 			const result = await worker.generateAESKey(256);
@@ -89,8 +91,10 @@ function Step2SessionKey() {
 			if (bitStreamSceneRef.current) {
 				bitStreamSceneRef.current.play();
 			}
-		} catch (error) {
-			console.error("AES key generation failed:", error);
+		} catch (err) {
+			const message = err instanceof Error ? err.message : "Session key generation failed";
+			setError(message);
+			console.error("AES key generation failed:", err);
 		} finally {
 			setIsGenerating(false);
 		}
@@ -153,14 +157,26 @@ function Step2SessionKey() {
 					id="plaintext-input"
 					type="text"
 					value={plaintext}
+					maxLength={256}
 					onChange={(e) => send({ type: "SET_PLAINTEXT", plaintext: e.target.value })}
 					className="w-full max-w-md rounded-lg border border-surface-700 bg-surface-900 px-4 py-2.5 text-sm text-surface-200 placeholder-surface-600 focus:border-symmetric-500 focus:outline-none focus:ring-1 focus:ring-symmetric-500 transition-colors"
 					placeholder="Type your message here..."
 				/>
 			</div>
 
+			{error && (
+				<div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+					{error}
+				</div>
+			)}
+
 			<div className="mb-6 grid grid-cols-2 gap-4">
 				<div className="col-span-2 rounded-lg border border-symmetric-500/20 bg-transparent h-64 relative overflow-hidden">
+					{!isGenerating && !keyData && (
+						<div className="absolute inset-0 flex items-center justify-center">
+							<p className="text-xs text-surface-600">Click "Generate Session Key" to start the animation</p>
+						</div>
+					)}
 				</div>
 			</div>
 
@@ -178,7 +194,7 @@ function Step2SessionKey() {
 					disabled={isGenerating}
 					className="rounded-lg bg-symmetric-600 px-6 py-2.5 font-medium text-white hover:bg-symmetric-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 				>
-					{isGenerating ? "Generating..." : "Generate Session Key"}
+					{isGenerating ? "Generating 256-bit session key..." : "Generate Session Key"}
 				</button>
 				{keyData && (
 					<button

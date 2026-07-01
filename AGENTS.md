@@ -84,3 +84,23 @@ crypto/
 - **Sprint reports**: Archived in `docs/archive/`. Read-only historical reference.
 - **Transient artifacts**: Never commit Playwright DOM dumps, scratch notes, or generated step snapshots to the repository.
 - **Portfolio docs**: Live in `docs/portfolio/` — authored marketing materials, not operational specs.
+
+## Recent UX Improvements (2026-07)
+
+### Landing Page
+- **Animation timing**: Reduced `intro` phase from 180→120 frames, `particles` from 280→180 frames. Title/subtitle/CTA now visible after ~3s instead of ~6.7s.
+- **Stats/metrics section**: "By the Numbers" row showing RSA-2048 (~250ms), AES-256-GCM (~0.5ms), Hybrid (6 steps) with icon badges.
+- **How It Works**: 6-step visual timeline with staggered scroll animations and a gradient connector line between steps.
+- **Footer links**: GitHub points to `https://github.com/anomalyco/cryptovisual` (no dead `#` links). Removed "Docs" and "Contact" — only GitHub and "Start Tutorial" remain.
+- **Particle animation**: Reduced trail opacity from 0.15→0.08 for cleaner visuals. Particle convergence speed increased 1.75x (0.02→0.035 per frame).
+
+### Wizard Micro-Interactions
+- **Step 1 (Keygen)**: Error banner on crypto failure (red border). Canvas shows "Click 'Generate Keys' to start the animation" placeholder text. Key size dropdown (2048/4096) preserved.
+- **Step 2 (Session Key)**: Error banner on failure. `maxLength={256}` + character counter on plaintext input. Loading text: "Generating 256-bit session key..." (was generic "Generating..."). Canvas placeholder text added.
+- **Step 3 (AES Cipher)**: Replaced `setTimeout` with `gsap.delayedCall` for animation pacing (ADR-0006 compliance). Reset button always visible after animation completes, clears state on click.
+- **Step 6 (Decrypt)**: Replaced fragile `attemptedRef` with explicit `shouldDecrypt` state. `Celebration` mounts conditionally (only on success). Success glow ring animation on decrypted text. "Start Over" button navigates to step 1. Tampered state shows red "Integrity Check Failed" panel.
+- **Handshake layout**: AnimatePresence child now uses `position: absolute; inset: 0` to prevent layout shift during exit animation. Speed label shows "OFF" (not "0x") when reduced motion is active.
+
+### Bug Fixes
+- **Animation rendering pipeline** — 3 root causes resolved (see commit `5f1c51e`): GSAP ticker synced to PixiJS render loop, `masterTimeline.clear()` replaces `kill()`, `cancelled` flag for async init race in Strict Mode.
+- **Documentation audit** — 26 transient artifacts deleted, docs reduced from ~74→47 files (36% reduction). Sprint7_planning.md moved to archive.

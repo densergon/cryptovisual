@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Key, Lock, Zap } from "lucide-react";
+import { ArrowRight, Key, Lock, Zap, Cpu, Timer, Shield } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -69,20 +69,20 @@ function HybridAnimation() {
 		let phaseTimer = 0;
 
 		const animate = () => {
-			ctx.fillStyle = "rgba(10, 10, 15, 0.15)";
+			ctx.fillStyle = "rgba(10, 10, 15, 0.08)";
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 			phaseTimer++;
 
-			if (phaseTimer > 180 && phase === 0) {
+			if (phaseTimer > 120 && phase === 0) {
 				phase = 1;
 				setAnimationPhase("particles");
 			}
-			if (phaseTimer > 280 && phase === 1) {
+			if (phaseTimer > 180 && phase === 1) {
 				phase = 2;
 				setAnimationPhase("convergence");
 			}
-			if (phaseTimer > 400 && phase === 2) {
+			if (phaseTimer > 240 && phase === 2) {
 				phase = 3;
 				setAnimationPhase("complete");
 			}
@@ -98,8 +98,8 @@ function HybridAnimation() {
 				if (phase >= 2) {
 					const dx = centerX - p.x;
 					const dy = centerY - p.y;
-					p.x += dx * 0.02;
-					p.y += dy * 0.02;
+					p.x += dx * 0.035;
+					p.y += dy * 0.035;
 				}
 
 				p.x += (Math.random() - 0.5) * 2;
@@ -338,8 +338,90 @@ function Home() {
 				</div>
 			</section>
 
-			<section className="relative z-10 py-24 px-4">
-				<div 				className="mx-auto max-w-4xl rounded-3xl border border-symmetric-500/20 bg-surface-950/60 backdrop-blur-sm p-8 text-center md:p-12">
+			<section className="relative z-10 py-20 px-4">
+				<div className="mx-auto max-w-6xl">
+					<div className="mb-12 text-center">
+						<h2 className="mb-4 text-3xl font-bold text-white md:text-5xl">
+							How It Works
+						</h2>
+						<p className="text-surface-400">
+							Six steps, one complete handshake
+						</p>
+					</div>
+					<div className="relative">
+						<div className="absolute left-8 top-0 h-full w-px bg-gradient-to-b from-asymmetric-500 via-symmetric-500 to-hybrid-500 hidden md:block" />
+						{[
+							{
+								step: "01",
+								title: "Generate RSA Keys",
+								desc: "Your browser generates a 2048-bit RSA key pair in a Web Worker. Watch two spheres split apart as the public and private keys emerge.",
+								color: "text-asymmetric-400",
+							},
+							{
+								step: "02",
+								title: "Create AES-256 Session Key",
+								desc: "A random 256-bit symmetric key is generated for bulk encryption. See it form as 256 particles converge into a lock shape.",
+								color: "text-symmetric-400",
+							},
+							{
+								step: "03",
+								title: "Encrypt with AES",
+								desc: "The message passes through 14 rounds of SubBytes, ShiftRows, MixColumns, and AddRoundKey. Watch the avalanche effect in action.",
+								color: "text-symmetric-400",
+							},
+							{
+								step: "04",
+								title: "Wrap Key with RSA",
+								desc: "The AES session key is encrypted with the RSA public key, creating a digital envelope for secure transport.",
+								color: "text-hybrid-400",
+							},
+							{
+								step: "05",
+								title: "Simulate the Wire",
+								desc: "Packets traverse a virtual network wire. Watch the envelope and encrypted payload travel from sender to receiver.",
+								color: "text-hybrid-400",
+							},
+							{
+								step: "06",
+								title: "Decrypt & Verify",
+								desc: "The recipient unwraps the envelope with the RSA private key, then decrypts the payload with AES. GCM auth tag ensures integrity.",
+								color: "text-asymmetric-400",
+							},
+						].map((item, i) => (
+							<motion.div
+								key={item.step}
+								initial={{ opacity: 0, x: -20 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ delay: i * 0.1 }}
+								viewport={{ once: true }}
+								className="relative mb-8 pl-16 md:pl-16"
+							>
+								<div className="absolute left-4 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-surface-800 border border-surface-700 text-xs font-bold text-surface-400 md:left-0">
+									{item.step}
+								</div>
+								<h3 className={`text-lg font-bold text-white ${item.color}`}>
+									{item.title}
+								</h3>
+								<p className="mt-1 text-sm text-surface-400 leading-relaxed">
+									{item.desc}
+								</p>
+							</motion.div>
+						))}
+					</div>
+					<div className="mt-10 text-center">
+						<Link
+							to="/handshake/step-1"
+							suppressHydrationWarning
+							className="inline-flex items-center gap-2 rounded-xl bg-symmetric-600 px-8 py-4 text-lg font-bold text-white transition-all hover:bg-symmetric-500 hover:scale-105 active:scale-95"
+						>
+							Start the Journey <ArrowRight size={20} />
+						</Link>
+					</div>
+				</div>
+			</section>
+
+			<section className="relative z-10 py-20 px-4">
+				<div className="mx-auto max-w-4xl rounded-3xl border border-symmetric-500/20 bg-surface-950/60 backdrop-blur-sm p-8 text-center md:p-12">
 					<h2 className="mb-6 text-3xl font-bold">
 						Experience the Speed
 					</h2>
@@ -357,6 +439,57 @@ function Home() {
 				</div>
 			</section>
 
+			<section className="relative z-10 py-20 px-4">
+				<div className="mx-auto max-w-6xl">
+					<div className="mb-12 text-center">
+						<h2 className="mb-4 text-3xl font-bold text-white md:text-5xl">
+							By the Numbers
+						</h2>
+						<p className="text-surface-400">
+							Real cryptographic operations, measured in your browser
+						</p>
+					</div>
+					<div className="grid gap-6 md:grid-cols-3">
+						{[
+							{
+								icon: <Cpu className="text-asymmetric-400" />,
+								label: "RSA-2048 Keygen",
+								value: "~250ms",
+								desc: "Two large primes found and verified in a Web Worker",
+							},
+							{
+								icon: <Timer className="text-symmetric-400" />,
+								label: "AES-256-GCM Encrypt",
+								value: "~0.5ms",
+								desc: "14 rounds of substitution-permutation on a 128-bit block",
+							},
+							{
+								icon: <Shield className="text-hybrid-400" />,
+								label: "Hybrid Handshake",
+								value: "6 Steps",
+								desc: "Full TLS 1.3-inspired key exchange visualized step by step",
+							},
+						].map((stat, i) => (
+							<motion.div
+								key={stat.label}
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ delay: i * 0.15 }}
+								viewport={{ once: true }}
+								className="rounded-2xl border border-surface-700/50 bg-surface-950/60 backdrop-blur-sm p-6 text-center"
+							>
+								<div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-surface-800">
+									{stat.icon}
+								</div>
+								<div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+								<div className="text-sm font-medium text-surface-300 mb-2">{stat.label}</div>
+								<div className="text-xs text-surface-500">{stat.desc}</div>
+							</motion.div>
+						))}
+					</div>
+				</div>
+			</section>
+
 			<footer className="relative z-10 border-t border-surface-800 py-12 px-4 text-center">
 				<div className="mx-auto max-w-6xl">
 					<div className="mb-6 text-2xl font-bold text-surface-300">
@@ -368,14 +501,19 @@ function Home() {
 						Exploring the intersection of Mathematics, Security, and Art.
 					</p>
 					<div className="mt-8 flex justify-center gap-6 text-surface-600">
-						<a href="#" className="transition-colors hover:text-surface-400">
+						<a
+							href="https://github.com/anomalyco/cryptovisual"
+							target="_blank"
+							rel="noreferrer"
+							className="transition-colors hover:text-surface-400"
+						>
 							GitHub
 						</a>
-						<a href="#" className="transition-colors hover:text-surface-400">
-							Docs
-						</a>
-						<a href="#" className="transition-colors hover:text-surface-400">
-							Contact
+						<a
+							href="/handshake/step-1"
+							className="transition-colors hover:text-surface-400"
+						>
+							Start Tutorial
 						</a>
 					</div>
 				</div>

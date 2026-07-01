@@ -23,6 +23,7 @@ export const Route = createFileRoute("/handshake/step-1")({
 	const [keySize, setKeySize] = useState<1024 | 2048 | 4096>(2048);
 	const { goNext, rsaKeyPair, send } = useWizard();
 	const { isPedagogyMode } = usePedagogyMode();
+	const [error, setError] = useState<string | null>(null);
 	const [keyData, setKeyData] = useState<{
 		publicKey?: JsonWebKey;
 		privateKey?: JsonWebKey;
@@ -58,6 +59,7 @@ export const Route = createFileRoute("/handshake/step-1")({
 
 	const handleGenerateKeys = async () => {
 		setIsGenerating(true);
+		setError(null);
 		try {
 			if (!worker) throw new Error("Crypto worker not ready");
 			const result = await worker.generateRSAKeyPair(keySize);
@@ -74,8 +76,10 @@ export const Route = createFileRoute("/handshake/step-1")({
 			if (keygenSceneRef.current) {
 				keygenSceneRef.current.play();
 			}
-		} catch (error) {
-			console.error("Key generation failed:", error);
+		} catch (err) {
+			const message = err instanceof Error ? err.message : "Key generation failed";
+			setError(message);
+			console.error("Key generation failed:", err);
 		} finally {
 			setIsGenerating(false);
 		}
@@ -127,8 +131,19 @@ export const Route = createFileRoute("/handshake/step-1")({
 
 			<div className="mb-6 grid grid-cols-2 gap-4">
 				<div className="col-span-2 rounded-lg border border-surface-700/50 bg-transparent h-64 relative overflow-hidden backdrop-zinc-900/20">
+					{!isGenerating && !keyData && (
+						<div className="absolute inset-0 flex items-center justify-center">
+							<p className="text-xs text-surface-600">Click "Generate Keys" to start the animation</p>
+						</div>
+					)}
 				</div>
 			</div>
+
+			{error && (
+				<div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+					{error}
+				</div>
+			)}
 
 			{isPedagogyMode && <PadlockMetaphor />}
 

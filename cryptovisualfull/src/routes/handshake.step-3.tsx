@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Grid3x3, Play, RotateCcw } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { AESEngine, AESVisualEngine } from "../crypto-engine";
 import { useWizard } from "../state/wizard-provider";
 import { LiveRegion } from "../shared/components/LiveRegion";
@@ -143,7 +144,7 @@ function AESCipherContent() {
 		}
 	};
 
-	const runKeyExpansionAnimation = async () => {
+	const runKeyExpansionAnimation = useCallback(async () => {
 		if (!visualizerRef.current || !engine || isAnimating) return;
 		if (!aesKey) return;
 
@@ -157,14 +158,15 @@ function AESCipherContent() {
 
 			setCurrentOperation("AES Key Expansion: Generating 15 round keys");
 
-			for (let r = 0; r < 15; r++) {
+			for (let r = 0; r < roundKeys.length; r++) {
+				const rKey = roundKeys[r];
 				setCurrentOperation(
-					`Round ${r} key: ${Array.from(roundKeys[r].slice(0, 4))
+					`Round ${r} key: ${Array.from(rKey.slice(0, 4))
 						.map((b) => b.toString(16).padStart(2, "0"))
 						.join("")}...`,
 				);
-				visualizer.updateMatrix(roundKeys[r]);
-				await new Promise((resolve) => setTimeout(resolve, 400 / speed));
+				visualizer.updateMatrix(rKey);
+				await new Promise((resolve) => gsap.delayedCall(400 / speed, resolve));
 			}
 
 			setCurrentOperation(
@@ -176,7 +178,7 @@ function AESCipherContent() {
 		} finally {
 			setIsAnimating(false);
 		}
-	};
+	}, [visualizerRef, engine, isAnimating, aesKey, speed]);
 
 	useEffect(() => {
 		if (!engine) return;
@@ -277,9 +279,13 @@ function AESCipherContent() {
 							<Play size={16} />
 							Key Schedule
 						</button>
-						{isAnimating && (
+						{(isAnimating || currentOperation) && (
 							<button
-								onClick={() => visualizerRef.current?.pause()}
+								onClick={() => {
+									visualizerRef.current?.pause();
+									setCurrentOperation("");
+									setAuthTagHex(null);
+								}}
 								className="flex items-center gap-2 rounded-md bg-surface-700 px-4 py-2 text-sm font-medium text-white hover:bg-surface-600 transition-colors"
 							>
 								<RotateCcw size={16} />

@@ -107,7 +107,7 @@ function HandshakeLayout() {
 						<PedagogyToggle />
 						<div className="flex items-center gap-2">
 							<span className="text-xs text-surface-500">
-								{reduced ? "0x" : `${speed.toFixed(1)}x`}
+								{reduced ? "OFF" : `${speed.toFixed(1)}x`}
 							</span>
 							<input
 								type="range"
@@ -165,7 +165,7 @@ function HandshakeLayout() {
 								animate={{ opacity: 1, y: 0 }}
 								exit={{ opacity: 0, y: -12 }}
 								transition={{ duration: reduced ? 0 : 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-								className="h-full pointer-events-auto"
+								className="absolute inset-0 pointer-events-auto"
 							>
 								<Outlet />
 							</motion.div>

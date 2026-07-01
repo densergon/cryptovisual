@@ -1,0 +1,7 @@
+.playwright-mcp/
+frontend.log
+
+# Environment
+.env
+.env.*
+*.local
