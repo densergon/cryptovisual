@@ -26,7 +26,7 @@
 | Sprint 9 — Performance Core | ✅ | ✅ |
 | Sprint 10 — Interaction Polish | ✅ | ✅ |
 | Sprint 11 — Observability, Test Coverage & Education | ✅ | ✅ |
-| Sprint 12 — Production Deployment & Portfolio Polish | ⬜ | ⬜ |
+| Sprint 12 — Production Deployment & Portfolio Polish | ✅ | ✅ |
 | Sprint 13 — Visual Regression & Offline Support | ⬜ | ⬜ |
 | Sprint 14 — Portfolio Showcase & Case Study | ⬜ | ⬜ |
 
