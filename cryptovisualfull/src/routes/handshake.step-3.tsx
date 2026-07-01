@@ -18,7 +18,7 @@ function AESCipherContent() {
 	const { engine } = useCanvas();
 	const worker = useCryptoWorker();
 	const { speed } = useAnimationSpeed();
-	const { send } = useWizard();
+	const { send, aesKey, plaintext } = useWizard();
 	const visualizerRef = useRef<StateMatrixVisualizer | null>(null);
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [currentOperation, setCurrentOperation] = useState<string>("");
@@ -26,6 +26,7 @@ function AESCipherContent() {
 
 	const runAESAnimation = async () => {
 		if (!visualizerRef.current || !engine || isAnimating) return;
+		if (!aesKey) return;
 
 		setIsAnimating(true);
 		const visualizer = visualizerRef.current;
@@ -33,10 +34,10 @@ function AESCipherContent() {
 
 		try {
 			if (!worker) throw new Error("Crypto worker not ready");
-			const { keyBytes } = await worker.generateAESKey(256);
-			if (!keyBytes) throw new Error("Key generation failed");
-			const plaintext = "Hello CryptoWorld!";
-			const aesResult = await worker.encryptAES(keyBytes, plaintext);
+			const keyHex = Array.from(aesKey.keyBytes)
+				.map((b) => b.toString(16).padStart(2, "0"))
+				.join("");
+			const aesResult = await worker.encryptAES(keyHex, plaintext);
 			const ciphertextBytes = new Uint8Array(
 				AESEngine.hexToArrayBuffer(aesResult.ciphertext),
 			);
@@ -57,9 +58,7 @@ function AESCipherContent() {
 			});
 
 			const plainBytes = new TextEncoder().encode(plaintext).slice(0, 16);
-			const keyUint8 = new Uint8Array(
-				Uint8Array.from(atob(keyBytes), (c) => c.charCodeAt(0)),
-			).slice(0, 16);
+			const keyUint8 = aesKey.keyBytes.slice(0, 16);
 
 			const sBox = new Uint8Array([
 				0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b,
@@ -143,20 +142,14 @@ function AESCipherContent() {
 
 	const runKeyExpansionAnimation = async () => {
 		if (!visualizerRef.current || !engine || isAnimating) return;
+		if (!aesKey) return;
 
 		setIsAnimating(true);
 		const visualizer = visualizerRef.current;
 		visualizer.speedMultiplier = speed;
 
 		try {
-			if (!worker) throw new Error("Crypto worker not ready");
-			const { keyBytes } = await worker.generateAESKey(256);
-			if (!keyBytes) throw new Error("Key generation failed");
-
-			const keyUint8 = new Uint8Array(
-				Uint8Array.from(atob(keyBytes), (c) => c.charCodeAt(0)),
-			).slice(0, 32);
-
+			const keyUint8 = aesKey.keyBytes.slice(0, 32);
 			const roundKeys = AESVisualEngine.expandKey(keyUint8);
 
 			setCurrentOperation("AES Key Expansion: Generating 15 round keys");
@@ -190,6 +183,7 @@ function AESCipherContent() {
 				engine.getApplication(),
 				engine.getApplication().stage as any,
 			);
+			visualizer.masterTimeline = engine.masterTimeline;
 			await visualizer.init();
 			visualizerRef.current = visualizer;
 		};
@@ -212,7 +206,7 @@ function AESCipherContent() {
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			transition={{ delay: 0.1 }}
+			transition={{ delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
 		>
 			<LiveRegion message={currentOperation} />
 			<div className="mb-6 flex items-center gap-3">
@@ -260,21 +254,21 @@ function AESCipherContent() {
 
 			{isPedagogyMode && <ConfusionDiffusionLegend />}
 
-			<div className="rounded-lg border border-surface-700 bg-surface-900 p-6">
+			<div className="rounded-lg border border-surface-700/80 bg-surface-950/30 backdrop-blur-sm p-6">
 				<div className="mb-4 flex items-center justify-between">
 					<h3 className="font-semibold text-white">AES State Matrix</h3>
 					<div className="flex gap-2">
 						<button
 							onClick={runAESAnimation}
-							disabled={isAnimating}
+							disabled={isAnimating || !aesKey}
 							className="flex items-center gap-2 rounded-md bg-symmetric-600 px-4 py-2 text-sm font-medium text-white hover:bg-symmetric-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 						>
 							<Play size={16} />
-							{isAnimating ? "Animating..." : "Play Animation"}
+							{isAnimating ? "Animating..." : !aesKey ? "Generate key in Step 2 first" : "Play Animation"}
 						</button>
 						<button
 							onClick={runKeyExpansionAnimation}
-							disabled={isAnimating}
+							disabled={isAnimating || !aesKey}
 							className="flex items-center gap-2 rounded-md bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 						>
 							<Play size={16} />
@@ -293,13 +287,15 @@ function AESCipherContent() {
 				</div>
 
 				<div className="relative">
-					<div className="w-full h-64 rounded-lg bg-surface-900/50 border border-surface-800 flex items-center justify-center">
-						<span className="text-xs text-surface-600 uppercase tracking-widest">
-							Visualization on shared canvas
-						</span>
+					<div className="w-full h-64 rounded-lg bg-transparent border border-symmetric-500/20 flex items-center justify-center">
+						{!currentOperation && !isAnimating && (
+							<span className="text-xs text-surface-600 uppercase tracking-widest">
+								Press Play Animation to visualize AES
+							</span>
+						)}
 					</div>
 					{currentOperation && (
-						<div className="mt-3 rounded-md bg-surface-800 px-4 py-3">
+						<div className="mt-3 rounded-md bg-surface-950/80 backdrop-blur-sm px-4 py-3">
 							<p className="text-sm font-mono text-symmetric-400">
 								{currentOperation}
 							</p>
@@ -310,13 +306,13 @@ function AESCipherContent() {
 			</div>
 
 			<div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
-				<div className="rounded-lg border border-surface-700 bg-surface-800 p-4">
+				<div className="rounded-lg border border-surface-700/50 bg-surface-950/20 p-4">
 					<h4 className="text-sm font-semibold text-symmetric-400">SubBytes</h4>
 					<p className="mt-1 text-xs text-surface-500">
 						Non-linear substitution using S-box
 					</p>
 				</div>
-				<div className="rounded-lg border border-surface-700 bg-surface-800 p-4">
+				<div className="rounded-lg border border-surface-700/50 bg-surface-950/20 p-4">
 					<h4 className="text-sm font-semibold text-symmetric-400">
 						ShiftRows
 					</h4>
@@ -324,7 +320,7 @@ function AESCipherContent() {
 						Cyclic shift of state matrix rows
 					</p>
 				</div>
-				<div className="rounded-lg border border-surface-700 bg-surface-800 p-4">
+				<div className="rounded-lg border border-surface-700/50 bg-surface-950/20 p-4">
 					<h4 className="text-sm font-semibold text-symmetric-400">
 						MixColumns
 					</h4>
@@ -332,7 +328,7 @@ function AESCipherContent() {
 						Column mixing via Galois Field multiplication
 					</p>
 				</div>
-				<div className="rounded-lg border border-surface-700 bg-surface-800 p-4">
+				<div className="rounded-lg border border-surface-700/50 bg-surface-950/20 p-4">
 					<h4 className="text-sm font-semibold text-symmetric-400">
 						AddRoundKey
 					</h4>

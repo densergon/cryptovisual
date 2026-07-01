@@ -37,6 +37,7 @@ function Step1Keygen() {
 				engine.getApplication(),
 				engine.getApplication().stage as any,
 			);
+			keygenScene.masterTimeline = engine.masterTimeline;
 			await keygenScene.init();
 			keygenSceneRef.current = keygenScene;
 
@@ -83,7 +84,7 @@ function Step1Keygen() {
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			transition={{ delay: 0.1 }}
+			transition={{ delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
 		>
 			<div className="mb-6 flex items-center gap-3">
 				<div className="flex h-10 w-10 items-center justify-center rounded-lg bg-asymmetric-500/10">
@@ -95,6 +96,7 @@ function Step1Keygen() {
 					</h2>
 					<div className="mt-1">
 						<StepGuide
+							autoOpen
 							sections={[
 								{
 									title: "The Padlock Metaphor",
@@ -123,8 +125,7 @@ function Step1Keygen() {
 			</p>
 
 			<div className="mb-6 grid grid-cols-2 gap-4">
-				<div className="col-span-2 rounded-lg border border-surface-700 bg-surface-900/30 h-64 relative overflow-hidden">
-					{/* Transparent overlay for the shared background canvas */}
+				<div className="col-span-2 rounded-lg border border-surface-700/50 bg-transparent h-64 relative overflow-hidden backdrop-zinc-900/20">
 				</div>
 			</div>
 
@@ -154,18 +155,18 @@ function Step1Keygen() {
 			</div>
 
 			{keyData && (
-				<div className="rounded-lg border border-surface-700 bg-surface-900 p-6">
+				<div className="rounded-lg border border-surface-700/80 bg-surface-950/60 backdrop-blur-sm p-6">
 					<h3 className="mb-3 font-semibold text-white">
 						RSA Key Pair Generated
 					</h3>
 					<div className="space-y-3">
-						<div className="rounded bg-surface-800 p-3">
+						<div className="rounded bg-surface-800/60 p-3">
 							<span className="text-xs text-surface-500">Public Key</span>
 							<pre className="mt-1 text-xs text-asymmetric-300 font-mono break-all">
 								{JSON.stringify(keyData.publicKey, null, 2)}
 							</pre>
 						</div>
-						<div className="rounded bg-surface-800 p-3">
+						<div className="rounded bg-surface-800/60 p-3">
 							<span className="text-xs text-surface-500">
 								Private Key (secret)
 							</span>

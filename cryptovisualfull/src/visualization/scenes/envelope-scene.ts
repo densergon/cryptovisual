@@ -38,7 +38,19 @@ export class EnvelopeScene {
 		this.root = new Container();
 	}
 
+	private get centerX(): number {
+		return this.app.screen.width / 2;
+	}
+
+	private get centerY(): number {
+		return this.app.screen.height / 2;
+	}
+
 	async init(): Promise<void> {
+		if (!this.app.renderer) {
+			console.warn("EnvelopeScene: PixiJS not initialized yet");
+			return;
+		}
 		this.createEnvelope();
 		this.createKeyToken();
 		this.createPadlock();
@@ -50,8 +62,8 @@ export class EnvelopeScene {
 	}
 
 	private createEnvelope(): void {
-		const centerX = this.app.screen.width / 2;
-		const centerY = this.app.screen.height / 2;
+		const centerX = this.centerX;
+		const centerY = this.centerY;
 		const width = 220;
 		const height = 140;
 
@@ -90,8 +102,8 @@ export class EnvelopeScene {
 	}
 
 	private createKeyToken(): void {
-		const centerX = this.app.screen.width / 2;
-		const centerY = this.app.screen.height / 2;
+		const centerX = this.centerX;
+		const centerY = this.centerY;
 
 		const container = new Container();
 
@@ -119,8 +131,8 @@ export class EnvelopeScene {
 	}
 
 	private createPadlock(): void {
-		const centerX = this.app.screen.width / 2;
-		const centerY = this.app.screen.height / 2;
+		const centerX = this.centerX;
+		const centerY = this.centerY;
 
 		const container = new Container();
 
@@ -147,8 +159,8 @@ export class EnvelopeScene {
 	}
 
 	private createSealStamp(): void {
-		const centerX = this.app.screen.width / 2;
-		const centerY = this.app.screen.height / 2;
+		const centerX = this.centerX;
+		const centerY = this.centerY;
 
 		const stamp = new Graphics();
 		stamp.circle(0, 0, 20);
@@ -165,8 +177,8 @@ export class EnvelopeScene {
 	}
 
 	private createLabel(): void {
-		const centerX = this.app.screen.width / 2;
-		const centerY = this.app.screen.height / 2;
+		const centerX = this.centerX;
+		const centerY = this.centerY;
 
 		const text = new Text({
 			text: "Only the private key can open this",
@@ -200,7 +212,7 @@ export class EnvelopeScene {
 		tl.to(
 			this.keyToken,
 			{
-				y: this.app.screen.height / 2,
+				y: this.centerY,
 				duration: 0.6,
 				ease: "bounce.out",
 			},

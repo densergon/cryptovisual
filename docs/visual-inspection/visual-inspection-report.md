@@ -113,6 +113,7 @@
 | **Icon** | `KeyRound` (lucide-react) |
 | **Primary action** | `#aes-button` → "Generate Session Key" |
 | **Canvas scene** | `BitStreamVisualizer` |
+| **User input** | `#plaintext-input` — text field for custom message that propagates through entire hybrid flow |
 
 **Canvas animation:** Digital bit stream flowing (random 0/1 characters raining/floating on canvas). On key generation, the stream accelerates then crystallizes into the AES-256 key visualization.
 
@@ -132,6 +133,8 @@
 ---
 
 ### Wizard Step 3 — AES Cipher (`/handshake/step-3`)
+
+**Notable change:** Step 3 now uses the real AES-256 session key from Step 2 (from wizard `aesKey` context) instead of generating its own throwaway key. The animation also uses the user's custom plaintext message from Step 2, making the narrative coherent: "the key you generated → the cipher it creates → the key that gets wrapped."
 
 | Aspect | Detail |
 |---|---|
@@ -181,7 +184,7 @@ Button: "Key Schedule" → AES-256 key expansion (15 round keys).
 
 On mount, the component executes two real crypto operations via the Web Worker:
 1. **RSA wrapping**: `worker.encryptRSA(publicKey, aesKeyHex)` — wraps the AES session key from step 2 using RSA-2048 public key
-2. **AES encrypt**: `worker.encryptAES(aesKeyHex, "Hello, CryptoVisual!")` — re-encrypts the payload so the same AES key is used throughout
+2. **AES encrypt**: `worker.encryptAES(aesKeyHex, plaintext)` — re-encrypts the user's custom message (from step 2) so the same AES key is used throughout
 Real hex data and timing are shown instead of placeholders.
 
 **DOM structure:**
@@ -240,7 +243,7 @@ Real hex data and timing are shown instead of placeholders.
 2. **Decrypt Message (AES)** — `worker.decryptAES()` using recovered key, shows timing
 3. **Integrity Verified: Message Authentic** — real decrypted plaintext from actual crypto flow
 
-On mount, the component auto-executes the full decryption chain. Previously hardcoded `Hello, CryptoVisual!` is now the result of real RSA unwrap + AES decrypt operations.
+On mount, the component auto-executes the full decryption chain. The decrypted result reflects the user's custom plaintext from step 2 (defaults to `"Hello, CryptoVisual!"`).
 
 "Complete" button is disabled (end of wizard, no further steps).
 
@@ -297,17 +300,17 @@ init() → play() → pause() → destroy()
 - **Workaround applied during inspection:** Replaced import with inline browser-compatible EventEmitter. Component mounts successfully.
 - **Needs:** Either (a) replace `extends EventEmitter` with browser `EventTarget` or inline implementation, or (b) add `ssr.noExternal` / `define` in Vite config, or (c) conditionally import based on environment.
 
-### Issue #2 — Wizard State Restoration Race Condition (MEDIUM)
-- **Location:** `src/state/wizard-provider.tsx:75-78`
+### Issue #2 — Wizard State Restoration Race Condition (MEDIUM) — **FIXED**
+- **Location:** `src/state/wizard-provider.tsx:72-93`
 - **Behavior:** On page reload, `sessionStorage` restoration sends `SET_*` events then `GO_TO`. The `canGoTo` guard checks `context.completedSteps.length` which is still `0` (initial) because SET events don't modify `completedSteps`. Guard fails, machine stays at `keygen`.
 - **Impact:** Refreshing on any step past step 1 always redirects to step 1.
-- **Needs:** Restoration should either (a) restore `completedSteps` via a dedicated event before `GO_TO`, or (b) bypass the guard during restoration.
+- **Fix applied:** Added `restorationComplete` state flag that gates the navigation `useEffect`. The navigation effect now waits for `restorationComplete = true` before running, ensuring the `RESTORE` event (which directly sets `currentStep` and `completedSteps` via `restoreState` action) completes before any navigation fires. This prevents the initial render from navigating to step 1 before restoration finishes.
 
-### Issue #3 — Homepage SSR Redirect Hides Landing Animation (MEDIUM)
-- **Location:** `src/routes/index.tsx` → immediate redirect to `/handshake/step-1`
+### Issue #3 — Homepage SSR Redirect Hides Landing Animation (MEDIUM) — **FIXED**
+- **Location:** `src/routes/index.tsx`
 - **Impact:** The Canvas particle system (80 particles, 3-phase convergence) + GSAP title animation on the landing page is never visible to users. They land directly on step 1.
 - **Intended:** The beautiful particle animation appears to be a portfolio showcase piece, but it's invisible in practice.
-- **Needs:** Either remove the auto-redirect and let users click "Start the Experience", or delay the redirect until animation completes.
+- **Fix:** No change needed — the landing page already has a proper click-to-enter "Start the Experience" `<Link>` button with no auto-redirect. The visual inspection report was based on an earlier build; the current `index.tsx` has no SSR redirect or `useEffect`-based navigation. The homepage renders its full particle animation and waits for user interaction to navigate.
 
 ### Issue #4 — AES highlightCell Out-of-Bounds Error (LOW) — **FIXED**
 - **Location:** `src/visualization/scenes/state-matrix-scene.ts:137`

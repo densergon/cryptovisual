@@ -15,7 +15,7 @@ export const Route = createFileRoute("/handshake/step-6")({
 });
 
 function Step6Decrypt() {
-	const { rsaKeyPair, wrappedSessionKey, ciphertext } = useWizard();
+	const { rsaKeyPair, wrappedSessionKey, ciphertext, plaintext } = useWizard();
 	const worker = useCryptoWorker();
 	const { isPedagogyMode } = usePedagogyMode();
 	const [isDecrypting, setIsDecrypting] = useState(false);
@@ -73,7 +73,7 @@ function Step6Decrypt() {
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			transition={{ delay: 0.1 }}
+			transition={{ delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
 		>
 			<Celebration />
 			<div className="mb-6 flex items-center gap-3">
@@ -101,7 +101,7 @@ function Step6Decrypt() {
 			</div>
 
 			{isDecrypting && (
-				<div className="mb-6 flex items-center gap-3 rounded-lg border border-asymmetric-500/30 bg-surface-900 p-4">
+				<div className="mb-6 flex items-center gap-3 rounded-lg border border-asymmetric-500/30 bg-surface-950/60 backdrop-blur-sm p-4">
 					<Loader2 size={18} className="animate-spin text-asymmetric-400" />
 					<span className="text-sm text-surface-300">
 						Unwrapping envelope and decrypting payload...
@@ -119,10 +119,10 @@ function Step6Decrypt() {
 				decrypted and the message's integrity is verified.
 			</p>
 
-			<div className="rounded-lg border border-surface-700 bg-surface-900 p-6">
+			<div className="rounded-lg border border-surface-700/80 bg-surface-950/60 backdrop-blur-sm p-6">
 				<h3 className="mb-3 font-semibold text-white">Decryption Flow</h3>
 				<div className="space-y-3">
-					<div className="rounded bg-surface-800 p-3">
+					<div className="rounded bg-surface-800/60 p-3">
 						<span className="text-xs text-asymmetric-500">
 							1. Unwrap Envelope (RSA)
 						</span>
@@ -132,7 +132,7 @@ function Step6Decrypt() {
 								: "RSA private key decrypts the session key"}
 						</p>
 					</div>
-					<div className="rounded bg-surface-800 p-3">
+					<div className="rounded bg-surface-800/60 p-3">
 						<span className="text-xs text-symmetric-500">
 							2. Decrypt Message (AES)
 						</span>
@@ -142,14 +142,14 @@ function Step6Decrypt() {
 								: "AES session key decrypts the payload"}
 						</p>
 					</div>
-					<div className="rounded bg-surface-800 p-3">
+					<div className="rounded bg-surface-800/60 p-3">
 						<span className="text-xs text-success font-bold">
 							3. Integrity Verified: Message Authentic
 						</span>
 						<pre className="mt-1 text-sm text-surface-300 font-mono">
 							{isDecrypting
 								? "Decrypting..."
-								: decryptedText ?? "Hello, CryptoVisual!"}
+								: decryptedText ?? plaintext}
 						</pre>
 					</div>
 				</div>

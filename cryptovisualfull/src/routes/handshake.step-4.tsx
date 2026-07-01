@@ -14,7 +14,7 @@ export const Route = createFileRoute("/handshake/step-4")({
 });
 
 function Step4HybridEnvelope() {
-	const { aesKey, rsaKeyPair, wrappedSessionKey, send } = useWizard();
+	const { aesKey, rsaKeyPair, wrappedSessionKey, plaintext, send } = useWizard();
 	const worker = useCryptoWorker();
 	const { isPedagogyMode } = usePedagogyMode();
 	const [isWrapping, setIsWrapping] = useState(false);
@@ -47,7 +47,7 @@ function Step4HybridEnvelope() {
 					wrappedKey: { data, durationMs: result.durationMs },
 				});
 
-				const messageText = "Hello, CryptoVisual!";
+				const messageText = plaintext;
 				const aesKeyHex = keyHex;
 				const aesResult = await worker.encryptAES(aesKeyHex, messageText);
 				const ciphertextData = hexToUint8Array(aesResult.ciphertext);
@@ -84,7 +84,7 @@ function Step4HybridEnvelope() {
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			transition={{ delay: 0.1 }}
+			transition={{ delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
 		>
 			<div className="mb-6 flex items-center gap-3">
 				<div className="flex h-10 w-10 items-center justify-center rounded-lg bg-hybrid-500/10">
@@ -113,7 +113,7 @@ function Step4HybridEnvelope() {
 			</div>
 
 			{isWrapping && (
-				<div className="mb-6 flex items-center gap-3 rounded-lg border border-hybrid-500/30 bg-surface-900 p-4">
+				<div className="mb-6 flex items-center gap-3 rounded-lg border border-hybrid-500/30 bg-surface-950/60 backdrop-blur-sm p-4">
 					<Loader2 size={18} className="animate-spin text-hybrid-400" />
 					<span className="text-sm text-surface-300">
 						Wrapping AES session key with RSA-2048...
@@ -130,13 +130,13 @@ function Step4HybridEnvelope() {
 				key exchange.
 			</p>
 
-			<div className="rounded-lg border border-surface-700 bg-surface-900 p-6">
+			<div className="rounded-lg border border-surface-700/80 bg-surface-950/60 backdrop-blur-sm p-6">
 				<h3 className="mb-3 font-semibold text-white">Digital Envelope</h3>
 				<div className="space-y-3">
 					{isPedagogyMode ? (
 						<EnvelopeWithTooltip wrappedKeyHex={wrappedHex} />
 					) : (
-						<div className="rounded bg-surface-800 p-3">
+						<div className="rounded bg-surface-800/60 p-3">
 							<span className="text-xs text-surface-500">
 								Wrapped Key (RSA Encrypted)
 							</span>
@@ -150,7 +150,7 @@ function Step4HybridEnvelope() {
 							)}
 						</div>
 					)}
-					<div className="rounded bg-surface-800 p-3">
+					<div className="rounded bg-surface-800/60 p-3">
 						<span className="text-xs text-surface-500">
 							AES-Encrypted Payload (The Box)
 						</span>

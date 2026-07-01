@@ -1,6 +1,6 @@
 # Current Status — CryptoVisual
 
-**Updated**: 2026-06-29
+**Updated**: 2026-07-01
 
 ## Sprint Progress
 
@@ -58,6 +58,14 @@ All Sprint 11 deliverables complete. See [sprint-11-completion.md](./sprint-11-c
 - **No Cross-Feature Imports**: Use shared/ or event-emitter
 - **Dependency Direction**: routes → features → services → shared (never invert)
 - **Redis Optional**: Pub/Sub only activates when `REDIS_URL` set; single-instance mode works without Redis
+
+## Sprint 12 Fixes
+
+### WizardProvider Duplication Fix
+- Removed root-level `WizardProvider` from `providers.tsx` — was causing landing page auto-redirect to `/handshake/step-1` and step navigation failures
+- `WizardProvider` now only wraps handshake routes via `HandshakeWrapper` in `handshake.tsx`
+- Landing page (`/`) no longer auto-redirects; step transitions work correctly
+- Verified: fresh session navigation, session restoration, and landing page all work with 0 console errors
 
 ## What's Next (Sprint 12)
 

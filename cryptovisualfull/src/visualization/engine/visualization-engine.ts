@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { Application } from "pixi.js";
+import { Application, Graphics } from "pixi.js";
 import {
 	type BreakpointConfig,
 	getBreakpointConfig,
@@ -135,6 +135,32 @@ export class VisualizationEngine {
 		return this.fpsCounter.fps;
 	}
 
+	clearScenes(): void {
+		// Fade-out overlay
+		if (this.app.stage) {
+			const overlay = new Graphics();
+			overlay.rect(0, 0, this.app.screen.width, this.app.screen.height);
+			overlay.fill({ color: 0x0a0a0f, alpha: 1 });
+			overlay.zIndex = 9999;
+			this.app.stage.addChild(overlay);
+			gsap.to(overlay, {
+				alpha: 0,
+				duration: 0.15,
+				onComplete: () => {
+					if (overlay.parent) {
+						overlay.parent.removeChild(overlay);
+					}
+				},
+			});
+		}
+
+		this.masterTimeline.kill();
+		if (!this.app.stage) return;
+		while (this.app.stage.children.length > 0) {
+			this.app.stage.removeChildAt(0);
+		}
+	}
+
 	getApplication(): Application {
 		return this.app;
 	}
@@ -168,8 +194,6 @@ export class VisualizationEngine {
 
 		this.eventListeners.clear();
 
-		// remove canvas before destroying the application to avoid
-		// PixiJS v8 _cancelResize internal crash when resizeTo was used
 		try {
 			if (this.app.canvas?.parentNode) {
 				this.app.canvas.parentNode.removeChild(this.app.canvas);

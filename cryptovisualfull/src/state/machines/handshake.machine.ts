@@ -29,6 +29,7 @@ export const STEP_LABELS: Record<HandshakeStep, string> = {
 export interface HandshakeContext {
 	currentStep: HandshakeStep;
 	completedSteps: HandshakeStep[];
+	plaintext: string;
 	// Crypto state
 	rsaKeyPair: {
 		publicKey: JsonWebKey;
@@ -55,6 +56,7 @@ export type HandshakeEvent =
 			state: Partial<Pick<HandshakeContext,
 				| "currentStep"
 				| "completedSteps"
+				| "plaintext"
 				| "rsaKeyPair"
 				| "aesKey"
 				| "ciphertext"
@@ -67,7 +69,8 @@ export type HandshakeEvent =
 	| {
 			type: "SET_WRAPPED_KEY";
 			wrappedKey: HandshakeContext["wrappedSessionKey"];
-	  };
+	  }
+	| { type: "SET_PLAINTEXT"; plaintext: string };
 
 export const handshakeMachine = setup({
 	types: {
@@ -140,6 +143,12 @@ export const handshakeMachine = setup({
 				return event.wrappedKey;
 			},
 		}),
+		setPlaintext: assign({
+			plaintext: ({ event }) => {
+				if (event.type !== "SET_PLAINTEXT") return "";
+				return event.plaintext;
+			},
+		}),
 		restoreState: assign(({ event }) => {
 			if (event.type !== "RESTORE") return {};
 			const r = event.state;
@@ -159,6 +168,7 @@ export const handshakeMachine = setup({
 	context: {
 		currentStep: "keygen" as HandshakeStep,
 		completedSteps: [] as HandshakeStep[],
+		plaintext: "Hello, CryptoVisual!",
 		rsaKeyPair: null as HandshakeContext["rsaKeyPair"],
 		aesKey: null as HandshakeContext["aesKey"],
 		ciphertext: null as HandshakeContext["ciphertext"],
@@ -193,6 +203,9 @@ export const handshakeMachine = setup({
 				},
 				SET_WRAPPED_KEY: {
 					actions: ["setWrappedKey"],
+				},
+				SET_PLAINTEXT: {
+					actions: ["setPlaintext"],
 				},
 			},
 		},

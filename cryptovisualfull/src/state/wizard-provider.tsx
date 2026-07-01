@@ -7,6 +7,7 @@ import {
 	useEffect,
 	useRef,
 	useState,
+	useCallback,
 } from "react";
 import {
 	type HandshakeContext,
@@ -33,6 +34,7 @@ export interface WizardContextValue {
 	isCanvasReady: boolean;
 	canvasRef: React.RefObject<HTMLCanvasElement | null>;
 	// Crypto states
+	plaintext: HandshakeContext["plaintext"];
 	rsaKeyPair: HandshakeContext["rsaKeyPair"];
 	aesKey: HandshakeContext["aesKey"];
 	ciphertext: HandshakeContext["ciphertext"];
@@ -58,6 +60,7 @@ export function WizardProvider({ children }: { children: ReactNode }) {
 	const {
 		currentStep,
 		completedSteps,
+		plaintext,
 		rsaKeyPair,
 		aesKey,
 		ciphertext,
@@ -68,8 +71,9 @@ export function WizardProvider({ children }: { children: ReactNode }) {
 	const [isCanvasReady, _setIsCanvasReady] = useState(false);
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const restoredRef = useRef(false);
+	const [restorationComplete, setRestorationComplete] = useState(false);
 
-	useEffect(() => {
+	const doRestore = useCallback(() => {
 		if (restoredRef.current) return;
 		restoredRef.current = true;
 		const saved = sessionStorage.getItem("cv_wizard_state");
@@ -86,11 +90,17 @@ export function WizardProvider({ children }: { children: ReactNode }) {
 				console.error("Error restoring cv_wizard_state", e);
 			}
 		}
+		setRestorationComplete(true);
 	}, [send]);
 
 	useEffect(() => {
+		doRestore();
+	}, [doRestore]);
+
+	useEffect(() => {
+		if (!restorationComplete) return;
 		navigate({ to: STEP_ROUTES[currentStep] });
-	}, [currentStep, navigate]);
+	}, [currentStep, navigate, restorationComplete]);
 
 	useEffect(() => {
 		const serialized = JSON.stringify(snapshot.context, (_key, value) => {
@@ -126,6 +136,7 @@ export function WizardProvider({ children }: { children: ReactNode }) {
 		visualizationEngine,
 		isCanvasReady,
 		canvasRef,
+		plaintext,
 		rsaKeyPair,
 		aesKey,
 		ciphertext,

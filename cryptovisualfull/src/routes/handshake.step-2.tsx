@@ -21,7 +21,7 @@ function Step2SessionKey() {
 	const bitStreamSceneRef = useRef<BitStreamVisualizer | null>(null);
 	const [isGenerating, setIsGenerating] = useState(false);
 	const [keyDuration, setKeyDuration] = useState<number | undefined>();
-	const { goNext, aesKey, rsaKeyPair, send } = useWizard();
+	const { goNext, aesKey, rsaKeyPair, plaintext, send } = useWizard();
 	const { isPedagogyMode } = usePedagogyMode();
 
 	const arrayToHex = (arr: Uint8Array) =>
@@ -56,12 +56,9 @@ function Step2SessionKey() {
 				engine.getApplication(),
 				engine.getApplication().stage as any,
 			);
+			bitStreamScene.masterTimeline = engine.masterTimeline;
 			await bitStreamScene.init();
 			bitStreamSceneRef.current = bitStreamScene;
-
-			if (aesKey) {
-				bitStreamScene.play();
-			}
 		};
 
 		setupScene();
@@ -70,7 +67,7 @@ function Step2SessionKey() {
 			bitStreamSceneRef.current?.destroy();
 			bitStreamSceneRef.current = null;
 		};
-	}, [engine, aesKey]);
+	}, [engine]);
 
 	const handleGenerateKey = async () => {
 		setIsGenerating(true);
@@ -108,7 +105,7 @@ function Step2SessionKey() {
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			transition={{ delay: 0.1 }}
+			transition={{ delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
 		>
 			<div className="mb-6 flex items-center gap-3">
 				<div className="flex h-10 w-10 items-center justify-center rounded-lg bg-symmetric-500/10">
@@ -145,9 +142,25 @@ function Step2SessionKey() {
 				only to securely transport this session key.
 			</p>
 
+			<div className="mb-4">
+				<label
+					htmlFor="plaintext-input"
+					className="mb-1.5 block text-xs font-medium text-surface-400"
+				>
+					Your Message
+				</label>
+				<input
+					id="plaintext-input"
+					type="text"
+					value={plaintext}
+					onChange={(e) => send({ type: "SET_PLAINTEXT", plaintext: e.target.value })}
+					className="w-full max-w-md rounded-lg border border-surface-700 bg-surface-900 px-4 py-2.5 text-sm text-surface-200 placeholder-surface-600 focus:border-symmetric-500 focus:outline-none focus:ring-1 focus:ring-symmetric-500 transition-colors"
+					placeholder="Type your message here..."
+				/>
+			</div>
+
 			<div className="mb-6 grid grid-cols-2 gap-4">
-				<div className="col-span-2 rounded-lg border border-surface-700 bg-surface-900/30 h-64 relative overflow-hidden">
-					{/* Transparent overlay for the shared background canvas */}
+				<div className="col-span-2 rounded-lg border border-symmetric-500/20 bg-transparent h-64 relative overflow-hidden">
 				</div>
 			</div>
 
@@ -180,18 +193,18 @@ function Step2SessionKey() {
 			</div>
 
 			{keyData && (
-				<div className="rounded-lg border border-surface-700 bg-surface-900 p-6">
+				<div className="rounded-lg border border-surface-700/80 bg-surface-950/60 backdrop-blur-sm p-6">
 					<h3 className="mb-3 font-semibold text-white">
 						AES-256 Session Key Generated
 					</h3>
 					<div className="space-y-3">
-						<div className="rounded bg-surface-800 p-3">
+						<div className="rounded bg-surface-800/60 p-3">
 							<span className="text-xs text-surface-500">Session Key</span>
 							<pre className="mt-1 text-xs text-symmetric-300 font-mono break-all">
 								{formatKeyBytes(keyData.keyBytes!)}
 							</pre>
 						</div>
-						<div className="rounded bg-surface-800 p-3">
+						<div className="rounded bg-surface-800/60 p-3">
 							<span className="text-xs text-surface-500">
 								Initialization Vector (IV)
 							</span>

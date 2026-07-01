@@ -38,6 +38,7 @@ function Step5WireSimulation() {
 				engine.getApplication(),
 				engine.getApplication().stage,
 			);
+			wireScene.masterTimeline = engine.masterTimeline;
 			await wireScene.init();
 			wireSceneRef.current = wireScene;
 		};
@@ -45,7 +46,7 @@ function Step5WireSimulation() {
 		setupScene();
 
 		return () => {
-			wireSceneRef.current?.cleanup();
+			wireSceneRef.current?.destroy();
 			wireSceneRef.current = null;
 		};
 	}, [engine]);
@@ -156,7 +157,7 @@ function Step5WireSimulation() {
 
 	const handleReset = () => {
 		if (!wireSceneRef.current) return;
-		wireSceneRef.current.cleanup();
+		wireSceneRef.current.destroy();
 		wireSceneRef.current.init();
 		setCurrentPacket("");
 		setConnectionStatus("disconnected");
@@ -167,7 +168,7 @@ function Step5WireSimulation() {
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			transition={{ delay: 0.1 }}
+			transition={{ delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
 		>
 			<LiveRegion message={currentPacket} />
 			<div className="mb-6 flex items-center gap-3">
@@ -224,9 +225,9 @@ function Step5WireSimulation() {
 
 			<HandshakeTicker currentPacket={currentPacket} />
 
-			<div className="relative mb-6 rounded-lg border border-surface-700 bg-surface-900 overflow-hidden h-64">
+			<div className="relative mb-6 rounded-lg border border-surface-700/50 bg-transparent overflow-hidden h-64">
 				{currentPacket && (
-					<div className="absolute bottom-4 left-4 right-4 z-10 rounded bg-surface-800/90 px-4 py-2">
+					<div className="absolute bottom-4 left-4 right-4 z-10 rounded bg-surface-950/80 backdrop-blur-sm px-4 py-2">
 						<span className="text-sm text-surface-300 font-mono">
 							{currentPacket}
 						</span>
@@ -257,7 +258,7 @@ function Step5WireSimulation() {
 				)}
 			</div>
 
-			<div className="rounded-lg border border-surface-700 bg-surface-900 p-6">
+			<div className="rounded-lg border border-surface-700/80 bg-surface-950/60 backdrop-blur-sm p-6">
 				<h3 className="mb-3 font-semibold text-white">
 					Hybrid Packet Structure
 				</h3>

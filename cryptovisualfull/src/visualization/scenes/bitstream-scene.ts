@@ -16,6 +16,8 @@ export class BitStreamVisualizer {
 	private isInitialized = false;
 	private isPaused = false;
 	private timeline: gsap.core.Timeline | null = null;
+	private hasPlayed = false;
+	public masterTimeline: gsap.core.Timeline | null = null;
 
 	private entropyParticles: Graphics[] = [];
 
@@ -26,9 +28,17 @@ export class BitStreamVisualizer {
 		this.lockContainer = new Container();
 	}
 
+	private get centerX(): number {
+		return this.app.screen.width / 2;
+	}
+
+	private get centerY(): number {
+		return this.app.screen.height * 0.4;
+	}
+
 	private createEntropySwirl(): void {
-		const centerX = this.app.screen.width / 2;
-		const centerY = this.app.screen.height * 0.4;
+		const centerX = this.centerX;
+		const centerY = this.centerY;
 		const particleCount = 64;
 
 		for (let i = 0; i < particleCount; i++) {
@@ -37,8 +47,7 @@ export class BitStreamVisualizer {
 			graphics.circle(0, 0, size);
 			graphics.fill({ color: 0x06b6d4, alpha: 0.4 + Math.random() * 0.4 });
 
-			// Position in a spiral
-			const angle = (i / particleCount) * Math.PI * 4; // 2 full rotations
+			const angle = (i / particleCount) * Math.PI * 4;
 			const radius = 10 + (i / particleCount) * 80;
 			graphics.x = centerX + Math.cos(angle) * radius;
 			graphics.y = centerY + Math.sin(angle) * radius;
@@ -50,6 +59,10 @@ export class BitStreamVisualizer {
 	}
 
 	async init(): Promise<void> {
+		if (!this.app.renderer) {
+			console.warn("BitStreamVisualizer: PixiJS not initialized yet");
+			return;
+		}
 		this.createLockShape();
 		this.createEntropySwirl();
 		this.stage.addChild(this.root);
@@ -57,7 +70,7 @@ export class BitStreamVisualizer {
 	}
 
 	private createLockShape(): void {
-		const lockX = this.app.screen.width / 2;
+		const lockX = this.centerX;
 		const lockY = this.app.screen.height * 0.7;
 		const lockWidth = 120;
 		const lockHeight = 80;
@@ -89,8 +102,10 @@ export class BitStreamVisualizer {
 		const graphics = new Graphics();
 		const size = 4;
 		const spacing = 8;
+		const screenWidth = this.app.screen.width;
+		const screenHeight = this.app.screen.height;
 		const startX =
-			this.app.screen.width / 2 - (256 * spacing) / 2 + index * spacing;
+			screenWidth / 2 - (256 * spacing) / 2 + index * spacing;
 
 		graphics.circle(0, 0, size);
 		graphics.fill({ color: 0x06b6d4, alpha: 0.8 });
@@ -100,13 +115,14 @@ export class BitStreamVisualizer {
 
 		return {
 			graphics,
-			targetY: this.app.screen.height * 0.7 + 40,
-			delay: index * 0.02,
+			targetY: screenHeight * 0.7 + 40,
+			delay: index * 0.01,
 		};
 	}
 
 	play(): void {
-		if (!this.isInitialized || this.timeline) return;
+		if (!this.isInitialized || this.hasPlayed) return;
+		this.hasPlayed = true;
 
 		this.timeline = gsap.timeline();
 
@@ -120,7 +136,7 @@ export class BitStreamVisualizer {
 				{
 					y: particle.targetY,
 					duration: 1.5,
-					ease: "power2.in",
+					ease: "power3.out",
 					delay: particle.delay,
 				},
 				0,
@@ -150,6 +166,28 @@ export class BitStreamVisualizer {
 			">-0.5",
 		);
 
+		// Animate entropy particles — fade in, scale up
+		const tl = this.timeline!;
+		this.entropyParticles.forEach((p, i) => {
+			p.scale.set(0);
+			tl.fromTo(
+				p,
+				{ alpha: 0 },
+				{
+					alpha: 0.6,
+					scale: 1,
+					duration: 0.8,
+					ease: "power2.out",
+					delay: i * 0.01,
+				},
+				0,
+			);
+		});
+
+		if (this.masterTimeline) {
+			this.masterTimeline.add(this.timeline, this.masterTimeline.time());
+		}
+
 		if (this.isPaused) {
 			this.timeline.pause();
 		}
@@ -168,6 +206,7 @@ export class BitStreamVisualizer {
 	destroy(): void {
 		this.timeline?.kill();
 		this.timeline = null;
+		this.hasPlayed = false;
 		this.particles.forEach((p) => {
 			gsap.killTweensOf(p.graphics);
 			gsap.killTweensOf(p.graphics.scale);
@@ -175,6 +214,12 @@ export class BitStreamVisualizer {
 		});
 		this.particles = [];
 		gsap.killTweensOf(this.lockContainer);
+		this.entropyParticles.forEach((p) => {
+			gsap.killTweensOf(p);
+			gsap.killTweensOf(p.scale);
+			p.destroy({ children: true });
+		});
+		this.entropyParticles = [];
 		this.root.removeChildren();
 		if (this.root.parent) {
 			this.root.parent.removeChild(this.root);

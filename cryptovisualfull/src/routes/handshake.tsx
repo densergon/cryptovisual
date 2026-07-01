@@ -15,6 +15,7 @@ import {
 } from "@/shared/providers/AnimationSpeedProvider";
 import { CanvasProvider, useCanvas } from "@/shared/providers/CanvasProvider";
 import { useWizard, WizardProvider } from "@/state/wizard-provider";
+import { STEP_LABELS } from "@/state/machines/handshake.machine";
 import { PedagogyToggle } from "@/shared/components/pedagogy/PedagogyToggle";
 import { PedagogyModeProvider } from "@/shared/providers/PedagogyModeProvider";
 
@@ -52,6 +53,14 @@ function HandshakeLayout() {
 		}
 	}, [engine, effectiveSpeed]);
 
+	// Clear canvas scenes immediately on step change
+	// This prevents old scene objects from persisting during AnimatePresence transitions
+	useEffect(() => {
+		if (engine) {
+			engine.clearScenes();
+		}
+	}, [currentStep, engine]);
+
 	useEffect(() => {
 		const handler = (e: KeyboardEvent) => {
 			if (e.ctrlKey && e.shiftKey && e.key === "F") {
@@ -88,7 +97,9 @@ function HandshakeLayout() {
 								Hybrid Handshake
 							</h1>
 							<p className="text-sm text-surface-400">
-								Secure Communication Channel
+								{currentStepIndex === 0
+									? "6 steps to understand how HTTPS really works \u2014 combining RSA, AES, and the TLS handshake"
+									: "Secure Communication Channel"}
 							</p>
 						</div>
 					</div>
@@ -138,13 +149,22 @@ function HandshakeLayout() {
 					{showFps && engine && <FPSCounter engine={engine} />}
 
 					<div className="relative z-10 h-full overflow-auto p-6 md:p-10 pointer-events-none">
+						<div className="sticky top-0 z-20 mb-4 flex items-center gap-2 rounded-lg bg-surface-950/90 backdrop-blur-sm px-3 py-1.5 border border-surface-800/50 w-fit pointer-events-auto">
+							<span className="text-xs font-medium text-surface-400">
+								Step {currentStepIndex + 1} of 6
+							</span>
+							<span className="text-[10px] text-surface-600">—</span>
+							<span className="text-xs font-medium text-surface-300">
+								{STEP_LABELS[currentStep]}
+							</span>
+						</div>
 						<AnimatePresence mode="wait">
 							<motion.div
 								key={currentStep}
 								initial={{ opacity: 0, y: 12 }}
 								animate={{ opacity: 1, y: 0 }}
 								exit={{ opacity: 0, y: -12 }}
-								transition={{ duration: reduced ? 0 : 0.2 }}
+								transition={{ duration: reduced ? 0 : 0.25, ease: [0.25, 0.1, 0.25, 1] }}
 								className="h-full pointer-events-auto"
 							>
 								<Outlet />

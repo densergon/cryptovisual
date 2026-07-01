@@ -34,7 +34,7 @@ export function StepSidebar() {
 	} = useWizard();
 
 	return (
-		<aside className="w-full border-b border-surface-700 bg-surface-900 md:w-64 md:border-b-0 md:border-r">
+		<aside className="w-full border-b border-surface-700/50 bg-surface-950/70 backdrop-blur-md md:w-64 md:border-b-0 md:border-r">
 			<nav className="flex flex-row justify-around gap-1 p-4 md:flex-col md:gap-2">
 				{STEPS.map((step, i) => {
 					const isCurrent = step === currentStep;

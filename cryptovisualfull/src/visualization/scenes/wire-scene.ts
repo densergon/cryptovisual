@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { type Application, type Container, Graphics, Text } from "pixi.js";
+import { type Application, Container, Graphics, Text } from "pixi.js";
 
 interface NetworkPacket {
 	graphics: Graphics;
@@ -21,18 +21,23 @@ interface WireSceneConfig {
 export class WireScene {
 	private app: Application;
 	private container: Container;
+	private root: Container;
 	private wireGraphics: Graphics;
 	private packets: NetworkPacket[];
 	private config: WireSceneConfig;
 	private isInitialized = false;
 	private animationFrameId: number | null = null;
 	public speedMultiplier: number = 1;
+	public masterTimeline: gsap.core.Timeline | null = null;
+	private flashOverlay: Graphics;
 
 	constructor(app: Application, container: Container) {
 		this.app = app;
 		this.container = container;
+		this.root = new Container();
 		this.wireGraphics = new Graphics();
 		this.packets = [];
+		this.flashOverlay = new Graphics();
 		this.config = {
 			wireLength: 600,
 			wireColor: 0x4a5568,
@@ -44,16 +49,29 @@ export class WireScene {
 	}
 
 	async init(): Promise<void> {
+		if (!this.app.renderer) {
+			console.warn("WireScene: PixiJS not initialized yet");
+			return;
+		}
 		this.createWire();
 		this.createConnectionPoints();
+		this.createFlashOverlay();
+		this.container.addChild(this.root);
 		this.isInitialized = true;
 	}
 
-	private createWire(): void {
-		const wireY = this.app.screen.height / 2;
-		const wireStartX = (this.app.screen.width - this.config.wireLength) / 2;
+	private get screenWidth(): number {
+		return this.app.screen.width;
+	}
 
-		// Draw wire base line
+	private get screenHeight(): number {
+		return this.app.screen.height;
+	}
+
+	private createWire(): void {
+		const wireY = this.screenHeight / 2;
+		const wireStartX = (this.screenWidth - this.config.wireLength) / 2;
+
 		this.wireGraphics.clear();
 		this.wireGraphics.moveTo(wireStartX, wireY);
 		this.wireGraphics.lineTo(wireStartX + this.config.wireLength, wireY);
@@ -63,7 +81,6 @@ export class WireScene {
 			alpha: 1,
 		});
 
-		// Add pulse effect to wire
 		for (let i = 0; i < this.config.wireLength; i += 20) {
 			this.wireGraphics.circle(wireStartX + i, wireY, 3);
 			this.wireGraphics.stroke({
@@ -73,15 +90,14 @@ export class WireScene {
 			});
 		}
 
-		this.container.addChild(this.wireGraphics);
+		this.root.addChild(this.wireGraphics);
 	}
 
 	private createConnectionPoints(): void {
-		const wireY = this.app.screen.height / 2;
-		const wireStartX = (this.app.screen.width - this.config.wireLength) / 2;
+		const wireY = this.screenHeight / 2;
+		const wireStartX = (this.screenWidth - this.config.wireLength) / 2;
 		const wireEndX = wireStartX + this.config.wireLength;
 
-		// Sender node (left)
 		const senderNode = new Graphics();
 		senderNode.circle(0, 0, 20);
 		senderNode.fill({ color: 0x10b981 });
@@ -98,7 +114,6 @@ export class WireScene {
 		senderLabel.x = wireStartX - 25;
 		senderLabel.y = wireY + 30;
 
-		// Receiver node (right)
 		const receiverNode = new Graphics();
 		receiverNode.circle(0, 0, 20);
 		receiverNode.fill({ color: 0xef4444 });
@@ -115,12 +130,26 @@ export class WireScene {
 		receiverLabel.x = wireEndX - 30;
 		receiverLabel.y = wireY + 30;
 
-		this.container.addChild(
+		this.root.addChild(
 			senderNode,
 			senderLabel,
 			receiverNode,
 			receiverLabel,
 		);
+	}
+
+	private createFlashOverlay(): void {
+		const wireY = this.screenHeight / 2;
+		const wireEndX =
+			(this.screenWidth - this.config.wireLength) / 2 +
+			this.config.wireLength;
+
+		this.flashOverlay.circle(0, 0, 25);
+		this.flashOverlay.fill({ color: 0xffffff, alpha: 0.8 });
+		this.flashOverlay.x = wireEndX;
+		this.flashOverlay.y = wireY;
+		this.flashOverlay.alpha = 0;
+		this.root.addChild(this.flashOverlay);
 	}
 
 	async sendPacket(
@@ -141,42 +170,45 @@ export class WireScene {
 		const packet = this.createPacket(packetColor, data);
 		this.packets.push(packet);
 
-		// Animate packet across wire
-		const wireStartX = (this.app.screen.width - this.config.wireLength) / 2;
+		const wireStartX = (this.screenWidth - this.config.wireLength) / 2;
 		const wireEndX = wireStartX + this.config.wireLength;
-		const wireY = this.app.screen.height / 2;
+		const wireY = this.screenHeight / 2;
 
 		packet.graphics.x = wireStartX;
 		packet.graphics.y = wireY;
+		packet.label.alpha = 0;
 
-		// GSAP animation
+		const mt = this.masterTimeline;
+
 		await new Promise<void>((resolve) => {
-			gsap.to(packet.graphics, {
+			const tweenVars: gsap.TweenVars = {
 				x: wireEndX,
-				duration: 2 / this.speedMultiplier,
-				ease: "power1.inOut",
+				duration: 2,
+				ease: "power2.inOut",
 				onComplete: () => {
-					// Flash receiver on arrival
 					this.flashReceiver();
-					// Remove packet
 					this.container.removeChild(packet.graphics);
 					this.container.removeChild(packet.label);
 					this.packets = this.packets.filter((p) => p !== packet);
 					resolve();
 				},
-			});
+			};
+
+			if (mt) {
+				mt.to(packet.graphics, tweenVars);
+			} else {
+				gsap.to(packet.graphics, tweenVars);
+			}
 		});
 	}
 
 	private createPacket(color: number, data: string): NetworkPacket {
 		const graphics = new Graphics();
 
-		// Packet body (rounded rectangle)
 		graphics.roundRect(-20, -10, 40, 20, 5);
 		graphics.fill({ color });
 		graphics.stroke({ width: 2, color, alpha: 0.5 });
 
-		// Create label with truncated data
 		const displayData = data.length > 8 ? `${data.substring(0, 8)}...` : data;
 		const label = new Text({
 			text: displayData,
@@ -188,7 +220,15 @@ export class WireScene {
 		});
 		label.anchor.set(0.5);
 
-		this.container.addChild(graphics, label);
+		this.root.addChild(graphics, label);
+
+		// Label alpha tween: fade in on departure
+		const mt = this.masterTimeline;
+		if (mt) {
+			mt.to(label, { alpha: 1, duration: 0.3, ease: "power2.out" });
+		} else {
+			gsap.to(label, { alpha: 1, duration: 0.3, ease: "power2.out" });
+		}
 
 		return {
 			graphics,
@@ -200,27 +240,25 @@ export class WireScene {
 	}
 
 	private flashReceiver(): void {
-		const wireY = this.app.screen.height / 2;
-		const wireEndX =
-			(this.app.screen.width - this.config.wireLength) / 2 +
-			this.config.wireLength;
+		const mt = this.masterTimeline;
+		this.flashOverlay.alpha = 0.8;
+		this.flashOverlay.scale.set(1);
 
-		const flash = new Graphics();
-		flash.circle(0, 0, 25);
-		flash.fill({ color: 0xffffff, alpha: 0.8 });
-		flash.x = wireEndX;
-		flash.y = wireY;
-
-		this.container.addChild(flash);
-
-		gsap.to(flash, {
-			alpha: 0,
-			scale: 1.5,
-			duration: 0.3,
-			onComplete: () => {
-				this.container.removeChild(flash);
-			},
-		});
+		if (mt) {
+			mt.to(this.flashOverlay, {
+				alpha: 0,
+				scale: 1.5,
+				duration: 0.4,
+				ease: "power3.out",
+			});
+		} else {
+			gsap.to(this.flashOverlay, {
+				alpha: 0,
+				scale: 1.5,
+				duration: 0.4,
+				ease: "power3.out",
+			});
+		}
 	}
 
 	async animateDataTransfer(
@@ -228,13 +266,11 @@ export class WireScene {
 	): Promise<void> {
 		for (const packet of packets) {
 			await this.sendPacket(packet.data, packet.type);
-			// Small delay between packets
 			await new Promise((resolve) => setTimeout(resolve, 300));
 		}
 	}
 
 	async showEncryptionFlow(): Promise<void> {
-		// Simulate hybrid encryption flow
 		const flowSequence = [
 			{ data: "AES_KEY", type: "key" as const },
 			{ data: "RSA_ENC", type: "encrypted" as const },
@@ -249,13 +285,12 @@ export class WireScene {
 			throw new Error("WireScene not initialized");
 		}
 
-		const wireY = this.app.screen.height / 2;
+		const wireY = this.screenHeight / 2;
 
-		// Create inspection panel
 		const panel = new Graphics();
 		panel.roundRect(0, 0, 200, 100, 8);
 		panel.fill({ color: 0x1e293b, alpha: 0.95 });
-		panel.x = this.app.screen.width / 2 - 100;
+		panel.x = this.screenWidth / 2 - 100;
 		panel.y = wireY - 80;
 
 		const titleLabel = new Text({
@@ -282,43 +317,46 @@ export class WireScene {
 		contentLabel.y = panel.y + 45;
 		contentLabel.anchor.set(0.5, 0);
 
-		this.container.addChild(panel, titleLabel, contentLabel);
+		this.root.addChild(panel, titleLabel, contentLabel);
 
-		// Show for 3 seconds then remove
-		await new Promise<void>((resolve) => {
+		const mt = this.masterTimeline;
+		if (mt) {
+			mt.to(panel, {
+				alpha: 0,
+				duration: 0.3,
+				delay: 2.7,
+				onComplete: () => {
+					this.root.removeChild(panel);
+					this.root.removeChild(titleLabel);
+					this.root.removeChild(contentLabel);
+				},
+			});
+		} else {
 			gsap.to(panel, {
 				alpha: 0,
 				duration: 0.3,
 				delay: 2.7,
 				onComplete: () => {
-					this.container.removeChild(panel);
-					this.container.removeChild(titleLabel);
-					this.container.removeChild(contentLabel);
-					resolve();
+					this.root.removeChild(panel);
+					this.root.removeChild(titleLabel);
+					this.root.removeChild(contentLabel);
 				},
 			});
-		});
+		}
 	}
 
-	cleanup(): void {
+	destroy(): void {
 		if (this.animationFrameId) {
 			cancelAnimationFrame(this.animationFrameId);
 		}
 
-		gsap.killTweensOf(this.container);
-
-		this.packets.forEach((packet) => {
-			if (this.container.children.includes(packet.graphics)) {
-				this.container.removeChild(packet.graphics);
-			}
-			if (this.container.children.includes(packet.label)) {
-				this.container.removeChild(packet.label);
-			}
-		});
+		gsap.killTweensOf(this.root);
+		gsap.killTweensOf(this.flashOverlay);
 		this.packets = [];
 
-		if (this.container.children.includes(this.wireGraphics)) {
-			this.container.removeChild(this.wireGraphics);
+		this.root.removeChildren();
+		if (this.root.parent) {
+			this.root.parent.removeChild(this.root);
 		}
 
 		this.isInitialized = false;

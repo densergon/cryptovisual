@@ -409,5 +409,5 @@ A full Playwright-based visual audit of all 6 wizard steps is at `docs/visual-in
 
 * Page state and DOM structure per step
 * Canvas scene animation flow (KeygenVisualizer, BitStreamVisualizer, StateMatrixVisualizer, WireScene)
-* Known visual bugs (node:events crash, wizard state restoration race condition; AES highlightCell OOB and missing crypto data for step 5 are FIXED)
+* Known visual bugs (node:events crash; wizard state restoration race condition, homepage SSR redirect, AES highlightCell OOB, missing crypto data for step 5 are FIXED)
 * Screenshot index mapping step → visual capture

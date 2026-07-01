@@ -255,7 +255,7 @@ function HybridAnimation() {
 					</Link>
 					<a
 						href="#features"
-						className="flex items-center justify-center rounded-xl border border-surface-700 bg-surface-900/50 px-8 py-4 text-lg font-medium text-surface-300 transition-all hover:bg-surface-800"
+						className="flex items-center justify-center rounded-xl border border-surface-700/50 bg-surface-950/40 backdrop-blur-sm px-8 py-4 text-lg font-medium text-surface-300 transition-all hover:bg-surface-950/70"
 					>
 						Explore Features
 					</a>
@@ -316,7 +316,7 @@ function Home() {
 								whileInView={{ opacity: 1, y: 0 }}
 								transition={{ delay: i * 0.2 }}
 								viewport={{ once: true }}
-								className={`group relative rounded-2xl border ${feature.color} bg-surface-900 p-8 transition-all hover:-translate-y-2 hover:bg-surface-800/50`}
+								className={`group relative rounded-2xl border ${feature.color} bg-surface-950/60 backdrop-blur-sm p-8 transition-all hover:-translate-y-2 hover:bg-surface-950/80`}
 							>
 								<div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-surface-700 bg-surface-800">
 									{feature.icon}
@@ -339,7 +339,7 @@ function Home() {
 			</section>
 
 			<section className="relative z-10 py-24 px-4">
-				<div className="mx-auto max-w-4xl rounded-3xl border border-symmetric-500/20 bg-gradient-to-b from-surface-900 to-surface-950 p-8 text-center md:p-12">
+				<div 				className="mx-auto max-w-4xl rounded-3xl border border-symmetric-500/20 bg-surface-950/60 backdrop-blur-sm p-8 text-center md:p-12">
 					<h2 className="mb-6 text-3xl font-bold">
 						Experience the Speed
 					</h2>

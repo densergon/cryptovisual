@@ -3,7 +3,8 @@ import { type Application, Container, Graphics, Text } from "pixi.js";
 
 interface StateMatrixCell {
 	value: number;
-	graphics: Graphics;
+	normalGraphics: Graphics;
+	highlightGraphics: Graphics;
 	text: Text;
 	row: number;
 	col: number;
@@ -29,6 +30,7 @@ export class StateMatrixVisualizer {
 	private cancelled = false;
 	private isInitialized = false;
 	public speedMultiplier: number = 1;
+	public masterTimeline: gsap.core.Timeline | null = null;
 	private centerPoint: { x: number; y: number };
 	private config: AESAnimationConfig;
 
@@ -37,10 +39,7 @@ export class StateMatrixVisualizer {
 		this.stage = stage;
 		this.root = new Container();
 		this.animationContainer = new Container();
-		this.centerPoint = {
-			x: this.app.screen.width / 2,
-			y: this.app.screen.height / 2,
-		};
+		this.centerPoint = { x: 0, y: 0 };
 		this.config = {
 			cellSize: 60,
 			gap: 8,
@@ -53,11 +52,19 @@ export class StateMatrixVisualizer {
 	}
 
 	async init(initialState?: Uint8Array): Promise<void> {
+		if (!this.app.renderer) {
+			console.warn("StateMatrixVisualizer: PixiJS not initialized yet");
+			return;
+		}
+		this.centerPoint = {
+			x: this.app.screen.width / 2,
+			y: this.app.screen.height / 2,
+		};
 		this.root.addChild(this.animationContainer);
 		this.stage.addChild(this.root);
-		this.createGrid();
 
 		if (initialState) {
+			this.createGrid();
 			this.updateMatrix(initialState);
 		}
 
@@ -78,7 +85,8 @@ export class StateMatrixVisualizer {
 
 				const cell = this.createCell(x, y, row, col);
 				this.cells[row][col] = cell;
-				this.animationContainer.addChild(cell.graphics);
+				this.animationContainer.addChild(cell.normalGraphics);
+				this.animationContainer.addChild(cell.highlightGraphics);
 				this.animationContainer.addChild(cell.text);
 			}
 		}
@@ -90,12 +98,19 @@ export class StateMatrixVisualizer {
 		row: number,
 		col: number,
 	): StateMatrixCell {
-		const { cellSize, gridColor, cellColor, textColor, fontSize } = this.config;
+		const { cellSize, gridColor, cellColor, highlightColor, textColor, fontSize } = this.config;
 
-		const graphics = new Graphics();
-		graphics.rect(x - cellSize / 2, y - cellSize / 2, cellSize, cellSize);
-		graphics.fill({ color: cellColor, alpha: 0.9 });
-		graphics.stroke({ color: gridColor, width: 2 });
+		const normalGraphics = new Graphics();
+		normalGraphics.rect(x - cellSize / 2, y - cellSize / 2, cellSize, cellSize);
+		normalGraphics.fill({ color: cellColor, alpha: 0.9 });
+		normalGraphics.stroke({ color: gridColor, width: 2 });
+		normalGraphics.alpha = 1;
+
+		const highlightGraphics = new Graphics();
+		highlightGraphics.rect(x - cellSize / 2, y - cellSize / 2, cellSize, cellSize);
+		highlightGraphics.fill({ color: highlightColor, alpha: 0.9 });
+		highlightGraphics.stroke({ color: gridColor, width: 2 });
+		highlightGraphics.alpha = 0;
 
 		const text = new Text({
 			text: "00",
@@ -111,7 +126,8 @@ export class StateMatrixVisualizer {
 
 		return {
 			value: 0,
-			graphics,
+			normalGraphics,
+			highlightGraphics,
 			text,
 			row,
 			col,
@@ -119,6 +135,9 @@ export class StateMatrixVisualizer {
 	}
 
 	updateMatrix(state: Uint8Array): void {
+		if (this.cells.length === 0) {
+			this.createGrid();
+		}
 		let index = 0;
 		for (let row = 0; row < 4; row++) {
 			for (let col = 0; col < 4; col++) {
@@ -131,82 +150,68 @@ export class StateMatrixVisualizer {
 	updateCell(row: number, col: number, value: number): void {
 		const cell = this.cells[row][col];
 		cell.value = value;
-		cell.text.text = value.toString(16).padStart(2, "2").toUpperCase();
+		cell.text.text = value.toString(16).padStart(2, "0").toUpperCase();
 	}
 
 	highlightCell(row: number, col: number, duration: number = 0.3): void {
 		if (!this.cells[row]?.[col]) return;
 		const cell = this.cells[row][col];
-		const { highlightColor, cellSize, gridColor } = this.config;
-		const cx = this.getCenterX(row, col);
-		const cy = this.getCenterY(row, col);
 
-		cell.graphics.clear();
-		cell.graphics.rect(
-			cx - cellSize / 2,
-			cy - cellSize / 2,
-			cellSize,
-			cellSize,
-		);
-		cell.graphics.fill({ color: highlightColor, alpha: 0.9 });
-		cell.graphics.stroke({ color: gridColor, width: 2 });
+		cell.highlightGraphics.alpha = 1;
+		cell.normalGraphics.alpha = 0;
 
-		gsap.to(cell.graphics.scale, {
-			x: 1.1,
-			y: 1.1,
-			duration: duration / 2,
-			yoyo: true,
-			repeat: 1,
-			ease: "power1.inOut",
-		});
+		const mt = this.masterTimeline;
+		if (mt) {
+			mt.to(cell.normalGraphics.scale, {
+				x: 1.1,
+				y: 1.1,
+				duration: duration / 2,
+				yoyo: true,
+				repeat: 1,
+				ease: "power1.inOut",
+			});
+		} else {
+			gsap.to(cell.normalGraphics.scale, {
+				x: 1.1,
+				y: 1.1,
+				duration: duration / 2,
+				yoyo: true,
+				repeat: 1,
+				ease: "power1.inOut",
+			});
+		}
 	}
 
 	resetCellHighlight(row: number, col: number, duration: number = 0.3): void {
 		const cell = this.cells[row][col];
-		const { cellColor, gridColor, cellSize } = this.config;
-		const cx = this.getCenterX(row, col);
-		const cy = this.getCenterY(row, col);
 
-		cell.graphics.clear();
-		cell.graphics.rect(
-			cx - cellSize / 2,
-			cy - cellSize / 2,
-			cellSize,
-			cellSize,
-		);
-		cell.graphics.fill({ color: cellColor, alpha: 0.9 });
-		cell.graphics.stroke({ color: gridColor, width: 2 });
+		cell.highlightGraphics.alpha = 0;
+		cell.normalGraphics.alpha = 1;
 
-		gsap.to(cell.graphics.scale, {
-			x: 1,
-			y: 1,
-			duration,
-			ease: "power2.out",
-		});
+		const mt = this.masterTimeline;
+		if (mt) {
+			mt.to(cell.normalGraphics.scale, {
+				x: 1,
+				y: 1,
+				duration,
+				ease: "power2.out",
+			});
+		} else {
+			gsap.to(cell.normalGraphics.scale, {
+				x: 1,
+				y: 1,
+				duration,
+				ease: "power2.out",
+			});
+		}
 	}
 
 	private gsapDelay(ms: number): Promise<void> {
 		return new Promise((resolve) => {
-			const seconds =
-				this.speedMultiplier === 0
-					? ms / 1000
-					: ms / 1000 / this.speedMultiplier;
+			const speed = this.masterTimeline?.timeScale() ?? this.speedMultiplier ?? 1;
+			const seconds = speed === 0 ? ms / 1000 : ms / 1000 / speed;
 			gsap.delayedCall(seconds, resolve);
 		});
-	}
-
-	private getCenterX(_row: number, col: number): number {
-		const { cellSize, gap } = this.config;
-		const totalSize = 4 * cellSize + 3 * gap;
-		const startX = this.centerPoint.x - totalSize / 2 + cellSize / 2;
-		return startX + col * (cellSize + gap);
-	}
-
-	private getCenterY(row: number, _col: number): number {
-		const { cellSize, gap } = this.config;
-		const totalSize = 4 * cellSize + 3 * gap;
-		const startY = this.centerPoint.y - totalSize / 2 + cellSize / 2;
-		return startY + row * (cellSize + gap);
 	}
 
 	async animateSubBytes(
@@ -436,8 +441,8 @@ export class StateMatrixVisualizer {
 		this.localTimeline = null;
 		this.cells.forEach((row) => {
 			row.forEach((cell) => {
-				gsap.killTweensOf(cell.graphics);
-				gsap.killTweensOf(cell.graphics.scale);
+				gsap.killTweensOf(cell.normalGraphics);
+				gsap.killTweensOf(cell.normalGraphics.scale);
 			});
 		});
 		gsap.killTweensOf(this.animationContainer);

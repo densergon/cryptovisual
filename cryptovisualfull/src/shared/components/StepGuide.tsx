@@ -1,6 +1,6 @@
 import { Info, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Section {
 	title: string;
@@ -9,10 +9,37 @@ interface Section {
 
 interface StepGuideProps {
 	sections: Section[];
+	autoOpen?: boolean;
 }
 
-export function StepGuide({ sections }: StepGuideProps) {
-	const [isOpen, setIsOpen] = useState(false);
+const GUIDE_DISMISSED_KEY = "cv_guide_dismissed";
+
+export function StepGuide({ sections, autoOpen }: StepGuideProps) {
+	const [isOpen, setIsOpen] = useState(() => {
+		if (autoOpen) {
+			try {
+				return localStorage.getItem(GUIDE_DISMISSED_KEY) !== "true";
+			} catch {
+				return false;
+			}
+		}
+		return false;
+	});
+
+	useEffect(() => {
+		if (!autoOpen) return;
+		if (isOpen) return;
+		try {
+			localStorage.setItem(GUIDE_DISMISSED_KEY, "true");
+		} catch { /* noop */ }
+	}, [autoOpen, isOpen]);
+
+	const handleClose = () => {
+		setIsOpen(false);
+		try {
+			localStorage.setItem(GUIDE_DISMISSED_KEY, "true");
+		} catch { /* noop */ }
+	};
 
 	return (
 		<>
@@ -32,7 +59,7 @@ export function StepGuide({ sections }: StepGuideProps) {
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-						onClick={() => setIsOpen(false)}
+						onClick={handleClose}
 					>
 						<motion.div
 							initial={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -46,7 +73,7 @@ export function StepGuide({ sections }: StepGuideProps) {
 						>
 							<button
 								type="button"
-								onClick={() => setIsOpen(false)}
+								onClick={handleClose}
 								className="absolute right-4 top-4 rounded-lg p-1.5 text-surface-400 hover:bg-surface-800 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-asymmetric-500"
 								aria-label="Close guide"
 							>

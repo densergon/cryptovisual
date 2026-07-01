@@ -9,14 +9,30 @@ const PedagogyModeContext = createContext<PedagogyModeContextValue | undefined>(
   undefined,
 );
 
+const STORAGE_KEY = "cv_pedagogy_mode";
+
 export function PedagogyModeProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [isPedagogyMode, setIsPedagogyMode] = useState(false);
+  const [isPedagogyMode, setIsPedagogyMode] = useState(() => {
+    try {
+      return localStorage.getItem(STORAGE_KEY) === "true";
+    } catch {
+      return false;
+    }
+  });
 
-  const togglePedagogyMode = () => setIsPedagogyMode((prev) => !prev);
+  const togglePedagogyMode = () => {
+    setIsPedagogyMode((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem(STORAGE_KEY, String(next));
+      } catch { /* noop */ }
+      return next;
+    });
+  };
 
   return (
     <PedagogyModeContext.Provider
