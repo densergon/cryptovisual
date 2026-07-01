@@ -4,12 +4,12 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import type { ReactNode } from "react";
 import { Providers } from "../app/providers";
 import { ErrorBoundary } from "../shared/components/ErrorBoundary";
+import { PWAUpdatePrompt } from "../shared/components/PWAUpdatePrompt";
 import { ThemeToggle } from "../shared/components/ThemeToggle";
 import { TutorialTooltip } from "../shared/components/TutorialTooltip";
 import { ThemeProvider } from "../shared/providers/ThemeProvider";
 import { TutorialProvider } from "../shared/providers/TutorialProvider";
 import appCss from "../styles.css?url";
-import { PWAUpdatePrompt } from "../shared/components/PWAUpdatePrompt";
 
 function NotFound() {
 	return (

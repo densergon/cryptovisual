@@ -130,19 +130,13 @@ export class WireScene {
 		receiverLabel.x = wireEndX - 30;
 		receiverLabel.y = wireY + 30;
 
-		this.root.addChild(
-			senderNode,
-			senderLabel,
-			receiverNode,
-			receiverLabel,
-		);
+		this.root.addChild(senderNode, senderLabel, receiverNode, receiverLabel);
 	}
 
 	private createFlashOverlay(): void {
 		const wireY = this.screenHeight / 2;
 		const wireEndX =
-			(this.screenWidth - this.config.wireLength) / 2 +
-			this.config.wireLength;
+			(this.screenWidth - this.config.wireLength) / 2 + this.config.wireLength;
 
 		this.flashOverlay.circle(0, 0, 25);
 		this.flashOverlay.fill({ color: 0xffffff, alpha: 0.8 });

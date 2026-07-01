@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { RefreshCw, X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 interface PWAInstallState {
 	offlineReady: boolean;
@@ -12,9 +12,7 @@ interface PWAInstallState {
 export function usePWAInstallPrompt(): PWAInstallState {
 	const [offlineReady, setOfflineReady] = useState(false);
 	const [needRefresh, setNeedRefresh] = useState(false);
-	const [updateSW, setUpdateSW] = useState<(() => Promise<void>) | null>(
-		null,
-	);
+	const [updateSW, setUpdateSW] = useState<(() => Promise<void>) | null>(null);
 
 	useEffect(() => {
 		if (!("serviceWorker" in navigator)) return;
@@ -25,7 +23,10 @@ export function usePWAInstallPrompt(): PWAInstallState {
 				const register = mod.registerSW;
 
 				const result = register({
-					onRegisteredSW(swUrl: string, _registration: ServiceWorkerRegistration | undefined) {
+					onRegisteredSW(
+						swUrl: string,
+						_registration: ServiceWorkerRegistration | undefined,
+					) {
 						console.log("[PWA] Service worker registered:", swUrl);
 					},
 					onRegisterError(error: Error) {

@@ -2,19 +2,20 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Combine, Loader2 } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { useWizard } from "@/state/wizard-provider";
 import { EnvelopeWithTooltip } from "@/shared/components/pedagogy/EnvelopeWithTooltip";
 import { KEMEnvelopeAnimation } from "@/shared/components/pedagogy/KEMEnvelopeAnimation";
-import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
-import { useCryptoWorker } from "@/shared/providers/CryptoWorkerProvider";
 import { StepGuide } from "@/shared/components/StepGuide";
+import { useCryptoWorker } from "@/shared/providers/CryptoWorkerProvider";
+import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
+import { useWizard } from "@/state/wizard-provider";
 
 export const Route = createFileRoute("/handshake/step-4")({
 	component: Step4HybridEnvelope,
 });
 
 function Step4HybridEnvelope() {
-	const { aesKey, rsaKeyPair, wrappedSessionKey, plaintext, send } = useWizard();
+	const { aesKey, rsaKeyPair, wrappedSessionKey, plaintext, send } =
+		useWizard();
 	const worker = useCryptoWorker();
 	const { isPedagogyMode } = usePedagogyMode();
 	const [isWrapping, setIsWrapping] = useState(false);
@@ -35,10 +36,7 @@ function Step4HybridEnvelope() {
 				const keyHex = Array.from(aesKey.keyBytes)
 					.map((b) => b.toString(16).padStart(2, "0"))
 					.join("");
-				const result = await worker.encryptRSA(
-					rsaKeyPair.publicKey,
-					keyHex,
-				);
+				const result = await worker.encryptRSA(rsaKeyPair.publicKey, keyHex);
 				const data = hexToUint8Array(result.encryptedData);
 				setWrapDuration(result.durationMs);
 
@@ -129,9 +127,8 @@ function Step4HybridEnvelope() {
 
 			<p className="mb-6 text-surface-400 leading-relaxed">
 				The AES session key is now wrapped using the RSA public key. This
-				creates a secure digital envelope, combining the speed of AES for
-				the bulk payload with the mathematical security of RSA for the
-				key exchange.
+				creates a secure digital envelope, combining the speed of AES for the
+				bulk payload with the mathematical security of RSA for the key exchange.
 			</p>
 
 			<div className="rounded-lg border border-surface-700/80 bg-surface-950/60 backdrop-blur-sm p-6">
@@ -166,9 +163,9 @@ function Step4HybridEnvelope() {
 			</div>
 
 			<p className="mt-6 text-sm text-surface-500">
-				The envelope contains both the wrapped key and the encrypted
-				message, ensuring only the owner of the corresponding RSA private key
-				can open it.
+				The envelope contains both the wrapped key and the encrypted message,
+				ensuring only the owner of the corresponding RSA private key can open
+				it.
 			</p>
 		</motion.div>
 	);

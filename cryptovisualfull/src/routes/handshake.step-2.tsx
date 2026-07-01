@@ -2,12 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { KeyRound } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { StepGuide } from "@/shared/components/StepGuide";
 import { PerformanceComparison } from "@/shared/components/pedagogy/PerformanceComparison";
 import { WhyAESBox } from "@/shared/components/pedagogy/WhyAESBox";
-import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
+import { StepGuide } from "@/shared/components/StepGuide";
 import { useCanvas } from "@/shared/providers/CanvasProvider";
 import { useCryptoWorker } from "@/shared/providers/CryptoWorkerProvider";
+import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
 import { useWizard } from "@/state/wizard-provider";
 import { BitStreamVisualizer } from "@/visualization/scenes";
 
@@ -92,7 +92,8 @@ function Step2SessionKey() {
 				bitStreamSceneRef.current.play();
 			}
 		} catch (err) {
-			const message = err instanceof Error ? err.message : "Session key generation failed";
+			const message =
+				err instanceof Error ? err.message : "Session key generation failed";
 			setError(message);
 			console.error("AES key generation failed:", err);
 		} finally {
@@ -141,9 +142,9 @@ function Step2SessionKey() {
 
 			<p className="mb-6 text-surface-400 leading-relaxed">
 				Since RSA is too slow for large amounts of data, we generate a temporary
-				AES-256 session key. This symmetric key handles the bulk encryption
-				with incredible speed, while the RSA keys from Step 1 will be used
-				only to securely transport this session key.
+				AES-256 session key. This symmetric key handles the bulk encryption with
+				incredible speed, while the RSA keys from Step 1 will be used only to
+				securely transport this session key.
 			</p>
 
 			<div className="mb-4">
@@ -158,7 +159,9 @@ function Step2SessionKey() {
 					type="text"
 					value={plaintext}
 					maxLength={256}
-					onChange={(e) => send({ type: "SET_PLAINTEXT", plaintext: e.target.value })}
+					onChange={(e) =>
+						send({ type: "SET_PLAINTEXT", plaintext: e.target.value })
+					}
 					className="w-full max-w-md rounded-lg border border-surface-700 bg-surface-900 px-4 py-2.5 text-sm text-surface-200 placeholder-surface-600 focus:border-symmetric-500 focus:outline-none focus:ring-1 focus:ring-symmetric-500 transition-colors"
 					placeholder="Type your message here..."
 				/>
@@ -174,7 +177,9 @@ function Step2SessionKey() {
 				<div className="col-span-2 rounded-lg border border-symmetric-500/20 bg-transparent h-64 relative overflow-hidden">
 					{!isGenerating && !keyData && (
 						<div className="absolute inset-0 flex items-center justify-center">
-							<p className="text-xs text-surface-600">Click "Generate Session Key" to start the animation</p>
+							<p className="text-xs text-surface-600">
+								Click "Generate Session Key" to start the animation
+							</p>
 						</div>
 					)}
 				</div>
@@ -189,15 +194,19 @@ function Step2SessionKey() {
 
 			<div className="mb-6 flex gap-3">
 				<button
+					type="button"
 					id="aes-button"
 					onClick={handleGenerateKey}
 					disabled={isGenerating}
 					className="rounded-lg bg-symmetric-600 px-6 py-2.5 font-medium text-white hover:bg-symmetric-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 				>
-					{isGenerating ? "Generating 256-bit session key..." : "Generate Session Key"}
+					{isGenerating
+						? "Generating 256-bit session key..."
+						: "Generate Session Key"}
 				</button>
 				{keyData && (
 					<button
+						type="button"
 						onClick={goNext}
 						className="rounded-lg bg-surface-700 px-6 py-2.5 font-medium text-white hover:bg-surface-600 transition-colors"
 					>

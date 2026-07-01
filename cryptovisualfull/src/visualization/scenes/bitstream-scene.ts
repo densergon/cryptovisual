@@ -104,8 +104,7 @@ export class BitStreamVisualizer {
 		const spacing = 8;
 		const screenWidth = this.app.screen.width;
 		const screenHeight = this.app.screen.height;
-		const startX =
-			screenWidth / 2 - (256 * spacing) / 2 + index * spacing;
+		const startX = screenWidth / 2 - (256 * spacing) / 2 + index * spacing;
 
 		graphics.circle(0, 0, size);
 		graphics.fill({ color: 0x06b6d4, alpha: 0.8 });

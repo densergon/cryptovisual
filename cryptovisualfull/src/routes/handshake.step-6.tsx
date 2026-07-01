@@ -2,13 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AlertTriangle, Loader2, Unlock } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { useWizard } from "../state/wizard-provider";
-import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
 import { Celebration } from "../shared/components/Celebration";
-import { StepGuide } from "../shared/components/StepGuide";
 import { KeyMatchGlow } from "../shared/components/pedagogy/KeyMatchGlow";
 import { TwoStepUnlock } from "../shared/components/pedagogy/TwoStepUnlock";
+import { StepGuide } from "../shared/components/StepGuide";
+import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
 import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
+import { useWizard } from "../state/wizard-provider";
 
 export const Route = createFileRoute("/handshake/step-6")({
 	component: Step6Decrypt,
@@ -79,7 +79,14 @@ function Step6Decrypt() {
 		};
 
 		doDecrypt();
-	}, [rsaKeyPair, wrappedSessionKey, ciphertext, worker, tampered, shouldDecrypt]);
+	}, [
+		rsaKeyPair,
+		wrappedSessionKey,
+		ciphertext,
+		worker,
+		tampered,
+		shouldDecrypt,
+	]);
 
 	return (
 		<motion.div
@@ -160,7 +167,9 @@ function Step6Decrypt() {
 						transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
 						className={`rounded bg-surface-800/60 p-3 ${decryptedText && !tampered ? "ring-1 ring-success/30" : ""}`}
 					>
-						<span className={`text-xs font-bold ${tampered ? "text-red-400" : "text-success"}`}>
+						<span
+							className={`text-xs font-bold ${tampered ? "text-red-400" : "text-success"}`}
+						>
 							{isDecrypting
 								? "Decrypting..."
 								: tampered
@@ -172,7 +181,7 @@ function Step6Decrypt() {
 								? "Decrypting..."
 								: tampered
 									? "[decryption rejected — auth tag mismatch]"
-									: decryptedText ?? plaintext}
+									: (decryptedText ?? plaintext)}
 						</pre>
 					</motion.div>
 				</div>
@@ -197,6 +206,7 @@ function Step6Decrypt() {
 
 			<div className="mt-4 flex flex-wrap gap-3">
 				<button
+					type="button"
 					onClick={() => {
 						setDecryptedText(null);
 						setUnwrapDuration(undefined);
@@ -209,6 +219,7 @@ function Step6Decrypt() {
 					Retry Decryption
 				</button>
 				<button
+					type="button"
 					onClick={() => {
 						setDecryptedText(null);
 						setUnwrapDuration(undefined);
@@ -222,7 +233,8 @@ function Step6Decrypt() {
 				</button>
 				{decryptedText && (
 					<button
-						onClick={() => window.location.href = "/handshake/step-1"}
+						type="button"
+						onClick={() => (window.location.href = "/handshake/step-1")}
 						className="rounded-lg bg-surface-700 px-6 py-2.5 font-medium text-white hover:bg-surface-600 transition-colors text-sm"
 					>
 						Start Over

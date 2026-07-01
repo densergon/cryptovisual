@@ -1,4 +1,14 @@
-import type { CryptoRequest, CryptoResponse, RSAKeyGenResponse, AESKeyGenResponse, RSAEncryptResponse, RSADecryptResponse, AESEncryptResponse, AESDecryptResponse, AESRoundOutputsResponse } from "./crypto.protocol";
+import type {
+	AESDecryptResponse,
+	AESEncryptResponse,
+	AESKeyGenResponse,
+	AESRoundOutputsResponse,
+	CryptoRequest,
+	CryptoResponse,
+	RSADecryptResponse,
+	RSAEncryptResponse,
+	RSAKeyGenResponse,
+} from "./crypto.protocol";
 
 export class CryptoWorkerClient {
 	private worker: Worker;
@@ -158,7 +168,12 @@ export class CryptoWorkerClient {
 		throw new Error("Unexpected response type");
 	}
 
-	async decryptAES(keyBytes: string, ciphertext: string, iv: string, authTag?: string) {
+	async decryptAES(
+		keyBytes: string,
+		ciphertext: string,
+		iv: string,
+		authTag?: string,
+	) {
 		const response = await this.sendRequest({
 			type: "AES_DECRYPT_REQUEST",
 			requestId: this.generateId(),

@@ -98,7 +98,14 @@ export class StateMatrixVisualizer {
 		row: number,
 		col: number,
 	): StateMatrixCell {
-		const { cellSize, gridColor, cellColor, highlightColor, textColor, fontSize } = this.config;
+		const {
+			cellSize,
+			gridColor,
+			cellColor,
+			highlightColor,
+			textColor,
+			fontSize,
+		} = this.config;
 
 		const normalGraphics = new Graphics();
 		normalGraphics.rect(x - cellSize / 2, y - cellSize / 2, cellSize, cellSize);
@@ -107,7 +114,12 @@ export class StateMatrixVisualizer {
 		normalGraphics.alpha = 1;
 
 		const highlightGraphics = new Graphics();
-		highlightGraphics.rect(x - cellSize / 2, y - cellSize / 2, cellSize, cellSize);
+		highlightGraphics.rect(
+			x - cellSize / 2,
+			y - cellSize / 2,
+			cellSize,
+			cellSize,
+		);
 		highlightGraphics.fill({ color: highlightColor, alpha: 0.9 });
 		highlightGraphics.stroke({ color: gridColor, width: 2 });
 		highlightGraphics.alpha = 0;
@@ -208,7 +220,8 @@ export class StateMatrixVisualizer {
 
 	private gsapDelay(ms: number): Promise<void> {
 		return new Promise((resolve) => {
-			const speed = this.masterTimeline?.timeScale() ?? this.speedMultiplier ?? 1;
+			const speed =
+				this.masterTimeline?.timeScale() ?? this.speedMultiplier ?? 1;
 			const seconds = speed === 0 ? ms / 1000 : ms / 1000 / speed;
 			gsap.delayedCall(seconds, resolve);
 		});

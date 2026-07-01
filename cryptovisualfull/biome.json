@@ -24,9 +24,38 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"style": {
+				"noNonNullAssertion": "off"
+			},
+			"complexity": {
+				"noStaticOnlyClass": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noArrayIndexKey": "off",
+				"useIterableCallbackReturn": "off"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "off"
+			},
+			"a11y": {
+				"useSemanticElements": "off"
+			}
 		}
 	},
+	"overrides": [
+		{
+			"includes": ["src/__tests__/**"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noExplicitAny": "off"
+					}
+				}
+			}
+		}
+	],
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"

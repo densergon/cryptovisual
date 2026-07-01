@@ -182,9 +182,7 @@ self.onmessage = async (event: MessageEvent<CryptoRequest>) => {
 				);
 				const iv = AESEngine.hexToArrayBuffer(request.payload.iv);
 				const authTag = request.payload.authTag
-					? new Uint8Array(
-							AESEngine.hexToArrayBuffer(request.payload.authTag),
-						)
+					? new Uint8Array(AESEngine.hexToArrayBuffer(request.payload.authTag))
 					: undefined;
 
 				const result = await AESEngine.decrypt({

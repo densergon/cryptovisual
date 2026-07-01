@@ -74,6 +74,7 @@ export function TutorialTooltip() {
 			>
 				<div className="relative rounded-xl bg-surface-800 border border-surface-600 p-4 shadow-2xl max-w-xs">
 					<button
+						type="button"
 						onClick={closeTutorial}
 						className="absolute -top-2 -right-2 p-1 rounded-full bg-surface-700 text-surface-400 hover:text-white transition-colors"
 					>
@@ -86,6 +87,7 @@ export function TutorialTooltip() {
 
 					<div className="flex items-center justify-between">
 						<button
+							type="button"
 							onClick={prevStep}
 							disabled={currentStep === 0}
 							className="p-1 rounded text-surface-500 hover:text-white disabled:opacity-30"
@@ -96,6 +98,7 @@ export function TutorialTooltip() {
 							Step {currentStep + 1} of {steps.length}
 						</span>
 						<button
+							type="button"
 							onClick={
 								currentStep === steps.length - 1 ? closeTutorial : nextStep
 							}

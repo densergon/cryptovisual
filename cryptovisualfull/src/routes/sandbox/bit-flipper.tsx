@@ -64,8 +64,8 @@ function BitFlipperSandbox() {
 				if (!ctHex) throw new Error("AES encryption failed");
 
 				const ctBytes = new Uint8Array(
-				ctHex.match(/.{1,2}/g)?.map((byte) => parseInt(byte, 16)) ?? [],
-			);
+					ctHex.match(/.{1,2}/g)?.map((byte) => parseInt(byte, 16)) ?? [],
+				);
 
 				const bitFlipper = new BitFlipperScene(app, app.stage);
 				await bitFlipper.init(ctBytes);

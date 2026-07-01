@@ -74,7 +74,10 @@ export function KEMEnvelopeAnimation() {
 					<motion.div
 						animate={
 							phase === "sealing"
-								? { y: [0, -4, 0], transition: { repeat: Infinity, duration: 0.4 } }
+								? {
+										y: [0, -4, 0],
+										transition: { repeat: Infinity, duration: 0.4 },
+									}
 								: {}
 						}
 						className="flex h-14 w-14 items-center justify-center rounded-xl bg-hybrid-500/20"
@@ -153,8 +156,8 @@ export function KEMEnvelopeAnimation() {
 					</div>
 					<p className="text-[10px] text-surface-600 text-center">
 						RSA-OAEP expands the key from {aesKey.keyBytes.length}B to{" "}
-						{wrappedSessionKey.data.length}B ({wrapRatio.toFixed(1)}x
-						overhead). This is the price of asymmetric encryption.
+						{wrappedSessionKey.data.length}B ({wrapRatio.toFixed(1)}x overhead).
+						This is the price of asymmetric encryption.
 					</p>
 				</motion.div>
 			)}

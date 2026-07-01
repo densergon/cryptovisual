@@ -2,12 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Key } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { StepGuide } from "@/shared/components/StepGuide";
 import { PadlockMetaphor } from "@/shared/components/pedagogy/PadlockMetaphor";
 import { PrimeSearchTicker } from "@/shared/components/pedagogy/PrimeSearchTicker";
-import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
+import { StepGuide } from "@/shared/components/StepGuide";
 import { useCanvas } from "@/shared/providers/CanvasProvider";
 import { useCryptoWorker } from "@/shared/providers/CryptoWorkerProvider";
+import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
 import { useWizard } from "@/state/wizard-provider";
 import { KeygenVisualizer } from "@/visualization/scenes";
 
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/handshake/step-1")({
 	component: Step1Keygen,
 });
 
-	function Step1Keygen() {
+function Step1Keygen() {
 	const { engine } = useCanvas();
 	const worker = useCryptoWorker();
 	const keygenSceneRef = useRef<KeygenVisualizer | null>(null);
@@ -77,7 +77,8 @@ export const Route = createFileRoute("/handshake/step-1")({
 				keygenSceneRef.current.play();
 			}
 		} catch (err) {
-			const message = err instanceof Error ? err.message : "Key generation failed";
+			const message =
+				err instanceof Error ? err.message : "Key generation failed";
 			setError(message);
 			console.error("Key generation failed:", err);
 		} finally {
@@ -124,16 +125,18 @@ export const Route = createFileRoute("/handshake/step-1")({
 
 			<p className="mb-6 text-surface-400 leading-relaxed">
 				The secure handshake begins by generating an asymmetric RSA key pair.
-				Think of this as creating your unique identity on the web: a public
-				key that the world uses to send you secret messages, and a private key
-				that you keep guarded to unlock them.
+				Think of this as creating your unique identity on the web: a public key
+				that the world uses to send you secret messages, and a private key that
+				you keep guarded to unlock them.
 			</p>
 
 			<div className="mb-6 grid grid-cols-2 gap-4">
 				<div className="col-span-2 rounded-lg border border-surface-700/50 bg-transparent h-64 relative overflow-hidden backdrop-zinc-900/20">
 					{!isGenerating && !keyData && (
 						<div className="absolute inset-0 flex items-center justify-center">
-							<p className="text-xs text-surface-600">Click "Generate Keys" to start the animation</p>
+							<p className="text-xs text-surface-600">
+								Click "Generate Keys" to start the animation
+							</p>
 						</div>
 					)}
 				</div>
@@ -147,9 +150,7 @@ export const Route = createFileRoute("/handshake/step-1")({
 
 			{isPedagogyMode && <PadlockMetaphor />}
 
-			{isPedagogyMode && (
-				<PrimeSearchTicker isGenerating={isGenerating} />
-			)}
+			{isPedagogyMode && <PrimeSearchTicker isGenerating={isGenerating} />}
 
 			<div className="mb-6 flex flex-wrap items-center gap-3">
 				<div className="flex items-center gap-2">
@@ -159,7 +160,9 @@ export const Route = createFileRoute("/handshake/step-1")({
 					<select
 						id="key-size-select"
 						value={keySize}
-						onChange={(e) => setKeySize(Number(e.target.value) as 1024 | 2048 | 4096)}
+						onChange={(e) =>
+							setKeySize(Number(e.target.value) as 1024 | 2048 | 4096)
+						}
 						disabled={isGenerating || !!keyData}
 						className="rounded-lg border border-surface-700 bg-surface-900 px-3 py-2.5 text-sm text-surface-200 focus:border-asymmetric-500 focus:outline-none focus:ring-1 focus:ring-asymmetric-500 disabled:opacity-50 disabled:cursor-not-allowed"
 					>
@@ -168,15 +171,19 @@ export const Route = createFileRoute("/handshake/step-1")({
 					</select>
 				</div>
 				<button
+					type="button"
 					id="keygen-button"
 					onClick={handleGenerateKeys}
 					disabled={isGenerating}
 					className="rounded-lg bg-asymmetric-600 px-6 py-2.5 font-medium text-white hover:bg-asymmetric-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 				>
-					{isGenerating ? "Searching for massive prime numbers..." : "Generate Keys"}
+					{isGenerating
+						? "Searching for massive prime numbers..."
+						: "Generate Keys"}
 				</button>
 				{keyData && (
 					<button
+						type="button"
 						onClick={goNext}
 						className="rounded-lg bg-surface-700 px-6 py-2.5 font-medium text-white hover:bg-surface-600 transition-colors"
 					>

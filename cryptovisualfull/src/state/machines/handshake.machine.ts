@@ -53,16 +53,19 @@ export type HandshakeEvent =
 	| { type: "GO_TO"; step: HandshakeStep }
 	| {
 			type: "RESTORE";
-			state: Partial<Pick<HandshakeContext,
-				| "currentStep"
-				| "completedSteps"
-				| "plaintext"
-				| "rsaKeyPair"
-				| "aesKey"
-				| "ciphertext"
-				| "wrappedSessionKey"
-			>>;
-		}
+			state: Partial<
+				Pick<
+					HandshakeContext,
+					| "currentStep"
+					| "completedSteps"
+					| "plaintext"
+					| "rsaKeyPair"
+					| "aesKey"
+					| "ciphertext"
+					| "wrappedSessionKey"
+				>
+			>;
+	  }
 	| { type: "SET_RSA_KEYPAIR"; keyPair: HandshakeContext["rsaKeyPair"] }
 	| { type: "SET_AES_KEY"; key: HandshakeContext["aesKey"] }
 	| { type: "SET_CIPHERTEXT"; ciphertext: HandshakeContext["ciphertext"] }

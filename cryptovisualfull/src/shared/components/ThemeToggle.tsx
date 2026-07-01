@@ -6,6 +6,7 @@ export function ThemeToggle() {
 
 	return (
 		<button
+			type="button"
 			onClick={toggleTheme}
 			className="flex items-center gap-2 rounded-full bg-surface-800 border border-surface-700 px-3 py-1.5 text-xs font-medium text-surface-400 hover:text-white transition-all active:scale-95"
 		>

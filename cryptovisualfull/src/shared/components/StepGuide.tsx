@@ -31,14 +31,18 @@ export function StepGuide({ sections, autoOpen }: StepGuideProps) {
 		if (isOpen) return;
 		try {
 			localStorage.setItem(GUIDE_DISMISSED_KEY, "true");
-		} catch { /* noop */ }
+		} catch {
+			/* noop */
+		}
 	}, [autoOpen, isOpen]);
 
 	const handleClose = () => {
 		setIsOpen(false);
 		try {
 			localStorage.setItem(GUIDE_DISMISSED_KEY, "true");
-		} catch { /* noop */ }
+		} catch {
+			/* noop */
+		}
 	};
 
 	return (

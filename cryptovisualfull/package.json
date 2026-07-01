@@ -16,7 +16,8 @@
     "budget": "bash scripts/check-budget.sh",
     "pipeline": "pnpm typecheck && pnpm check && pnpm test",
     "demo:recording": "node scripts/demo-recording.mjs",
-    "demo:screenshots": "node scripts/demo-recording.mjs"
+    "demo:screenshots": "node scripts/demo-recording.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -53,6 +54,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
+    "husky": "^9.1.7",
     "jsdom": "^28.1.0",
     "playwright": "^1.61.1",
     "typescript": "^6.0.2",

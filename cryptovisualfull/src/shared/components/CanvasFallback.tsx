@@ -81,6 +81,7 @@ export function CanvasFallback({ type, onRetry }: CanvasFallbackProps) {
 			{onRetry && (
 				<div className="absolute bottom-2 right-2 z-10">
 					<button
+						type="button"
 						onClick={onRetry}
 						className="px-3 py-1.5 text-xs rounded bg-surface-700 text-surface-300 hover:bg-surface-600 transition-colors"
 					>

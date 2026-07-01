@@ -1,18 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
+import gsap from "gsap";
 import { Grid3x3, Play, RotateCcw } from "lucide-react";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 import { AESEngine, AESVisualEngine } from "../crypto-engine";
-import { useWizard } from "../state/wizard-provider";
 import { LiveRegion } from "../shared/components/LiveRegion";
-import { StepGuide } from "../shared/components/StepGuide";
 import { ConfusionDiffusionLegend } from "../shared/components/pedagogy/ConfusionDiffusionLegend";
 import { OperationLegend } from "../shared/components/pedagogy/OperationLegend";
-import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
+import { StepGuide } from "../shared/components/StepGuide";
 import { useAnimationSpeed } from "../shared/providers/AnimationSpeedProvider";
 import { useCanvas } from "../shared/providers/CanvasProvider";
 import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
+import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
+import { useWizard } from "../state/wizard-provider";
 import { StateMatrixVisualizer } from "../visualization/scenes/state-matrix-scene";
 
 function AESCipherContent() {
@@ -45,9 +45,7 @@ function AESCipherContent() {
 			const ciphertextBytes = new Uint8Array(
 				AESEngine.hexToArrayBuffer(aesResult.ciphertext),
 			);
-			const ivBytes = new Uint8Array(
-				AESEngine.hexToArrayBuffer(aesResult.iv),
-			);
+			const ivBytes = new Uint8Array(AESEngine.hexToArrayBuffer(aesResult.iv));
 			const authTagBytes = aesResult.authTag
 				? new Uint8Array(AESEngine.hexToArrayBuffer(aesResult.authTag))
 				: undefined;
@@ -103,7 +101,9 @@ function AESCipherContent() {
 			setCurrentOperation("AddRoundKey: Binding the state to the secret key");
 			state = await visualizer.animateAddRoundKey(state, keyUint8);
 
-			setCurrentOperation("Avalanche Effect: See how 1 bit flip changes everything");
+			setCurrentOperation(
+				"Avalanche Effect: See how 1 bit flip changes everything",
+			);
 			const flippedPlain = new Uint8Array(plainBytes);
 			flippedPlain[0] ^= 0x01;
 
@@ -127,7 +127,9 @@ function AESCipherContent() {
 					orig.addRoundKeyState.match(/.{1,2}/g)!.map((h) => parseInt(h, 16)),
 				);
 				flippedFinal = new Uint8Array(
-					flipped.addRoundKeyState.match(/.{1,2}/g)!.map((h) => parseInt(h, 16)),
+					flipped.addRoundKeyState
+						.match(/.{1,2}/g)!
+						.map((h) => parseInt(h, 16)),
 				);
 			} catch (e) {
 				console.warn("AESRoundOutputs not available:", e);
@@ -264,14 +266,20 @@ function AESCipherContent() {
 					<h3 className="font-semibold text-white">AES State Matrix</h3>
 					<div className="flex gap-2">
 						<button
+							type="button"
 							onClick={runAESAnimation}
 							disabled={isAnimating || !aesKey}
 							className="flex items-center gap-2 rounded-md bg-symmetric-600 px-4 py-2 text-sm font-medium text-white hover:bg-symmetric-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 						>
 							<Play size={16} />
-							{isAnimating ? "Animating..." : !aesKey ? "Generate key in Step 2 first" : "Play Animation"}
+							{isAnimating
+								? "Animating..."
+								: !aesKey
+									? "Generate key in Step 2 first"
+									: "Play Animation"}
 						</button>
 						<button
+							type="button"
 							onClick={runKeyExpansionAnimation}
 							disabled={isAnimating || !aesKey}
 							className="flex items-center gap-2 rounded-md bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -281,6 +289,7 @@ function AESCipherContent() {
 						</button>
 						{(isAnimating || currentOperation) && (
 							<button
+								type="button"
 								onClick={() => {
 									visualizerRef.current?.pause();
 									setCurrentOperation("");
@@ -349,19 +358,16 @@ function AESCipherContent() {
 
 			{authTagHex && (
 				<div className="mt-4 rounded-lg border border-cyan-700/50 bg-cyan-950/20 p-4">
-					<h4 className="text-sm font-semibold text-cyan-400">
-						GCM Auth Tag
-					</h4>
+					<h4 className="text-sm font-semibold text-cyan-400">GCM Auth Tag</h4>
 					<p className="mt-1 break-all font-mono text-xs text-cyan-300">
 						{authTagHex}
 					</p>
 					<p className="mt-2 text-xs text-surface-500">
 						AES operates in GCM mode: this 16-byte authentication tag is
 						computed alongside encryption using GHASH (Galois field
-						multiplication). It guarantees integrity — any ciphertext
-						tampering causes the tag to mismatch, and step 6 rejects the
-						decryption. You can test this with "Simulate Tampered Packet"
-						in step 6.
+						multiplication). It guarantees integrity — any ciphertext tampering
+						causes the tag to mismatch, and step 6 rejects the decryption. You
+						can test this with "Simulate Tampered Packet" in step 6.
 					</p>
 				</div>
 			)}

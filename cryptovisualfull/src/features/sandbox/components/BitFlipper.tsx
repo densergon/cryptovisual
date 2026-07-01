@@ -296,6 +296,7 @@ export function BitFlipper() {
 						<div className="grid grid-cols-4 gap-2">
 							{Array.from(ciphertext).map((byte, i) => (
 								<button
+									type="button"
 									key={i}
 									onClick={() => toggleBit(i)}
 									className={`p-1 text-[10px] font-mono rounded border transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${

@@ -8,16 +8,16 @@ import {
 } from "@/features/wizard/components";
 import { useWizardKeyboard } from "@/features/wizard/hooks/use-wizard-keyboard";
 import { FPSCounter } from "@/shared/components/FPSCounter";
+import { PedagogyToggle } from "@/shared/components/pedagogy/PedagogyToggle";
 import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
 import {
 	AnimationSpeedProvider,
 	useAnimationSpeed,
 } from "@/shared/providers/AnimationSpeedProvider";
 import { CanvasProvider, useCanvas } from "@/shared/providers/CanvasProvider";
-import { useWizard, WizardProvider } from "@/state/wizard-provider";
-import { STEP_LABELS } from "@/state/machines/handshake.machine";
-import { PedagogyToggle } from "@/shared/components/pedagogy/PedagogyToggle";
 import { PedagogyModeProvider } from "@/shared/providers/PedagogyModeProvider";
+import { STEP_LABELS } from "@/state/machines/handshake.machine";
+import { useWizard, WizardProvider } from "@/state/wizard-provider";
 
 export const Route = createFileRoute("/handshake")({
 	component: HandshakeWrapper,
@@ -165,7 +165,10 @@ function HandshakeLayout() {
 									initial={{ opacity: 0, y: 12 }}
 									animate={{ opacity: 1, y: 0 }}
 									exit={{ opacity: 0, y: -12 }}
-									transition={{ duration: reduced ? 0 : 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+									transition={{
+										duration: reduced ? 0 : 0.25,
+										ease: [0.25, 0.1, 0.25, 1],
+									}}
 									className="pointer-events-auto"
 								>
 									<Outlet />

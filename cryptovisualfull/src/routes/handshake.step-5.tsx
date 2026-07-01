@@ -6,12 +6,12 @@ import { useWizard } from "@/state/wizard-provider";
 import type { WebSocketMessage } from "../services/websocket.service";
 import { websocketService } from "../services/websocket.service";
 import { LiveRegion } from "../shared/components/LiveRegion";
-import { StepGuide } from "../shared/components/StepGuide";
 import { HandshakeTicker } from "../shared/components/pedagogy/HandshakeTicker";
 import { PacketTooltip } from "../shared/components/pedagogy/PacketTooltip";
-import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
+import { StepGuide } from "../shared/components/StepGuide";
 import { useAnimationSpeed } from "../shared/providers/AnimationSpeedProvider";
 import { useCanvas } from "../shared/providers/CanvasProvider";
+import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
 import { WireScene } from "../visualization/scenes/wire-scene";
 
 export const Route = createFileRoute("/handshake/step-5")({
@@ -198,10 +198,10 @@ function Step5WireSimulation() {
 			</div>
 
 			<p className="mb-6 text-surface-400 leading-relaxed">
-				The encrypted payload is transmitted across a simulated network wire.
-				By sending the hybrid envelope, we ensure that even if a malicious
-				actor intercepts the packets, they only see an unbreakable RSA lock
-				and a scrambled AES stream.
+				The encrypted payload is transmitted across a simulated network wire. By
+				sending the hybrid envelope, we ensure that even if a malicious actor
+				intercepts the packets, they only see an unbreakable RSA lock and a
+				scrambled AES stream.
 			</p>
 
 			<div className="mb-4 flex items-center gap-2">
@@ -237,6 +237,7 @@ function Step5WireSimulation() {
 
 			<div className="mb-6 flex items-center gap-4">
 				<button
+					type="button"
 					onClick={runWireSimulation}
 					disabled={
 						isAnimating || !rsaKeyPair || !wrappedSessionKey || !ciphertext
@@ -249,6 +250,7 @@ function Step5WireSimulation() {
 
 				{isAnimating && (
 					<button
+						type="button"
 						onClick={handleReset}
 						className="flex items-center gap-2 rounded-lg bg-surface-700 px-4 py-2 text-sm font-medium text-white hover:bg-surface-600 transition-colors"
 					>

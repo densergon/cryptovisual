@@ -3,11 +3,11 @@ import { useActor } from "@xstate/react";
 import {
 	createContext,
 	type ReactNode,
+	useCallback,
 	useContext,
 	useEffect,
 	useRef,
 	useState,
-	useCallback,
 } from "react";
 import {
 	type HandshakeContext,

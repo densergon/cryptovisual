@@ -1,5 +1,4 @@
 type Listener<T = unknown> = (payload: T) => void;
-type EventMap = Record<string, Listener | Listener[]>;
 
 interface NodeEventEmitter {
 	listeners(eventName: string | symbol): Listener[];
@@ -7,27 +6,16 @@ interface NodeEventEmitter {
 	emit(eventName: string | symbol, ...args: unknown[]): boolean;
 	on(eventName: string | symbol, listener: Listener): this;
 	once(eventName: string | symbol, listener: Listener): this;
-	off(
-		eventName: string | symbol,
-		listener: Listener,
-	): this;
-	removeListener(
-		eventName: string | symbol,
-		listener: Listener,
-	): this;
+	off(eventName: string | symbol, listener: Listener): this;
+	removeListener(eventName: string | symbol, listener: Listener): this;
 	removeAllListeners(event?: string | symbol): this;
-	prependListener(
-		eventName: string | symbol,
-		listener: Listener,
-	): this;
-	prependOnceListener(
-		eventName: string | symbol,
-		listener: Listener,
-	): this;
+	prependListener(eventName: string | symbol, listener: Listener): this;
+	prependOnceListener(eventName: string | symbol, listener: Listener): this;
 }
 
 class EventEmitter implements NodeEventEmitter {
 	private _events: Map<string | symbol, Listener[]> = new Map();
+	private _listenerMap: WeakMap<Listener, Listener> = new WeakMap();
 
 	private _getListeners(eventName: string | symbol): Listener[] {
 		return this._events.get(eventName) ?? [];
@@ -46,7 +34,7 @@ class EventEmitter implements NodeEventEmitter {
 		if (listeners.length === 0) return false;
 		for (const listener of listeners) {
 			try {
-				listener(...args);
+				listener.call(this, args[0] as Parameters<typeof listener>[0]);
 			} catch (err) {
 				console.error(
 					`[EventEmitter] listener for "${String(eventName)}" threw:`,
@@ -65,11 +53,11 @@ class EventEmitter implements NodeEventEmitter {
 	}
 
 	once(eventName: string | symbol, listener: Listener): this {
-		const wrapped: Listener = (...args: unknown[]) => {
+		const wrapped: Listener = (payload: Parameters<Listener>[0]) => {
 			this.off(eventName, wrapped);
-			listener(...args);
+			listener(payload);
 		};
-		wrapped.listener = listener;
+		this._listenerMap.set(wrapped, listener);
 		return this.on(eventName, wrapped);
 	}
 
@@ -108,11 +96,11 @@ class EventEmitter implements NodeEventEmitter {
 	}
 
 	prependOnceListener(eventName: string | symbol, listener: Listener): this {
-		const wrapped: Listener = (...args: unknown[]) => {
+		const wrapped: Listener = (payload: Parameters<Listener>[0]) => {
 			this.off(eventName, wrapped);
-			listener(...args);
+			listener(payload);
 		};
-		wrapped.listener = listener;
+		this._listenerMap.set(wrapped, listener);
 		return this.prependListener(eventName, wrapped);
 	}
 
