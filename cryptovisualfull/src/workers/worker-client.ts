@@ -158,11 +158,11 @@ export class CryptoWorkerClient {
 		throw new Error("Unexpected response type");
 	}
 
-	async decryptAES(keyBytes: string, ciphertext: string, iv: string) {
+	async decryptAES(keyBytes: string, ciphertext: string, iv: string, authTag?: string) {
 		const response = await this.sendRequest({
 			type: "AES_DECRYPT_REQUEST",
 			requestId: this.generateId(),
-			payload: { keyBytes, ciphertext, iv },
+			payload: { keyBytes, ciphertext, iv, authTag },
 		});
 
 		if (response.type === "AES_DECRYPT_RESPONSE") {

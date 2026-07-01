@@ -15,11 +15,12 @@ export const Route = createFileRoute("/handshake/step-1")({
 	component: Step1Keygen,
 });
 
-function Step1Keygen() {
+	function Step1Keygen() {
 	const { engine } = useCanvas();
 	const worker = useCryptoWorker();
 	const keygenSceneRef = useRef<KeygenVisualizer | null>(null);
 	const [isGenerating, setIsGenerating] = useState(false);
+	const [keySize, setKeySize] = useState<1024 | 2048 | 4096>(2048);
 	const { goNext, rsaKeyPair, send } = useWizard();
 	const { isPedagogyMode } = usePedagogyMode();
 	const [keyData, setKeyData] = useState<{
@@ -59,7 +60,7 @@ function Step1Keygen() {
 		setIsGenerating(true);
 		try {
 			if (!worker) throw new Error("Crypto worker not ready");
-			const result = await worker.generateRSAKeyPair(2048);
+			const result = await worker.generateRSAKeyPair(keySize);
 			if (!result.publicKey || !result.privateKey)
 				throw new Error("Key generation failed");
 			setKeyData(result);
@@ -135,7 +136,22 @@ function Step1Keygen() {
 				<PrimeSearchTicker isGenerating={isGenerating} />
 			)}
 
-			<div className="mb-6 flex gap-3">
+			<div className="mb-6 flex flex-wrap items-center gap-3">
+				<div className="flex items-center gap-2">
+					<label htmlFor="key-size-select" className="text-xs text-surface-400">
+						RSA Key Size:
+					</label>
+					<select
+						id="key-size-select"
+						value={keySize}
+						onChange={(e) => setKeySize(Number(e.target.value) as 1024 | 2048 | 4096)}
+						disabled={isGenerating || !!keyData}
+						className="rounded-lg border border-surface-700 bg-surface-900 px-3 py-2.5 text-sm text-surface-200 focus:border-asymmetric-500 focus:outline-none focus:ring-1 focus:ring-asymmetric-500 disabled:opacity-50 disabled:cursor-not-allowed"
+					>
+						<option value={2048}>2048 bits (standard)</option>
+						<option value={4096}>4096 bits (high security, ~4x slower)</option>
+					</select>
+				</div>
 				<button
 					id="keygen-button"
 					onClick={handleGenerateKeys}

@@ -166,12 +166,10 @@ function Step2SessionKey() {
 
 			{isPedagogyMode && <WhyAESBox />}
 
-			{isPedagogyMode && (
-				<PerformanceComparison
-					rsaDurationMs={rsaKeyPair?.durationMs}
-					aesDurationMs={keyDuration}
-				/>
-			)}
+			<PerformanceComparison
+				rsaDurationMs={rsaKeyPair?.durationMs}
+				aesDurationMs={keyDuration}
+			/>
 
 			<div className="mb-6 flex gap-3">
 				<button

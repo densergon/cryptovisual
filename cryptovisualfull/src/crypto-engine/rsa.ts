@@ -238,13 +238,25 @@ export class AESEngine {
 		const start = performance.now();
 
 		try {
+			const authTag = params.authTag;
+			const decryptData = authTag
+				? (() => {
+						const combined = new Uint8Array(
+							params.encryptedData.length + authTag.length,
+						);
+						combined.set(params.encryptedData);
+						combined.set(authTag, params.encryptedData.length);
+						return combined;
+					})()
+				: params.encryptedData;
+
 			const decrypted = await crypto.subtle.decrypt(
 				{
 					name: "AES-GCM",
 					iv: params.iv as any,
 				},
 				params.key,
-				params.encryptedData as any,
+				decryptData as any,
 			);
 
 			return {

@@ -61,6 +61,7 @@ export interface AESDecryptParams {
 	encryptedData: Uint8Array;
 	key: CryptoKey;
 	iv: Uint8Array;
+	authTag?: Uint8Array;
 }
 
 export interface CryptoResult<T> {

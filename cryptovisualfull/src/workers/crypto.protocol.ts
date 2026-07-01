@@ -110,6 +110,7 @@ export interface AESDecryptRequest {
 		keyBytes: string;
 		ciphertext: string;
 		iv: string;
+		authTag?: string;
 	};
 }
 

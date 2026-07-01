@@ -188,7 +188,7 @@ function Step5WireSimulation() {
 								},
 								{
 									title: "Perfect Forward Secrecy",
-									body: "In modern TLS, ephemeral key exchange ensures that even if the server's private key is compromised later, past sessions remain secure. This simulation demonstrates the core RSA key transport mechanism.",
+									body: "In this simulation, RSA directly encrypts the AES key (RSA key transport). Real TLS 1.3 uses ephemeral Diffie-Hellman (ECDHE) for forward secrecy, ensuring past sessions stay secure even if the private key is later compromised.",
 								},
 							]}
 						/>

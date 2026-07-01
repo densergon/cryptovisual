@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Loader2, Unlock } from "lucide-react";
+import { AlertTriangle, Loader2, Unlock } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useWizard } from "../state/wizard-provider";
 import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
 import { Celebration } from "../shared/components/Celebration";
@@ -22,6 +22,8 @@ function Step6Decrypt() {
 	const [decryptedText, setDecryptedText] = useState<string | null>(null);
 	const [unwrapDuration, setUnwrapDuration] = useState<number | undefined>();
 	const [aesDuration, setAesDuration] = useState<number | undefined>();
+	const [tampered, setTampered] = useState(false);
+	const attemptedRef = useRef(false);
 
 	const uint8ArrayToHex = (arr: Uint8Array) =>
 		Array.from(arr)
@@ -34,10 +36,11 @@ function Step6Decrypt() {
 			!wrappedSessionKey ||
 			!ciphertext ||
 			!worker ||
-			decryptedText ||
-			isDecrypting
+			attemptedRef.current
 		)
 			return;
+
+		attemptedRef.current = true;
 
 		const doDecrypt = async () => {
 			setIsDecrypting(true);
@@ -49,12 +52,23 @@ function Step6Decrypt() {
 				);
 				setUnwrapDuration(unwrapResult.durationMs);
 
-				const ciphertextHex = uint8ArrayToHex(ciphertext.data);
+				const authTagHex = ciphertext.authTag
+					? uint8ArrayToHex(ciphertext.authTag)
+					: undefined;
+				let ciphertextHex = uint8ArrayToHex(ciphertext.data);
+
+				if (tampered && ciphertext.data.length > 0) {
+					const flipped = new Uint8Array(ciphertext.data);
+					flipped[0] ^= 0x01;
+					ciphertextHex = uint8ArrayToHex(flipped);
+				}
+
 				const ivHex = uint8ArrayToHex(ciphertext.iv);
 				const decryptResult = await worker.decryptAES(
 					unwrapResult.decryptedData,
 					ciphertextHex,
 					ivHex,
+					authTagHex,
 				);
 				setAesDuration(decryptResult.durationMs);
 				setDecryptedText(decryptResult.decryptedData);
@@ -67,7 +81,7 @@ function Step6Decrypt() {
 		};
 
 		doDecrypt();
-	}, [rsaKeyPair, wrappedSessionKey, ciphertext, worker, decryptedText, isDecrypting]);
+	}, [rsaKeyPair, wrappedSessionKey, ciphertext, worker, tampered]);
 
 	return (
 		<motion.div
@@ -153,6 +167,50 @@ function Step6Decrypt() {
 						</pre>
 					</div>
 				</div>
+			</div>
+
+			{tampered && (
+				<div className="mt-4 rounded-lg border border-red-500/40 bg-surface-950/60 backdrop-blur-sm p-4">
+					<div className="flex items-center gap-2 mb-2">
+						<AlertTriangle size={18} className="text-red-400" />
+						<span className="text-sm font-semibold text-red-400">
+							Integrity Check Failed
+						</span>
+					</div>
+					<p className="text-sm text-surface-400">
+						The ciphertext was altered during transmission. GCM authentication
+						tag verification detected the tampering and rejected the decryption.
+						This demonstrates why authenticated encryption (GCM) is essential
+						over non-authenticated modes like ECB or CBC.
+					</p>
+				</div>
+			)}
+
+			<div className="mt-4 flex gap-3">
+				<button
+					onClick={() => {
+						attemptedRef.current = false;
+						setDecryptedText(null);
+						setUnwrapDuration(undefined);
+						setAesDuration(undefined);
+						setTampered(false);
+					}}
+					className="rounded-lg bg-symmetric-600 px-6 py-2.5 font-medium text-white hover:bg-symmetric-500 transition-colors text-sm"
+				>
+					Retry Decryption
+				</button>
+				<button
+					onClick={() => {
+						attemptedRef.current = false;
+						setDecryptedText(null);
+						setUnwrapDuration(undefined);
+						setAesDuration(undefined);
+						setTampered(true);
+					}}
+					className="rounded-lg bg-red-700 px-6 py-2.5 font-medium text-white hover:bg-red-600 transition-colors text-sm"
+				>
+					Simulate Tampered Packet
+				</button>
 			</div>
 
 			<p className="mt-6 text-sm text-surface-500">

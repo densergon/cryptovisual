@@ -98,6 +98,14 @@ export function WizardProvider({ children }: { children: ReactNode }) {
 	}, [doRestore]);
 
 	useEffect(() => {
+		const handler = () => {
+			sessionStorage.removeItem("cv_wizard_state");
+		};
+		window.addEventListener("beforeunload", handler);
+		return () => window.removeEventListener("beforeunload", handler);
+	}, []);
+
+	useEffect(() => {
 		if (!restorationComplete) return;
 		navigate({ to: STEP_ROUTES[currentStep] });
 	}, [currentStep, navigate, restorationComplete]);

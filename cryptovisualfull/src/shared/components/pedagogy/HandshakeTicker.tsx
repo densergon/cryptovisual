@@ -4,7 +4,7 @@ import { usePedagogyMode } from "../../providers/PedagogyModeProvider";
 const TICKER_EVENTS: Record<string, string> = {
   "Negotiating Cipher Suites...": "ClientHello → ServerHello: negotiating TLS version, cipher suites, and compression methods",
   "Verifying Server Certificate...": "ServerCertificate → CertificateVerify: server presents its X.509 certificate chain for validation",
-  "Establishing Secure Channel...": "KeyExchange → ChangeCipherSpec: ephemeral Diffie-Hellman parameters exchanged, encryption enabled",
+  "Establishing Secure Channel...": "KeyExchange → ChangeCipherSpec: RSA key transport sends encrypted AES key; real TLS 1.3 uses ECDHE for forward secrecy",
   "Sending wrapped session key...": "ClientKeyExchange: the RSA-wrapped AES session key is transmitted under the server's public key",
   "Sending encrypted payload...": "ApplicationData: all subsequent traffic is encrypted with AES-256-GCM using the negotiated session key",
   "Inspecting packet structure...": "Record Layer: each TLS record is framed with content type, version, length, and payload",

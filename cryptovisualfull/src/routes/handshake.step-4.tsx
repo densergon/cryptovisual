@@ -105,6 +105,10 @@ function Step4HybridEnvelope() {
 									title: "The Digital Envelope",
 									body: 'Imagine the ciphertext as a secure "Box" and the RSA-encrypted session key as the "Envelope" taped to the top. The recipient uses their Private Key to open the envelope, finds the AES key, and uses it to unlock the box.',
 								},
+								{
+									title: "RSA-OAEP vs Signing",
+									body: "This step uses RSA-OAEP (Optimal Asymmetric Encryption Padding) to encrypt the AES key — a 'key encapsulation' mechanism. RSA can also sign messages (prove authorship) using RSASSA-PKCS1-v1_5, which is mathematically distinct: encryption uses the public key to hide data, signing uses the private key to create a verifiable tag. Many protocols use both: encrypt with OAEP, sign with PSS.",
+								},
 							]}
 						/>
 					</div>

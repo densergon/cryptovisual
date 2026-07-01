@@ -22,6 +22,7 @@ function AESCipherContent() {
 	const visualizerRef = useRef<StateMatrixVisualizer | null>(null);
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [currentOperation, setCurrentOperation] = useState<string>("");
+	const [authTagHex, setAuthTagHex] = useState<string | null>(null);
 	const { isPedagogyMode } = usePedagogyMode();
 
 	const runAESAnimation = async () => {
@@ -29,6 +30,7 @@ function AESCipherContent() {
 		if (!aesKey) return;
 
 		setIsAnimating(true);
+		setAuthTagHex(null);
 		const visualizer = visualizerRef.current;
 		visualizer.speedMultiplier = speed;
 
@@ -38,6 +40,7 @@ function AESCipherContent() {
 				.map((b) => b.toString(16).padStart(2, "0"))
 				.join("");
 			const aesResult = await worker.encryptAES(keyHex, plaintext);
+			setAuthTagHex(aesResult.authTag ?? null);
 			const ciphertextBytes = new Uint8Array(
 				AESEngine.hexToArrayBuffer(aesResult.ciphertext),
 			);
@@ -56,9 +59,9 @@ function AESCipherContent() {
 					durationMs: aesResult.durationMs,
 				},
 			});
-
 			const plainBytes = new TextEncoder().encode(plaintext).slice(0, 16);
-			const keyUint8 = aesKey.keyBytes.slice(0, 16);
+
+			const keyUint8 = aesKey.keyBytes.slice(0, 32);
 
 			const sBox = new Uint8Array([
 				0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b,
@@ -337,6 +340,25 @@ function AESCipherContent() {
 					</p>
 				</div>
 			</div>
+
+			{authTagHex && (
+				<div className="mt-4 rounded-lg border border-cyan-700/50 bg-cyan-950/20 p-4">
+					<h4 className="text-sm font-semibold text-cyan-400">
+						GCM Auth Tag
+					</h4>
+					<p className="mt-1 break-all font-mono text-xs text-cyan-300">
+						{authTagHex}
+					</p>
+					<p className="mt-2 text-xs text-surface-500">
+						AES operates in GCM mode: this 16-byte authentication tag is
+						computed alongside encryption using GHASH (Galois field
+						multiplication). It guarantees integrity — any ciphertext
+						tampering causes the tag to mismatch, and step 6 rejects the
+						decryption. You can test this with "Simulate Tampered Packet"
+						in step 6.
+					</p>
+				</div>
+			)}
 
 			<p className="mt-6 text-sm text-surface-500">
 				AES-256 uses 14 rounds of substitution-permutation operations for strong
