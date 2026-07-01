@@ -7,6 +7,9 @@ import type { WebSocketMessage } from "../services/websocket.service";
 import { websocketService } from "../services/websocket.service";
 import { LiveRegion } from "../shared/components/LiveRegion";
 import { StepGuide } from "../shared/components/StepGuide";
+import { HandshakeTicker } from "../shared/components/pedagogy/HandshakeTicker";
+import { PacketTooltip } from "../shared/components/pedagogy/PacketTooltip";
+import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
 import { useAnimationSpeed } from "../shared/providers/AnimationSpeedProvider";
 import { useCanvas } from "../shared/providers/CanvasProvider";
 import { WireScene } from "../visualization/scenes/wire-scene";
@@ -25,6 +28,7 @@ function Step5WireSimulation() {
 	const [connectionStatus, setConnectionStatus] = useState<
 		"disconnected" | "connecting" | "connected"
 	>("disconnected");
+	const { isPedagogyMode } = usePedagogyMode();
 
 	useEffect(() => {
 		if (!engine) return;
@@ -218,6 +222,8 @@ function Step5WireSimulation() {
 				</span>
 			</div>
 
+			<HandshakeTicker currentPacket={currentPacket} />
+
 			<div className="relative mb-6 rounded-lg border border-surface-700 bg-surface-900 overflow-hidden h-64">
 				{currentPacket && (
 					<div className="absolute bottom-4 left-4 right-4 z-10 rounded bg-surface-800/90 px-4 py-2">
@@ -255,33 +261,39 @@ function Step5WireSimulation() {
 				<h3 className="mb-3 font-semibold text-white">
 					Hybrid Packet Structure
 				</h3>
-				<div className="space-y-3">
-					<div className="flex items-center gap-3">
-						<div className="h-2 w-2 rounded-full bg-blue-500" />
-						<span className="text-sm text-surface-400">
-							<span className="font-mono text-blue-400">HEADER</span> - Packet
-							metadata (32 bytes)
-						</span>
+				{isPedagogyMode ? (
+					<PacketTooltip />
+				) : (
+					<div className="space-y-3">
+						<div className="flex items-center gap-3">
+							<div className="h-2 w-2 rounded-full bg-blue-500" />
+							<span className="text-sm text-surface-400">
+								<span className="font-mono text-blue-400">HEADER</span> - Packet
+								metadata (32 bytes)
+							</span>
+						</div>
+						<div className="flex items-center gap-3">
+							<div className="h-2 w-2 rounded-full bg-amber-500" />
+							<span className="text-sm text-surface-400">
+								<span className="font-mono text-amber-400">
+									RSA_WRAPPED_KEY
+								</span>{" "}
+								- AES key encrypted with RSA (
+								{wrappedSessionKey?.data.length ?? 256} bytes)
+							</span>
+						</div>
+						<div className="flex items-center gap-3">
+							<div className="h-2 w-2 rounded-full bg-emerald-500" />
+							<span className="text-sm text-surface-400">
+								<span className="font-mono text-emerald-400">
+									AES_ENCRYPTED_PAYLOAD
+								</span>{" "}
+								- Message encrypted with AES (
+								{ciphertext?.data.length ?? "variable"} bytes)
+							</span>
+						</div>
 					</div>
-					<div className="flex items-center gap-3">
-						<div className="h-2 w-2 rounded-full bg-amber-500" />
-						<span className="text-sm text-surface-400">
-							<span className="font-mono text-amber-400">RSA_WRAPPED_KEY</span>{" "}
-							- AES key encrypted with RSA (
-							{wrappedSessionKey?.data.length ?? 256} bytes)
-						</span>
-					</div>
-					<div className="flex items-center gap-3">
-						<div className="h-2 w-2 rounded-full bg-emerald-500" />
-						<span className="text-sm text-surface-400">
-							<span className="font-mono text-emerald-400">
-								AES_ENCRYPTED_PAYLOAD
-							</span>{" "}
-							- Message encrypted with AES (
-							{ciphertext?.data.length ?? "variable"} bytes)
-						</span>
-					</div>
-				</div>
+				)}
 			</div>
 
 			<p className="mt-6 text-sm text-surface-500">

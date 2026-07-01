@@ -135,6 +135,7 @@ export class StateMatrixVisualizer {
 	}
 
 	highlightCell(row: number, col: number, duration: number = 0.3): void {
+		if (!this.cells[row]?.[col]) return;
 		const cell = this.cells[row][col];
 		const { highlightColor, cellSize, gridColor } = this.config;
 		const cx = this.getCenterX(row, col);

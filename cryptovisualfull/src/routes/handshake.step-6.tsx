@@ -1,14 +1,74 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Unlock } from "lucide-react";
+import { Loader2, Unlock } from "lucide-react";
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { useWizard } from "../state/wizard-provider";
+import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
 import { Celebration } from "../shared/components/Celebration";
 import { StepGuide } from "../shared/components/StepGuide";
+import { KeyMatchGlow } from "../shared/components/pedagogy/KeyMatchGlow";
+import { TwoStepUnlock } from "../shared/components/pedagogy/TwoStepUnlock";
+import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
 
 export const Route = createFileRoute("/handshake/step-6")({
 	component: Step6Decrypt,
 });
 
 function Step6Decrypt() {
+	const { rsaKeyPair, wrappedSessionKey, ciphertext } = useWizard();
+	const worker = useCryptoWorker();
+	const { isPedagogyMode } = usePedagogyMode();
+	const [isDecrypting, setIsDecrypting] = useState(false);
+	const [decryptedText, setDecryptedText] = useState<string | null>(null);
+	const [unwrapDuration, setUnwrapDuration] = useState<number | undefined>();
+	const [aesDuration, setAesDuration] = useState<number | undefined>();
+
+	const uint8ArrayToHex = (arr: Uint8Array) =>
+		Array.from(arr)
+			.map((b) => b.toString(16).padStart(2, "0"))
+			.join("");
+
+	useEffect(() => {
+		if (
+			!rsaKeyPair ||
+			!wrappedSessionKey ||
+			!ciphertext ||
+			!worker ||
+			decryptedText ||
+			isDecrypting
+		)
+			return;
+
+		const doDecrypt = async () => {
+			setIsDecrypting(true);
+			try {
+				const wrappedKeyHex = uint8ArrayToHex(wrappedSessionKey.data);
+				const unwrapResult = await worker.decryptRSA(
+					rsaKeyPair.privateKey,
+					wrappedKeyHex,
+				);
+				setUnwrapDuration(unwrapResult.durationMs);
+
+				const ciphertextHex = uint8ArrayToHex(ciphertext.data);
+				const ivHex = uint8ArrayToHex(ciphertext.iv);
+				const decryptResult = await worker.decryptAES(
+					unwrapResult.decryptedData,
+					ciphertextHex,
+					ivHex,
+				);
+				setAesDuration(decryptResult.durationMs);
+				setDecryptedText(decryptResult.decryptedData);
+			} catch (error) {
+				console.error("Decryption failed:", error);
+				setDecryptedText("[decryption failed]");
+			} finally {
+				setIsDecrypting(false);
+			}
+		};
+
+		doDecrypt();
+	}, [rsaKeyPair, wrappedSessionKey, ciphertext, worker, decryptedText, isDecrypting]);
+
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -39,10 +99,20 @@ function Step6Decrypt() {
 					<p className="text-sm text-surface-500">Step 6 of 6</p>
 				</div>
 			</div>
-			<div id="decrypt-button" className="mb-6 flex items-center gap-3">
-				{/* Logical anchor for tutorial */}
-				<div className="h-1 w-1 bg-transparent" />
-			</div>
+
+			{isDecrypting && (
+				<div className="mb-6 flex items-center gap-3 rounded-lg border border-asymmetric-500/30 bg-surface-900 p-4">
+					<Loader2 size={18} className="animate-spin text-asymmetric-400" />
+					<span className="text-sm text-surface-300">
+						Unwrapping envelope and decrypting payload...
+					</span>
+				</div>
+			)}
+
+			{isPedagogyMode && decryptedText && <TwoStepUnlock />}
+
+			{isPedagogyMode && decryptedText && <KeyMatchGlow />}
+
 			<p className="mb-6 text-surface-400 leading-relaxed">
 				The recipient uses their RSA private key to unwrap the digital envelope
 				and recover the AES session key. With the key in hand, the payload is
@@ -54,18 +124,22 @@ function Step6Decrypt() {
 				<div className="space-y-3">
 					<div className="rounded bg-surface-800 p-3">
 						<span className="text-xs text-asymmetric-500">
-							1. Unwrap Envelope
+							1. Unwrap Envelope (RSA)
 						</span>
 						<p className="mt-1 text-sm text-surface-400">
-							RSA private key decrypts the session key
+							{unwrapDuration != null
+								? `RSA private key decrypted the session key in ${unwrapDuration.toFixed(1)}ms`
+								: "RSA private key decrypts the session key"}
 						</p>
 					</div>
 					<div className="rounded bg-surface-800 p-3">
 						<span className="text-xs text-symmetric-500">
-							2. Decrypt Message
+							2. Decrypt Message (AES)
 						</span>
 						<p className="mt-1 text-sm text-surface-400">
-							AES session key decrypts the payload
+							{aesDuration != null
+								? `AES session key decrypted the payload in ${aesDuration.toFixed(1)}ms`
+								: "AES session key decrypts the payload"}
 						</p>
 					</div>
 					<div className="rounded bg-surface-800 p-3">
@@ -73,7 +147,9 @@ function Step6Decrypt() {
 							3. Integrity Verified: Message Authentic
 						</span>
 						<pre className="mt-1 text-sm text-surface-300 font-mono">
-							Hello, CryptoVisual!
+							{isDecrypting
+								? "Decrypting..."
+								: decryptedText ?? "Hello, CryptoVisual!"}
 						</pre>
 					</div>
 				</div>

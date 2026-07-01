@@ -177,14 +177,19 @@ Button: "Key Schedule" → AES-256 key expansion (15 round keys).
 |---|---|
 | **Color** | Gold (`hybrid-400`) |
 | **Icon** | `Combine` (lucide-react) |
-| **Interactions** | None — purely informational step |
+| **Interactions** | Auto-wraps AES key with RSA-OAEP on mount |
 
-No user-triggered animation. The canvas scene displays the hybrid envelope concept visually (placeholder hex data shown).
+On mount, the component executes two real crypto operations via the Web Worker:
+1. **RSA wrapping**: `worker.encryptRSA(publicKey, aesKeyHex)` — wraps the AES session key from step 2 using RSA-2048 public key
+2. **AES encrypt**: `worker.encryptAES(aesKeyHex, "Hello, CryptoVisual!")` — re-encrypts the payload so the same AES key is used throughout
+Real hex data and timing are shown instead of placeholders.
 
 **DOM structure:**
+- Loading indicator while RSA wrapping is in progress
 - "Digital Envelope" box with two sections:
-  1. "Wrapped Session Key (RSA Encrypted)" — `0xB8 0x2A 0xF4 0x1C 0x9D 0xE3 ...`
-  2. "AES-Encrypted Payload (The Box)" — `0x7E 0x1B 0xA3 0xCC 0x59 0xF8 ...`
+  1. "Wrapped Key (RSA Encrypted)" — real wrapped key bytes + RSA wrap timing
+  2. "AES-Encrypted Payload (The Box)" — placeholder hex
+- **Pedagogy mode**: `KEMEnvelopeAnimation` — interactive 3-phase seal animation; `EnvelopeWithTooltip` with real hex
 
 **Screenshot:** `screenshots/09-step4-hybrid-envelope.png`
 
@@ -231,9 +236,11 @@ No user-triggered animation. The canvas scene displays the hybrid envelope conce
 | **Special component** | `<Celebration />` — confetti/completion animation |
 
 **Decryption Flow (3 steps):**
-1. **Unwrap Envelope** — "RSA private key decrypts the session key"
-2. **Decrypt Message** — "AES session key decrypts the payload"
-3. **Integrity Verified: Message Authentic** — `Hello, CryptoVisual!`
+1. **Unwrap Envelope (RSA)** — `worker.decryptRSA()` real RSA-2048 decryption, shows timing
+2. **Decrypt Message (AES)** — `worker.decryptAES()` using recovered key, shows timing
+3. **Integrity Verified: Message Authentic** — real decrypted plaintext from actual crypto flow
+
+On mount, the component auto-executes the full decryption chain. Previously hardcoded `Hello, CryptoVisual!` is now the result of real RSA unwrap + AES decrypt operations.
 
 "Complete" button is disabled (end of wizard, no further steps).
 
@@ -302,18 +309,18 @@ init() → play() → pause() → destroy()
 - **Intended:** The beautiful particle animation appears to be a portfolio showcase piece, but it's invisible in practice.
 - **Needs:** Either remove the auto-redirect and let users click "Start the Experience", or delay the redirect until animation completes.
 
-### Issue #4 — AES highlightCell Out-of-Bounds Error (LOW)
-- **Location:** `src/visualization/scenes/state-matrix-scene.ts:106` (called from line 277 in `animateAvalancheEffect`)
+### Issue #4 — AES highlightCell Out-of-Bounds Error (LOW) — **FIXED**
+- **Location:** `src/visualization/scenes/state-matrix-scene.ts:137`
 - **Error:** `Cannot read properties of undefined (reading '0')` during avalanche effect comparison.
 - **Impact:** AES animation sequence fails silently on the final phase (avalanche effect). Previous phases (SubBytes, ShiftRows, MixColumns, AddRoundKey) complete normally, then avalanche throws.
 - **Root cause:** The avalanche comparison access `state[i + 16]` which is out-of-bounds for a 16-byte state (4×4 matrix = 16 cells). The comparison matrix is only 16 bytes wide.
-- **Needs:** Fix array indexing in `animateAvalancheEffect` to properly compare two 16-byte states.
+- **Fix applied:** Added bounds guard `if (!this.cells[row]?.[col]) return;` at the top of `highlightCell()` to prevent array access on undefined cells.
 
-### Issue #5 — Missing Crypto State for Step 5 (MEDIUM)
-- **Location:** `src/routes/handshake.step-3.tsx` and `src/routes/handshake.step-4.tsx`
-- **Behavior:** Step 5's "Start Transmission" button requires `wrappedSessionKey` and `ciphertext` in wizard XState context, but steps 3 and 4 do not fire `SET_CIPHERTEXT` or `SET_WRAPPED_KEY` events.
-- **Impact:** Even when step 5 loads successfully, the wire simulation cannot be started.
-- **Needs:** Step 3 should persist ciphertext, and step 4 (or a background step) should wrap the AES key with RSA and persist it via `SET_WRAPPED_KEY`.
+### Issue #5 — Missing Crypto State for Step 5 (MEDIUM) — **FIXED**
+- **Location:** `src/routes/handshake.step-4.tsx`
+- **Behavior:** Step 5's "Start Transmission" button requires `wrappedSessionKey` and `ciphertext` in wizard XState context, but steps 3 and 4 did not fire `SET_CIPHERTEXT` or `SET_WRAPPED_KEY` events.
+- **Impact:** Even when step 5 loads successfully, the wire simulation could not be started.
+- **Fix applied:** Step 4 now auto-executes real RSA wrapping (`worker.encryptRSA()`) on mount and dispatches `SET_WRAPPED_KEY`. It also re-encrypts the payload with the step-2 AES key and dispatches `SET_CIPHERTEXT`. Both state fields are now populated when step 5 loads. Step 6 also auto-decrypts using the real RSA unwrap + AES decrypt chain.
 
 ---
 

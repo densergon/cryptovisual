@@ -15,6 +15,8 @@ import {
 } from "@/shared/providers/AnimationSpeedProvider";
 import { CanvasProvider, useCanvas } from "@/shared/providers/CanvasProvider";
 import { useWizard, WizardProvider } from "@/state/wizard-provider";
+import { PedagogyToggle } from "@/shared/components/pedagogy/PedagogyToggle";
+import { PedagogyModeProvider } from "@/shared/providers/PedagogyModeProvider";
 
 export const Route = createFileRoute("/handshake")({
 	component: HandshakeWrapper,
@@ -22,13 +24,15 @@ export const Route = createFileRoute("/handshake")({
 
 function HandshakeWrapper() {
 	return (
-		<WizardProvider>
-			<AnimationSpeedProvider>
-				<CanvasProvider>
-					<HandshakeLayout />
-				</CanvasProvider>
-			</AnimationSpeedProvider>
-		</WizardProvider>
+		<PedagogyModeProvider>
+			<WizardProvider>
+				<AnimationSpeedProvider>
+					<CanvasProvider>
+						<HandshakeLayout />
+					</CanvasProvider>
+				</AnimationSpeedProvider>
+			</WizardProvider>
+		</PedagogyModeProvider>
 	);
 }
 
@@ -89,6 +93,7 @@ function HandshakeLayout() {
 						</div>
 					</div>
 					<div className="flex items-center gap-4">
+						<PedagogyToggle />
 						<div className="flex items-center gap-2">
 							<span className="text-xs text-surface-500">
 								{reduced ? "0x" : `${speed.toFixed(1)}x`}

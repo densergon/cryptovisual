@@ -103,6 +103,11 @@ export function WizardProvider({ children }: { children: ReactNode }) {
 			return value;
 		});
 		sessionStorage.setItem("cv_wizard_state", serialized);
+		if (process.env.NODE_ENV === "development") {
+			console.warn(
+				"⚠️ Wizard state (including key material) persisted to sessionStorage. For educational purposes only.",
+			);
+		}
 	}, [snapshot.context]);
 
 	const value: WizardContextValue = {

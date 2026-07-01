@@ -3,6 +3,9 @@ import { KeyRound } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { StepGuide } from "@/shared/components/StepGuide";
+import { PerformanceComparison } from "@/shared/components/pedagogy/PerformanceComparison";
+import { WhyAESBox } from "@/shared/components/pedagogy/WhyAESBox";
+import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
 import { useCanvas } from "@/shared/providers/CanvasProvider";
 import { useCryptoWorker } from "@/shared/providers/CryptoWorkerProvider";
 import { useWizard } from "@/state/wizard-provider";
@@ -17,7 +20,9 @@ function Step2SessionKey() {
 	const worker = useCryptoWorker();
 	const bitStreamSceneRef = useRef<BitStreamVisualizer | null>(null);
 	const [isGenerating, setIsGenerating] = useState(false);
-	const { goNext, aesKey, send } = useWizard();
+	const [keyDuration, setKeyDuration] = useState<number | undefined>();
+	const { goNext, aesKey, rsaKeyPair, send } = useWizard();
+	const { isPedagogyMode } = usePedagogyMode();
 
 	const arrayToHex = (arr: Uint8Array) =>
 		Array.from(arr)
@@ -75,6 +80,7 @@ function Step2SessionKey() {
 			if (!result.keyBytes || !result.iv)
 				throw new Error("Key generation failed");
 			setKeyData(result);
+			setKeyDuration(result.durationMs);
 			send({
 				type: "SET_AES_KEY",
 				key: {
@@ -144,6 +150,15 @@ function Step2SessionKey() {
 					{/* Transparent overlay for the shared background canvas */}
 				</div>
 			</div>
+
+			{isPedagogyMode && <WhyAESBox />}
+
+			{isPedagogyMode && (
+				<PerformanceComparison
+					rsaDurationMs={rsaKeyPair?.durationMs}
+					aesDurationMs={keyDuration}
+				/>
+			)}
 
 			<div className="mb-6 flex gap-3">
 				<button

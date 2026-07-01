@@ -6,6 +6,9 @@ import { AESEngine, AESVisualEngine } from "../crypto-engine";
 import { useWizard } from "../state/wizard-provider";
 import { LiveRegion } from "../shared/components/LiveRegion";
 import { StepGuide } from "../shared/components/StepGuide";
+import { ConfusionDiffusionLegend } from "../shared/components/pedagogy/ConfusionDiffusionLegend";
+import { OperationLegend } from "../shared/components/pedagogy/OperationLegend";
+import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
 import { useAnimationSpeed } from "../shared/providers/AnimationSpeedProvider";
 import { useCanvas } from "../shared/providers/CanvasProvider";
 import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
@@ -19,6 +22,7 @@ function AESCipherContent() {
 	const visualizerRef = useRef<StateMatrixVisualizer | null>(null);
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [currentOperation, setCurrentOperation] = useState<string>("");
+	const { isPedagogyMode } = usePedagogyMode();
 
 	const runAESAnimation = async () => {
 		if (!visualizerRef.current || !engine || isAnimating) return;
@@ -254,6 +258,8 @@ function AESCipherContent() {
 				indistinguishable from random noise.
 			</p>
 
+			{isPedagogyMode && <ConfusionDiffusionLegend />}
+
 			<div className="rounded-lg border border-surface-700 bg-surface-900 p-6">
 				<div className="mb-4 flex items-center justify-between">
 					<h3 className="font-semibold text-white">AES State Matrix</h3>
@@ -299,6 +305,7 @@ function AESCipherContent() {
 							</p>
 						</div>
 					)}
+					<OperationLegend currentOperation={currentOperation} />
 				</div>
 			</div>
 

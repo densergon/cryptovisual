@@ -3,6 +3,9 @@ import { Key } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { StepGuide } from "@/shared/components/StepGuide";
+import { PadlockMetaphor } from "@/shared/components/pedagogy/PadlockMetaphor";
+import { PrimeSearchTicker } from "@/shared/components/pedagogy/PrimeSearchTicker";
+import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
 import { useCanvas } from "@/shared/providers/CanvasProvider";
 import { useCryptoWorker } from "@/shared/providers/CryptoWorkerProvider";
 import { useWizard } from "@/state/wizard-provider";
@@ -18,6 +21,7 @@ function Step1Keygen() {
 	const keygenSceneRef = useRef<KeygenVisualizer | null>(null);
 	const [isGenerating, setIsGenerating] = useState(false);
 	const { goNext, rsaKeyPair, send } = useWizard();
+	const { isPedagogyMode } = usePedagogyMode();
 	const [keyData, setKeyData] = useState<{
 		publicKey?: JsonWebKey;
 		privateKey?: JsonWebKey;
@@ -123,6 +127,12 @@ function Step1Keygen() {
 					{/* Transparent overlay for the shared background canvas */}
 				</div>
 			</div>
+
+			{isPedagogyMode && <PadlockMetaphor />}
+
+			{isPedagogyMode && (
+				<PrimeSearchTicker isGenerating={isGenerating} />
+			)}
 
 			<div className="mb-6 flex gap-3">
 				<button
