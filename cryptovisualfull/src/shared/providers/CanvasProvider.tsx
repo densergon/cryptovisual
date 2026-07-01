@@ -31,12 +31,15 @@ export function CanvasProvider({ children }: CanvasProviderProps) {
 		canvasRef.current.appendChild(containerElement);
 
 		const vizEngine = new VisualizationEngine(containerElement);
-		let initCompleted = false;
+		let cancelled = false;
 
 		const init = async () => {
 			try {
 				await vizEngine.init();
-				initCompleted = true;
+				if (cancelled) {
+					vizEngine.destroy();
+					return;
+				}
 				setEngine(vizEngine);
 			} catch (error) {
 				console.error("Failed to initialize VisualizationEngine:", error);
@@ -46,9 +49,8 @@ export function CanvasProvider({ children }: CanvasProviderProps) {
 		init();
 
 		return () => {
-			if (initCompleted) {
-				vizEngine.destroy();
-			}
+			cancelled = true;
+			vizEngine.destroy();
 			if (canvasRef.current) {
 				canvasRef.current.innerHTML = "";
 			}

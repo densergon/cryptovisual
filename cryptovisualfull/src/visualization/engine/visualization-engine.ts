@@ -56,6 +56,15 @@ export class VisualizationEngine {
 		this.setupResizeHandler();
 		this.setupFPSCounter();
 		this.setupBreakpointObserver();
+
+		// Drive GSAP from PixiJS ticker so GSAP-animated PixiJS
+		// properties are updated before each render frame
+		gsap.ticker.remove(gsap.updateRoot);
+		this.app.ticker.add(() => {
+			gsap.updateRoot(Date.now() / 1000);
+		});
+
+		this.masterTimeline.clear();
 		this.masterTimeline.play();
 	}
 
@@ -154,7 +163,7 @@ export class VisualizationEngine {
 			});
 		}
 
-		this.masterTimeline.kill();
+		this.masterTimeline.clear();
 		if (!this.app.stage) return;
 		while (this.app.stage.children.length > 0) {
 			this.app.stage.removeChildAt(0);
