@@ -44,6 +44,8 @@ export class VisualizationEngine {
 	}
 
 	async init(): Promise<void> {
+		if (this.destroyed) return;
+
 		await this.app.init({
 			resizeTo: window,
 			backgroundColor: 0x0a0a0f,
@@ -52,13 +54,16 @@ export class VisualizationEngine {
 			autoDensity: true,
 		});
 
+		if (this.destroyed) {
+			this.app.destroy({ removeView: true }, { children: true, texture: true });
+			return;
+		}
+
 		this.container.appendChild(this.app.canvas);
 		this.setupResizeHandler();
 		this.setupFPSCounter();
 		this.setupBreakpointObserver();
 
-		// Drive GSAP from PixiJS ticker so GSAP-animated PixiJS
-		// properties are updated before each render frame
 		gsap.ticker.remove(gsap.updateRoot);
 		this.app.ticker.add(() => {
 			gsap.updateRoot(Date.now() / 1000);

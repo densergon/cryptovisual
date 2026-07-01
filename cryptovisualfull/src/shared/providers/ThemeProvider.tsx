@@ -11,9 +11,8 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 function getInitialTheme(): Theme {
-	if (typeof window !== "undefined") {
-		return (localStorage.getItem("cv_theme") as Theme) || "deep-space";
-	}
+	// Always use "deep-space" as the initial theme for SSR hydration consistency.
+	// The useEffect will sync with localStorage after mount to prevent hydration mismatch.
 	return "deep-space";
 }
 
@@ -21,16 +20,26 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
 	useEffect(() => {
-		localStorage.setItem("cv_theme", theme);
+		const stored = localStorage.getItem("cv_theme") as Theme | null;
+		if (stored && stored !== theme) {
+			setTheme(stored);
+		}
 		document.documentElement.classList.remove(
 			"theme-deep-space",
 			"theme-entropy",
 		);
-		document.documentElement.classList.add(`theme-${theme}`);
-	}, [theme]);
+		document.documentElement.classList.add(`theme-${stored || theme}`);
+	}, []); // Only run once on mount to sync with localStorage
 
 	const toggleTheme = () => {
-		setTheme((prev) => (prev === "deep-space" ? "entropy" : "deep-space"));
+		const next = theme === "deep-space" ? "entropy" : "deep-space";
+		localStorage.setItem("cv_theme", next);
+		document.documentElement.classList.remove(
+			"theme-deep-space",
+			"theme-entropy",
+		);
+		document.documentElement.classList.add(`theme-${next}`);
+		setTheme(next);
 	};
 
 	return (
