@@ -177,16 +177,17 @@ function Step2SessionKey() {
 				</div>
 			)}
 
-			{isPedagogyMode && showPredict && sessionPrompt && (
-				<PredictPrompt
-					prompt={sessionPrompt}
-					onReveal={() => {}}
-					onDismiss={() => setShowPredict(false)}
-				/>
-			)}
-
-			<div className="mb-6 rounded-lg border border-symmetric-500/20 bg-surface-950/40 h-64 relative overflow-hidden">
-				{!isGenerating && !keyData && (
+			<div className="mb-6 rounded-lg border border-symmetric-500/20 bg-surface-950/40 min-h-64 relative overflow-hidden">
+				{isPedagogyMode && showPredict && sessionPrompt && (
+					<div className="absolute inset-0 z-20 bg-surface-950/90 backdrop-blur-sm flex items-center justify-center p-4">
+						<PredictPrompt
+							prompt={sessionPrompt}
+							onReveal={() => {}}
+							onDismiss={() => setShowPredict(false)}
+						/>
+					</div>
+				)}
+				{!isGenerating && !keyData && !showPredict && (
 					<div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
 						<div className="h-12 w-12 rounded-full border-2 border-dashed border-surface-700 flex items-center justify-center">
 							<KeyRound size={20} className="text-surface-600" />

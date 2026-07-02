@@ -29,25 +29,21 @@ export function PredictPrompt({
 			animate={{ opacity: 1, y: 0 }}
 			exit={{ opacity: 0, y: -8 }}
 			transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-			className="mb-6 rounded-lg border border-hybrid-500/30 bg-surface-950/80 backdrop-blur-sm p-5"
+			className="rounded-lg border border-hybrid-500/30 bg-surface-950/95 backdrop-blur-sm p-3"
 			role="region"
 			aria-label="Predict and reveal"
 		>
 			{!isAnswered ? (
 				<>
-					<div className="mb-1 flex items-center gap-2">
+					<div className="mb-2 flex items-center gap-2">
 						<span className="text-[10px] font-semibold uppercase tracking-wider text-hybrid-400">
 							Predict
 						</span>
-						<span className="text-[10px] text-surface-600">|</span>
-						<span className="text-[10px] text-surface-500">
-							Test your understanding before the animation
-						</span>
 					</div>
-					<p className="mb-4 text-sm font-medium text-surface-200">
+					<p className="mb-3 text-sm font-medium text-surface-200 leading-snug">
 						{prompt.question}
 					</p>
-					<div className="space-y-2">
+					<div className="space-y-1.5">
 						{prompt.choices.map((choice, i) => (
 							<button
 								key={i}
@@ -58,9 +54,9 @@ export function PredictPrompt({
 										onReveal();
 									}
 								}}
-								className="w-full rounded-lg border border-surface-700 bg-surface-900 px-4 py-2.5 text-left text-sm text-surface-300 transition-colors hover:border-hybrid-500/50 hover:bg-surface-800 hover:text-surface-200"
+								className="w-full rounded-lg border border-surface-700 bg-surface-900/80 px-3 py-1.5 text-left text-xs text-surface-300 transition-colors hover:border-hybrid-500/50 hover:bg-surface-800 hover:text-surface-200"
 							>
-								<span className="mr-3 text-xs text-surface-600">
+								<span className="mr-2 text-[10px] text-surface-600">
 									{String.fromCharCode(65 + i)}
 								</span>
 								{choice}
@@ -73,7 +69,7 @@ export function PredictPrompt({
 							skip();
 							onReveal();
 						}}
-						className="mt-3 text-xs text-surface-600 transition-colors hover:text-surface-400"
+						className="mt-2 text-[10px] text-surface-600 transition-colors hover:text-surface-400"
 					>
 						Skip — show me the answer
 					</button>
@@ -87,7 +83,7 @@ export function PredictPrompt({
 					</div>
 					{!wasSkipped && selectedIndex !== null && (
 						<div
-							className={`mb-3 rounded-lg px-4 py-2 text-sm font-medium ${
+							className={`mb-2 rounded-lg px-3 py-1.5 text-xs font-medium ${
 								isCorrect
 									? "bg-success/10 text-success ring-1 ring-success/30"
 									: "bg-red-500/10 text-red-400 ring-1 ring-red-500/30"
@@ -96,13 +92,13 @@ export function PredictPrompt({
 							{isCorrect ? "Correct!" : "Not quite — here's why"}
 						</div>
 					)}
-					<div className="rounded-lg bg-surface-900/80 p-4">
-						<p className="text-sm text-surface-200">{prompt.explanation}</p>
-						<div className="mt-3 flex items-center gap-2 rounded-md bg-hybrid-500/10 px-3 py-2">
-							<span className="text-[10px] font-medium uppercase tracking-wider text-hybrid-400">
+					<div className="rounded-lg bg-surface-900/80 p-3">
+						<p className="text-xs text-surface-300 leading-relaxed">{prompt.explanation}</p>
+						<div className="mt-2 flex items-center gap-2 rounded-md bg-hybrid-500/10 px-2.5 py-1.5">
+							<span className="text-[9px] font-medium uppercase tracking-wider text-hybrid-400">
 								Watch:
 							</span>
-							<span className="text-xs text-surface-300">
+							<span className="text-[11px] text-surface-300">
 								{prompt.revealLabel}
 							</span>
 						</div>
@@ -113,7 +109,7 @@ export function PredictPrompt({
 							dismissReveal();
 							onDismiss();
 						}}
-						className="mt-3 text-xs text-surface-600 transition-colors hover:text-surface-400"
+						className="mt-2 text-[10px] text-surface-600 transition-colors hover:text-surface-400"
 					>
 						Dismiss
 					</button>

@@ -132,14 +132,6 @@ function Step6Decrypt() {
 				</div>
 			)}
 
-			{isPedagogyMode && showPredict && decryptPrompt && (
-				<PredictPrompt
-					prompt={decryptPrompt}
-					onReveal={() => {}}
-					onDismiss={() => setShowPredict(false)}
-				/>
-			)}
-
 			{isPedagogyMode && decryptedText && <TwoStepUnlock />}
 
 			{isPedagogyMode && decryptedText && <KeyMatchGlow />}
@@ -150,7 +142,16 @@ function Step6Decrypt() {
 				decrypted and the message's integrity is verified.
 			</p>
 
-			<div className="rounded-lg border border-surface-700/80 bg-surface-950/60 backdrop-blur-sm p-6">
+			<div className="rounded-lg border border-surface-700/80 bg-surface-950/60 backdrop-blur-sm p-6 relative overflow-hidden">
+				{isPedagogyMode && showPredict && decryptPrompt && (
+					<div className="absolute inset-0 z-20 bg-surface-950/90 backdrop-blur-sm flex items-center justify-center p-4">
+						<PredictPrompt
+							prompt={decryptPrompt}
+							onReveal={() => {}}
+							onDismiss={() => setShowPredict(false)}
+						/>
+					</div>
+				)}
 				<h3 className="mb-3 font-semibold text-white">Decryption Flow</h3>
 				<div className="space-y-3">
 					<div className="rounded bg-surface-800/60 p-3">

@@ -137,19 +137,20 @@ function Step1Keygen() {
 				you keep guarded to unlock them.
 			</p>
 
-			{isPedagogyMode && showPredict && keygenPrompt && (
-				<PredictPrompt
-					prompt={keygenPrompt}
-					onReveal={() => {}}
-					onDismiss={() => setShowPredict(false)}
-				/>
-			)}
-
 			{isPedagogyMode && showBruteForce && <BruteForcePanel />}
 
 			{!showBruteForce && (
-				<div className="mb-6 rounded-lg border border-asymmetric-500/20 bg-surface-950/40 h-64 relative overflow-hidden">
-					{!isGenerating && !keyData && (
+				<div className="mb-6 rounded-lg border border-asymmetric-500/20 bg-surface-950/40 min-h-64 relative overflow-hidden">
+					{isPedagogyMode && showPredict && keygenPrompt && (
+						<div className="absolute inset-0 z-20 bg-surface-950/90 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+							<PredictPrompt
+								prompt={keygenPrompt}
+								onReveal={() => {}}
+								onDismiss={() => setShowPredict(false)}
+							/>
+						</div>
+					)}
+					{!isGenerating && !keyData && !showPredict && (
 						<div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
 							<div className="h-12 w-12 rounded-full border-2 border-dashed border-surface-700 flex items-center justify-center">
 								<Key size={20} className="text-surface-600" />

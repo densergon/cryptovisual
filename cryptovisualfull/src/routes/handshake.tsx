@@ -138,12 +138,7 @@ function HandshakeLayout() {
 					</div>
 				</div>
 
-				<div className="border-t border-surface-800 px-6 py-2 text-center">
-					<p className="text-[10px] text-surface-600">
-						CryptoVisual is an educational tool. Not audited for production use.
-					</p>
-				</div>
-				<div className="flex-1 relative overflow-hidden">
+			<div className="flex-1 relative overflow-hidden">
 					<div
 						ref={canvasRef}
 						className="absolute inset-0 z-0 pointer-events-none"
@@ -161,7 +156,7 @@ function HandshakeLayout() {
 								{STEP_LABELS[currentStep]}
 							</span>
 						</div>
-						<div className="px-6 pb-6 md:px-10 md:pb-10">
+						<div className="px-6 md:px-10">
 							<AnimatePresence mode="wait">
 								<motion.div
 									key={currentStep}
@@ -177,6 +172,12 @@ function HandshakeLayout() {
 									<Outlet />
 								</motion.div>
 							</AnimatePresence>
+						</div>
+						<div className="px-6 md:px-10 pb-6 md:pb-10">
+							<p className="text-[10px] text-surface-600 leading-relaxed border-t border-surface-800/50 pt-3">
+								Educational demonstration only. Not audited for production
+								cryptographic use.
+							</p>
 						</div>
 					</div>
 				</div>

@@ -265,20 +265,21 @@ function AESCipherContent() {
 				indistinguishable from random noise.
 			</p>
 
-			{isPedagogyMode && showPredict && aesPrompt && (
-				<PredictPrompt
-					prompt={aesPrompt}
-					onReveal={() => {}}
-					onDismiss={() => setShowPredict(false)}
-				/>
-			)}
-
 			{isPedagogyMode && <ConfusionDiffusionLegend />}
 
 			<div
 				id="aes-grid-container"
-				className="rounded-lg border border-symmetric-500/20 bg-surface-950/40 p-6"
+				className="rounded-lg border border-symmetric-500/20 bg-surface-950/40 p-6 relative overflow-hidden"
 			>
+				{isPedagogyMode && showPredict && aesPrompt && (
+					<div className="absolute inset-0 z-20 bg-surface-950/90 backdrop-blur-sm flex items-center justify-center p-4">
+						<PredictPrompt
+							prompt={aesPrompt}
+							onReveal={() => {}}
+							onDismiss={() => setShowPredict(false)}
+						/>
+					</div>
+				)}
 				<div className="mb-4 flex items-center justify-between flex-wrap gap-3">
 					<h3 className="font-semibold text-white">AES State Matrix</h3>
 					<div className="flex gap-2 flex-wrap">
