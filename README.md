@@ -96,7 +96,7 @@ crypto/
 ## Sprint Status
 
 | Sprint | Status |
-|---|---|
+|---|---|---|
 | 1 — Stabilization | ✅ |
 | 2 — Wizard + Navigation | ✅ |
 | 3 — Feature Implementation | ✅ |
@@ -108,15 +108,17 @@ crypto/
 | 9 — Performance Core (Silky Runtime) | ✅ |
 | 10 — Interaction Polish (Responsive & Delightful) | ✅ |
 | 11 — Observability, Test Coverage & Education | ✅ |
-| 12 — Production Deployment & Portfolio Polish | ⬅️ In progress |
+| 12 — Production Deployment & Portfolio Polish | ✅ |
 | 13 — Visual Regression & Offline Support | ⬜ |
 | 14 — Portfolio Showcase & Case Study | ⬜ |
+| 15 — Pedagogical Enhancements | ⬅️ Planned |
 
 ## Documentation
 
 | Resource | Location |
 |---|---|
 | Implementation Plan | [docs/development/implementation-plan.md](docs/development/implementation-plan.md) |
+| Sprint 15 Plan — Pedagogical Enhancements | [docs/development/sprint-15-pedagogical-enhancements.md](docs/development/sprint-15-pedagogical-enhancements.md) |
 | Architecture Decisions | [docs/adr/](docs/adr/) |
 | Deployment Guide | [docs/deployment/production.md](docs/deployment/production.md) |
 | Backend Architecture | [cryptovisualback/docs/architecture.md](cryptovisualback/docs/architecture.md) |

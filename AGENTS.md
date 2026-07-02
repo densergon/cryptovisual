@@ -61,6 +61,7 @@ crypto/
 | Frontend agent rules | `cryptovisualfull/AGENTS.md` |
 | Backend agent rules | `cryptovisualback/AGENTS.md` |
 | Full implementation plan | `docs/development/implementation-plan.md` |
+| Sprint 15 plan | `docs/development/sprint-15-pedagogical-enhancements.md` |
 | Architecture decisions | `docs/adr/` |
 | Deployment guide | `docs/deployment/production.md` |
 | Visual audit report | `docs/visual-inspection/visual-inspection-report.md` |
@@ -85,6 +86,29 @@ crypto/
 - **Transient artifacts**: Never commit Playwright DOM dumps, scratch notes, or generated step snapshots to the repository.
 - **Portfolio docs**: Live in `docs/portfolio/` — authored marketing materials, not operational specs.
 
+## Pedagogic Mode (2026-07)
+
+- **Pedagogic mode is always ON** — the `PedagogyToggle` was removed (`PedagogyModeProvider` hardcodes `isPedagogyMode: true`). All pedagogy components (PadlockMetaphor, ConfusionDiffusionLegend, KEMEnvelopeAnimation, etc.) render unconditionally.
+- **Sprint 15 plan** for pedagogical enhancements is at `docs/development/sprint-15-pedagogical-enhancements.md`.
+
+## Canvas Animation Fixes (2026-07)
+
+### Root Cause: `resizeTo: window`
+PixiJS `Application` was initialized with `resizeTo: window`, making the canvas match the window instead of its container (`#viz-container`). The canvas rendered at window size but lived inside a smaller flex layout, causing all animations to render outside the visible area. Fixed in `visualization-engine.ts` by passing explicit `width`/`height` from the container's `getBoundingClientRect()`.
+
+### Resize Handler Guard
+Added `rect.width > 0 && rect.height > 0` guard in the `ResizeObserver` callback to prevent zero-dimension resizes during initialization.
+
+### AES Avalanche Effect Crash
+`resetCellHighlight` was missing the bounds guard (`if (!this.cells[row]?.[col]) return`) that `highlightCell` already had. Caused `Cannot read properties of undefined` during the avalanche effect phase. Fixed in `state-matrix-scene.ts:257`.
+
+## UI Polish (2026-07)
+
+- **Animation containers** (steps 1-5): Replaced plain `bg-transparent` borders with `bg-surface-950/40` + themed borders, icon placeholders with dashed rings, and loading indicators with pulsing dots.
+- **Step 3 AES container**: Cyan-themed border matching symmetric color scheme, responsive button wrapping, operation status with pulsing indicator.
+- **Step 5 wire sim**: Added placeholder state matching other steps, packet status with colored indicator dot.
+- **All steps**: Consistent `h-64` animation areas with themed border colors.
+
 ## Recent UX Improvements (2026-07)
 
 ### Landing Page
@@ -95,22 +119,22 @@ crypto/
 - **Particle animation**: Reduced trail opacity from 0.15→0.08 for cleaner visuals. Particle convergence speed increased 1.75x (0.02→0.035 per frame).
 
 ### Wizard Micro-Interactions
-- **Step 1 (Keygen)**: Error banner on crypto failure (red border). Canvas shows "Click 'Generate Keys' to start the animation" placeholder text. Key size dropdown (2048/4096) preserved.
-- **Step 2 (Session Key)**: Error banner on failure. `maxLength={256}` + character counter on plaintext input. Loading text: "Generating 256-bit session key..." (was generic "Generating..."). Canvas placeholder text added.
-- **Step 3 (AES Cipher)**: Replaced `setTimeout` with `gsap.delayedCall` for animation pacing (ADR-0006 compliance). Reset button always visible after animation completes, clears state on click.
-- **Step 6 (Decrypt)**: Replaced fragile `attemptedRef` with explicit `shouldDecrypt` state. `Celebration` mounts conditionally (only on success). Success glow ring animation on decrypted text. "Start Over" button navigates to step 1. Tampered state shows red "Integrity Check Failed" panel.
-- **Handshake layout**: AnimatePresence child now uses `position: absolute; inset: 0` to prevent layout shift during exit animation. Speed label shows "OFF" (not "0x") when reduced motion is active.
+- **Step 1 (Keygen)**: Error banner on crypto failure (red border). Canvas shows placeholder with icon. Key size dropdown (2048/4096) preserved.
+- **Step 2 (Session Key)**: Error banner on failure. `maxLength={256}` + character counter on plaintext input. Loading text: "Generating 256-bit session key..." Canvas placeholder with icon.
+- **Step 3 (AES Cipher)**: `gsap.delayedCall` for animation pacing (ADR-0006 compliance). Reset button destroys + recreates scene cleanly.
+- **Step 6 (Decrypt)**: Explicit `shouldDecrypt` state. `Celebration` mounts conditionally. Success glow ring. "Start Over" navigates to step 1. Tampered state shows red "Integrity Check Failed" panel.
+- **Handshake layout**: AnimatePresence with `position: absolute; inset: 0` prevents layout shift. Speed label shows "OFF" on reduced motion.
 
 ### Bug Fixes
-- **Animation rendering pipeline** — 3 root causes resolved (see commit `5f1c51e`): GSAP ticker synced to PixiJS render loop, `masterTimeline.clear()` replaces `kill()`, `cancelled` flag for async init race in Strict Mode.
-- **Documentation audit** — 26 transient artifacts deleted, docs reduced from ~74→47 files (36% reduction). Sprint7_planning.md moved to archive.
-- **Null canvas guard in `StateMatrixVisualizer.updateCenterPoint`** — `this.app.canvas` can be null when scroll/resize events fire during app teardown or before full PixiJS initialization. Added early return guard in `state-matrix-scene.ts:58`.
+- **Animation rendering pipeline** (commit `5f1c51e`): GSAP ticker synced to PixiJS render loop, `masterTimeline.clear()` replaces `kill()`, `cancelled` flag for async init race in Strict Mode.
+- **Documentation audit** — 26 transient artifacts deleted, docs reduced from ~74→47 files (36% reduction).
+- **Canvas sizing** (commit `d3cc4ff`): `resizeTo: window` → explicit container dimensions so animations render in the visible viewport.
 
 ### Cryptographic Audit (Playwright, 2026-07)
-- **RSA-2048 OAEP/SHA-256** — Verified correct: 34.70ms keygen, JWK format, 65537 exponent. Step 1.
-- **AES-256-GCM** — Verified correct: 32B key, 12B IV (NIST SP 800-38D), 16B auth tag. Step 2-3.
-- **Hybrid envelope** — RSA-wrapped key (256B=2048-bit) + AES ciphertext (20B). Step 4.
-- **Full round-trip** — "Hello, CryptoVisual!" decrypted successfully. RSA unwrap 0.5ms, AES decrypt 0.1ms. Step 6.
-- **Tamper detection** — GCM auth tag correctly rejects modified ciphertext with "Integrity Check Failed". Step 6.
-- **No secret leaks** — Private key JWK never logged to console. Zero-knowledge architecture maintained.
-- **Web Worker isolation** — All crypto ops run in worker, main thread never touches key material.
+- **RSA-2048 OAEP/SHA-256** — 25.90ms keygen, JWK format, 65537 exponent.
+- **AES-256-GCM** — 32B key, 12B IV (NIST SP 800-38D), 16B auth tag.
+- **Hybrid envelope** — RSA-wrapped key (256B) + AES ciphertext (20B).
+- **Full round-trip** — "Hello, CryptoVisual!" decrypted successfully. RSA unwrap 0.5ms, AES decrypt 0.1ms.
+- **Tamper detection** — GCM auth tag rejects modified ciphertext.
+- **No secret leaks** — Private key JWK never logged. Zero-knowledge maintained.
+- **All 63 tests pass**, lint clean, typecheck clean.
