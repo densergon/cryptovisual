@@ -81,6 +81,24 @@ feature-module-to-feature-module imports (use `@nestjs/event-emitter`)
 
 ---
 
+# Module Map
+
+```
+src/
+├── main.ts
+├── app.module.ts
+├── config/              ← @nestjs/config wrapper, env validation (class-validator)
+├── database/            ← PrismaClient lifecycle (singleton)
+├── common/              ← Guards, interceptors, decorators, shared interfaces
+├── auth/                ← API key validation, route guards
+├── session/             ← Ephemeral session tokens
+├── handshake/           ← Metadata exchange (POST /api/v1/handshake/*)
+├── public-key-directory/ ← Key registration & retrieval
+├── audit/               ← Append-only event logging
+├── metrics/             ← Performance telemetry ingestion
+└── websocket/           ← Native ws gateway, room management
+```
+
 # Module Rules
 
 Each module owns:
@@ -153,6 +171,17 @@ Never expose entities.
 Use `class-validator` + `class-transformer`. Discriminated unions for WebSocket messages.
 
 ---
+
+# Database (PostgreSQL via Prisma)
+
+| Table | Purpose | Retention |
+|---|---|---|
+| HandshakeSession | Ephemeral negotiation state | 24h TTL |
+| PublicKey | Public key material only | 24h TTL |
+| AuditLog | Append-only security events | 1 year |
+| PerformanceMetric | Crypto operation timings | 1 year |
+| PeerConnection | Simulated network topology | Session-bound |
+| HistoricalSession | Completed handshake archive | 1 year |
 
 # Database Rules
 
@@ -358,9 +387,14 @@ Do not guess.
 
 # WebSocket Gateway Rules
 
+* Native `ws` via `@nestjs/platform-ws` (no Socket.IO) on separate port 4001.
 * Single gateway instance (per process). Scale via separate processes behind load balancer.
+* Rooms map to "simulation networks" for peer-to-peer handshake coordination.
+* Aggressive ping/pong (15s) with forceful disconnect of stale connections.
+* Clients own reconnection with exponential backoff.
 * Peer map: `Map<peerId, { ws: WebSocket; connectedAt: Date; metadata: Record<string, unknown> }>`
 * Event emissions: `peer.connected`, `peer.disconnected`, `peer.key_exchange`, `peer.metadata_exchanged`.
 * Message routing: `sendTo(peerId, message)`, `broadcast(message)`.
 * Graceful shutdown: `onModuleDestroy` → close all sockets, emit `peer.disconnected`.
 * No persistent state in gateway — handshake state in `handshake` module (DB).
+* Redis Pub/Sub for horizontal scaling across processes (optional).

@@ -138,7 +138,7 @@ function HandshakeLayout() {
 					</div>
 				</div>
 
-			<div className="flex-1 relative overflow-hidden">
+				<div className="flex-1 relative overflow-hidden">
 					<div
 						ref={canvasRef}
 						className="absolute inset-0 z-0 pointer-events-none"

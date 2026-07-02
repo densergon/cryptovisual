@@ -17,32 +17,24 @@ CryptoVisual is an interactive educational tool for hybrid encryption (RSA + AES
 ```
 crypto/
 ├── AGENTS.md                 ← THIS FILE — central reference
-├── README.md                 ← Project overview, setup, sprint status
+├── README.md                 ← Project overview & quick start
 │
 ├── cryptovisualfull/         ← Frontend: TanStack Start + React 19 + PixiJS
-│   ├── AGENTS.md              ← Frontend-specific agent rules
-│   ├── README.md              ← Frontend setup guide
-│   └── docs/
-│       ├── README.md          ← Frontend doc index
-│       └── architecture.md    ← Frontend architecture detail
+│   ├── AGENTS.md              ← Frontend agent rules (incl. architecture, routes, state)
+│   └── README.md              ← Frontend setup guide
 │
 ├── cryptovisualback/         ← Backend: NestJS + Prisma + WebSocket
-│   ├── AGENTS.md              ← Backend-specific agent rules
+│   ├── AGENTS.md              ← Backend agent rules (incl. modules, DB, WS)
 │   ├── README.md              ← Backend setup guide
-│   ├── k6/README.md           ← WebSocket load testing
-│   └── docs/
-│       ├── README.md          ← Backend doc index
-│       └── architecture.md    ← Backend architecture detail
+│   └── k6/README.md           ← WebSocket load testing
 │
 └── docs/                     ← Cross-project documentation
-    ├── README.md              ← Central doc index (sprint status, links)
-    ├── adr/                   ← Architecture Decision Records (13 total)
-    │   ├── 0001-*.md to 0013-*.md
-    ├── archive/               ← Historical sprint reports & planning
+    ├── adr/                   ← Architecture Decision Records (13 total: 0001-0013)
+    ├── archive/               ← Historical sprint reports & archived plans
     ├── deployment/production.md
-    ├── development/implementation-plan.md
+    ├── development/           ← Active sprint plans (sprint-15)
     ├── portfolio/             ← Case study, benchmarks, architecture review
-    └── visual-inspection/     ← Playwright visual audit report
+    └── visual-inspection/     ← Playwright visual audit report + screenshots
 ```
 
 ## Before Modifying Code
@@ -60,7 +52,6 @@ crypto/
 |---|---|
 | Frontend agent rules | `cryptovisualfull/AGENTS.md` |
 | Backend agent rules | `cryptovisualback/AGENTS.md` |
-| Full implementation plan | `docs/development/implementation-plan.md` |
 | Sprint 15 plan | `docs/development/sprint-15-pedagogical-enhancements.md` |
 | Architecture decisions | `docs/adr/` |
 | Deployment guide | `docs/deployment/production.md` |
@@ -68,7 +59,7 @@ crypto/
 | Portfolio benchmarks | `docs/portfolio/benchmarks.md` |
 | Architecture review findings | `docs/portfolio/architecture-review.md` |
 | Case study | `docs/portfolio/case-study.md` |
-| Sprint history | `docs/archive/` |
+| Sprint history & archived plans | `docs/archive/` |
 | Load testing | `cryptovisualback/k6/README.md` |
 
 ## Pipeline Commands
@@ -85,6 +76,7 @@ crypto/
 - **Sprint reports**: Archived in `docs/archive/`. Read-only historical reference.
 - **Transient artifacts**: Never commit Playwright DOM dumps, scratch notes, or generated step snapshots to the repository.
 - **Portfolio docs**: Live in `docs/portfolio/` — authored marketing materials, not operational specs.
+- **Subproject docs**: Architecture and module details live in each subproject's `AGENTS.md` (not separate doc files).
 
 ## Pedagogic Mode (2026-07)
 

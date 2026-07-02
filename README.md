@@ -117,12 +117,11 @@ crypto/
 
 | Resource | Location |
 |---|---|
-| Implementation Plan | [docs/development/implementation-plan.md](docs/development/implementation-plan.md) |
 | Sprint 15 Plan — Pedagogical Enhancements | [docs/development/sprint-15-pedagogical-enhancements.md](docs/development/sprint-15-pedagogical-enhancements.md) |
 | Architecture Decisions | [docs/adr/](docs/adr/) |
 | Deployment Guide | [docs/deployment/production.md](docs/deployment/production.md) |
-| Backend Architecture | [cryptovisualback/docs/architecture.md](cryptovisualback/docs/architecture.md) |
-| Frontend Architecture | [cryptovisualfull/docs/architecture.md](cryptovisualfull/docs/architecture.md) |
+| Frontend Agent Rules & Architecture | [cryptovisualfull/AGENTS.md](cryptovisualfull/AGENTS.md) |
+| Backend Agent Rules & Architecture | [cryptovisualback/AGENTS.md](cryptovisualback/AGENTS.md) |
 | Visual Inspection Report | [docs/visual-inspection/visual-inspection-report.md](docs/visual-inspection/visual-inspection-report.md) |
 
 ## Visual Inspection

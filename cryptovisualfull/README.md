@@ -69,6 +69,5 @@ src/
 
 ## Documentation
 
-- [Architecture](./docs/architecture.md) — Component tree, state flow, folder ownership
-- [Root Docs](../docs/README.md) — Cross-project documentation index
+- [AGENTS.md](./AGENTS.md) — Frontend architecture, routes, state, animation rules
 - [Architecture Decisions](../docs/adr/) — Key technical decisions

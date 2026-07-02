@@ -121,6 +121,21 @@ XState machines + React providers. XState is source of truth.
 
 ---
 
+# Route Map
+
+| Path | Step | Feature | Status |
+|---|---|---|---|
+| `/` | — | Landing page | ✅ |
+| `/handshake` | Layout | Wizard shell with Outlet + WizardProvider | ✅ |
+| `/handshake/step-1` | 1 | RSA Keygen | ✅ |
+| `/handshake/step-2` | 2 | Session Key | ✅ |
+| `/handshake/step-3` | 3 | AES State Matrix | ✅ |
+| `/handshake/step-4` | 4 | Hybrid Envelope | ✅ |
+| `/handshake/step-5` | 5 | Wire Simulation | ✅ |
+| `/handshake/step-6` | 6 | Decrypt | ✅ |
+
+---
+
 # State Management Rules
 
 State priority:
@@ -135,6 +150,13 @@ Do not introduce global state without justification.
 Avoid duplicated state.
 
 **Animation State**: Canvas animation state lives in PixiJS scenes / GSAP timelines — never in React state. React only holds playback controls (speed, play/pause).
+
+**Machine Architecture**:
+- XState v5 machine (`handshake.machine.ts`): single `active` state with context-driven step tracking
+- 3 guards: `canGoNext`, `canGoBack`, `canGoTo` (prevents skipping)
+- 4 actions: `markStepComplete`, `advanceStep`, `retreatStep`, `goToStep`
+- WizardProvider wraps XState actor via `useActor`; one-way sync: machine → URL via `useNavigate`
+- 13 unit tests cover all transitions, guards, and edge cases
 
 ---
 
@@ -400,6 +422,8 @@ Do not invent architecture.
 * `ResizeObserver` on canvas → `renderer.resize()` + scene rebuild.
 * Cleanup on route unmount: `engine.destroyScene()` + `app.destroy(true)`.
 * WebGL failure: render `CanvasFallback` component, log to telemetry.
+* Scenes are imperative classes (not React components); `CanvasViewport` React component mounts `<canvas>` and bridges lifecycle.
+* Scenes register tweens via `engine.masterTimeline.to(...)` — no loose `setTimeout`/`setInterval` for animation pacing.
 
 ---
 

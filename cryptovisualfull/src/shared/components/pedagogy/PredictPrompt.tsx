@@ -93,7 +93,9 @@ export function PredictPrompt({
 						</div>
 					)}
 					<div className="rounded-lg bg-surface-900/80 p-3">
-						<p className="text-xs text-surface-300 leading-relaxed">{prompt.explanation}</p>
+						<p className="text-xs text-surface-300 leading-relaxed">
+							{prompt.explanation}
+						</p>
 						<div className="mt-2 flex items-center gap-2 rounded-md bg-hybrid-500/10 px-2.5 py-1.5">
 							<span className="text-[9px] font-medium uppercase tracking-wider text-hybrid-400">
 								Watch:

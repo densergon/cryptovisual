@@ -96,6 +96,5 @@ This backend follows a **Zero-Knowledge Architecture** — no message contents, 
 
 ## Documentation
 
-- [Architecture](./docs/architecture.md) — Full DDD module design
-- [Root Docs](../docs/README.md) — Cross-project documentation index
+- [AGENTS.md](./AGENTS.md) — Backend architecture, modules, DB schema, WebSocket rules
 - [Architecture Decisions](../docs/adr/) — Key technical decisions
