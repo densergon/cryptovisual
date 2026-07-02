@@ -55,6 +55,7 @@ export class StateMatrixVisualizer {
 	}
 
 	private updateCenterPoint(): void {
+		if (!this.app.canvas) return;
 		const canvasRect = this.app.canvas.getBoundingClientRect();
 		if (this.targetContainer) {
 			const rect = this.targetContainer.getBoundingClientRect();

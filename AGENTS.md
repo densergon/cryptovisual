@@ -104,3 +104,13 @@ crypto/
 ### Bug Fixes
 - **Animation rendering pipeline** — 3 root causes resolved (see commit `5f1c51e`): GSAP ticker synced to PixiJS render loop, `masterTimeline.clear()` replaces `kill()`, `cancelled` flag for async init race in Strict Mode.
 - **Documentation audit** — 26 transient artifacts deleted, docs reduced from ~74→47 files (36% reduction). Sprint7_planning.md moved to archive.
+- **Null canvas guard in `StateMatrixVisualizer.updateCenterPoint`** — `this.app.canvas` can be null when scroll/resize events fire during app teardown or before full PixiJS initialization. Added early return guard in `state-matrix-scene.ts:58`.
+
+### Cryptographic Audit (Playwright, 2026-07)
+- **RSA-2048 OAEP/SHA-256** — Verified correct: 34.70ms keygen, JWK format, 65537 exponent. Step 1.
+- **AES-256-GCM** — Verified correct: 32B key, 12B IV (NIST SP 800-38D), 16B auth tag. Step 2-3.
+- **Hybrid envelope** — RSA-wrapped key (256B=2048-bit) + AES ciphertext (20B). Step 4.
+- **Full round-trip** — "Hello, CryptoVisual!" decrypted successfully. RSA unwrap 0.5ms, AES decrypt 0.1ms. Step 6.
+- **Tamper detection** — GCM auth tag correctly rejects modified ciphertext with "Integrity Check Failed". Step 6.
+- **No secret leaks** — Private key JWK never logged to console. Zero-knowledge architecture maintained.
+- **Web Worker isolation** — All crypto ops run in worker, main thread never touches key material.
