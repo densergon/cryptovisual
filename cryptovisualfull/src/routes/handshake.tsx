@@ -8,7 +8,6 @@ import {
 } from "@/features/wizard/components";
 import { useWizardKeyboard } from "@/features/wizard/hooks/use-wizard-keyboard";
 import { FPSCounter } from "@/shared/components/FPSCounter";
-import { PedagogyToggle } from "@/shared/components/pedagogy/PedagogyToggle";
 import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
 import {
 	AnimationSpeedProvider,
@@ -104,7 +103,6 @@ function HandshakeLayout() {
 						</div>
 					</div>
 					<div className="flex items-center gap-4">
-						<PedagogyToggle />
 						<div className="flex items-center gap-2">
 							<span className="text-xs text-surface-500">
 								{reduced ? "OFF" : `${speed.toFixed(1)}x`}

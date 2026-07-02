@@ -46,8 +46,13 @@ export class VisualizationEngine {
 	async init(): Promise<void> {
 		if (this.destroyed) return;
 
+		const rect = this.container.getBoundingClientRect();
+		const width = rect.width || window.innerWidth;
+		const height = rect.height || window.innerHeight;
+
 		await this.app.init({
-			resizeTo: window,
+			width,
+			height,
 			backgroundColor: 0x0a0a0f,
 			antialias: true,
 			resolution: Math.min(window.devicePixelRatio || 1, 2),
@@ -77,7 +82,9 @@ export class VisualizationEngine {
 		this.resizeObserver = new ResizeObserver(() => {
 			if (this.destroyed) return;
 			const rect = this.container.getBoundingClientRect();
-			this.app.renderer.resize(rect.width, rect.height);
+			if (rect.width > 0 && rect.height > 0) {
+				this.app.renderer.resize(rect.width, rect.height);
+			}
 		});
 		this.resizeObserver.observe(this.container);
 	}

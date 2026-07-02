@@ -130,16 +130,27 @@ function Step1Keygen() {
 				you keep guarded to unlock them.
 			</p>
 
-			<div className="mb-6 grid grid-cols-2 gap-4">
-				<div className="col-span-2 rounded-lg border border-surface-700/50 bg-transparent h-64 relative overflow-hidden backdrop-zinc-900/20">
-					{!isGenerating && !keyData && (
-						<div className="absolute inset-0 flex items-center justify-center">
-							<p className="text-xs text-surface-600">
-								Click "Generate Keys" to start the animation
+			<div className="mb-6 rounded-lg border border-asymmetric-500/20 bg-surface-950/40 h-64 relative overflow-hidden">
+				{!isGenerating && !keyData && (
+					<div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
+						<div className="h-12 w-12 rounded-full border-2 border-dashed border-surface-700 flex items-center justify-center">
+							<Key size={20} className="text-surface-600" />
+						</div>
+						<p className="text-sm text-surface-500 font-medium">
+							Click "Generate Keys" to start the animation
+						</p>
+					</div>
+				)}
+				{isGenerating && (
+					<div className="absolute inset-0 flex items-center justify-center">
+						<div className="flex items-center gap-3 rounded-lg bg-surface-950/80 px-4 py-2">
+							<div className="h-2 w-2 rounded-full bg-asymmetric-400 animate-pulse" />
+							<p className="text-sm text-surface-400 font-mono">
+								Searching for massive prime numbers...
 							</p>
 						</div>
-					)}
-				</div>
+					</div>
+				)}
 			</div>
 
 			{error && (

@@ -225,12 +225,25 @@ function Step5WireSimulation() {
 
 			<HandshakeTicker currentPacket={currentPacket} />
 
-			<div className="relative mb-6 rounded-lg border border-surface-700/50 bg-transparent overflow-hidden h-64">
+			<div className="relative mb-6 rounded-lg border border-surface-700/50 bg-surface-950/40 overflow-hidden h-64">
+				{!currentPacket && !isAnimating && (
+					<div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
+						<div className="h-12 w-12 rounded-full border-2 border-dashed border-surface-700 flex items-center justify-center">
+							<Wifi size={20} className="text-surface-600" />
+						</div>
+						<p className="text-sm text-surface-500 font-medium">
+							Press "Start Transmission" to simulate the handshake
+						</p>
+					</div>
+				)}
 				{currentPacket && (
-					<div className="absolute bottom-4 left-4 right-4 z-10 rounded bg-surface-950/80 backdrop-blur-sm px-4 py-2">
-						<span className="text-sm text-surface-300 font-mono">
-							{currentPacket}
-						</span>
+					<div className="absolute bottom-4 left-4 right-4 z-10 rounded bg-surface-950/80 backdrop-blur-sm px-4 py-2 border border-surface-700/30">
+						<div className="flex items-center gap-2">
+							<div className={`h-1.5 w-1.5 rounded-full ${currentPacket.includes("complete") ? "bg-success" : "bg-surface-400"} animate-pulse`} />
+							<span className="text-sm text-surface-300 font-mono">
+								{currentPacket}
+							</span>
+						</div>
 					</div>
 				)}
 			</div>

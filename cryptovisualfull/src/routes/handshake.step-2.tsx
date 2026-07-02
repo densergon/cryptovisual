@@ -173,16 +173,27 @@ function Step2SessionKey() {
 				</div>
 			)}
 
-			<div className="mb-6 grid grid-cols-2 gap-4">
-				<div className="col-span-2 rounded-lg border border-symmetric-500/20 bg-transparent h-64 relative overflow-hidden">
-					{!isGenerating && !keyData && (
-						<div className="absolute inset-0 flex items-center justify-center">
-							<p className="text-xs text-surface-600">
-								Click "Generate Session Key" to start the animation
+			<div className="mb-6 rounded-lg border border-symmetric-500/20 bg-surface-950/40 h-64 relative overflow-hidden">
+				{!isGenerating && !keyData && (
+					<div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
+						<div className="h-12 w-12 rounded-full border-2 border-dashed border-surface-700 flex items-center justify-center">
+							<KeyRound size={20} className="text-surface-600" />
+						</div>
+						<p className="text-sm text-surface-500 font-medium">
+							Click "Generate Session Key" to start the animation
+						</p>
+					</div>
+				)}
+				{isGenerating && (
+					<div className="absolute inset-0 flex items-center justify-center">
+						<div className="flex items-center gap-3 rounded-lg bg-surface-950/80 px-4 py-2">
+							<div className="h-2 w-2 rounded-full bg-symmetric-400 animate-pulse" />
+							<p className="text-sm text-surface-400 font-mono">
+								Generating 256-bit session key...
 							</p>
 						</div>
-					)}
-				</div>
+					</div>
+				)}
 			</div>
 
 			{isPedagogyMode && <WhyAESBox />}

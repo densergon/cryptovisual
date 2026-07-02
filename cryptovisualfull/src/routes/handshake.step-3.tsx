@@ -263,15 +263,15 @@ function AESCipherContent() {
 
 			{isPedagogyMode && <ConfusionDiffusionLegend />}
 
-			<div id="aes-grid-container" className="rounded-lg border border-surface-700/80 bg-surface-950/30 p-6">
-				<div className="mb-4 flex items-center justify-between">
+			<div id="aes-grid-container" className="rounded-lg border border-symmetric-500/20 bg-surface-950/40 p-6">
+				<div className="mb-4 flex items-center justify-between flex-wrap gap-3">
 					<h3 className="font-semibold text-white">AES State Matrix</h3>
-					<div className="flex gap-2">
+					<div className="flex gap-2 flex-wrap">
 						<button
 							type="button"
 							onClick={runAESAnimation}
 							disabled={isAnimating || !aesKey}
-							className="flex items-center gap-2 rounded-md bg-symmetric-600 px-4 py-2 text-sm font-medium text-white hover:bg-symmetric-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+							className="flex items-center gap-2 rounded-md bg-symmetric-600 px-4 py-2 text-sm font-medium text-white hover:bg-symmetric-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 						>
 							<Play size={16} />
 							{isAnimating
@@ -284,7 +284,7 @@ function AESCipherContent() {
 							type="button"
 							onClick={runKeyExpansionAnimation}
 							disabled={isAnimating || !aesKey}
-							className="flex items-center gap-2 rounded-md bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+							className="flex items-center gap-2 rounded-md bg-hybrid-600 px-4 py-2 text-sm font-medium text-white hover:bg-hybrid-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 						>
 							<Play size={16} />
 							Key Schedule
@@ -293,7 +293,7 @@ function AESCipherContent() {
 							<button
 								type="button"
 								onClick={() => {
-									visualizerRef.current?.pause();
+									visualizerRef.current?.destroy();
 									setCurrentOperation("");
 									setAuthTagHex(null);
 								}}
@@ -307,18 +307,24 @@ function AESCipherContent() {
 				</div>
 
 				<div className="relative">
-					<div className="w-full h-64 rounded-lg bg-transparent border border-symmetric-500/20 flex items-center justify-center">
+					<div className="w-full h-64 rounded-lg bg-surface-950/60 border border-symmetric-500/20 flex items-center justify-center">
 						{!currentOperation && !isAnimating && (
-							<span className="text-xs text-surface-600 uppercase tracking-widest">
-								Press Play Animation to visualize AES
-							</span>
+							<div className="flex flex-col items-center gap-3">
+								<Grid3x3 size={24} className="text-surface-600" />
+								<span className="text-sm text-surface-500 font-medium">
+									{!aesKey ? "Generate a session key in Step 2 first" : "Press Play Animation to visualize AES"}
+								</span>
+							</div>
 						)}
 					</div>
 					{currentOperation && (
-						<div className="mt-3 rounded-md bg-surface-950/80 backdrop-blur-sm px-4 py-3">
-							<p className="text-sm font-mono text-symmetric-400">
-								{currentOperation}
-							</p>
+						<div className="mt-3 rounded-md bg-surface-950/80 backdrop-blur-sm px-4 py-3 border border-symmetric-500/10">
+							<div className="flex items-center gap-2">
+								<div className="h-1.5 w-1.5 rounded-full bg-symmetric-400 animate-pulse" />
+								<p className="text-sm font-mono text-symmetric-400">
+									{currentOperation}
+								</p>
+							</div>
 						</div>
 					)}
 					<OperationLegend currentOperation={currentOperation} />

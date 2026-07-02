@@ -254,6 +254,7 @@ export class StateMatrixVisualizer {
 	}
 
 	resetCellHighlight(row: number, col: number, duration: number = 0.3): void {
+		if (!this.cells[row]?.[col]) return;
 		const cell = this.cells[row][col];
 
 		cell.highlightGraphics.alpha = 0;
