@@ -33,13 +33,16 @@ export class StateMatrixVisualizer {
 	public masterTimeline: gsap.core.Timeline | null = null;
 	private centerPoint: { x: number; y: number };
 	private config: AESAnimationConfig;
+	private targetContainer: HTMLElement | null = null;
+	private containerObserver: ResizeObserver | null = null;
 
-	constructor(app: Application, stage: Container) {
+	constructor(app: Application, stage: Container, targetContainer?: HTMLElement) {
 		this.app = app;
 		this.stage = stage;
 		this.root = new Container();
 		this.animationContainer = new Container();
 		this.centerPoint = { x: 0, y: 0 };
+		this.targetContainer = targetContainer ?? null;
 		this.config = {
 			cellSize: 60,
 			gap: 8,
@@ -51,15 +54,28 @@ export class StateMatrixVisualizer {
 		};
 	}
 
+	private updateCenterPoint(): void {
+		const canvasRect = this.app.canvas.getBoundingClientRect();
+		if (this.targetContainer) {
+			const rect = this.targetContainer.getBoundingClientRect();
+			this.centerPoint = {
+				x: rect.left - canvasRect.left + rect.width / 2,
+				y: rect.top - canvasRect.top + rect.height / 2,
+			};
+		} else {
+			this.centerPoint = {
+				x: this.app.screen.width / 2,
+				y: this.app.screen.height / 2,
+			};
+		}
+	}
+
 	async init(initialState?: Uint8Array): Promise<void> {
 		if (!this.app.renderer) {
 			console.warn("StateMatrixVisualizer: PixiJS not initialized yet");
 			return;
 		}
-		this.centerPoint = {
-			x: this.app.screen.width / 2,
-			y: this.app.screen.height / 2,
-		};
+		this.updateCenterPoint();
 		this.root.addChild(this.animationContainer);
 		this.stage.addChild(this.root);
 
@@ -68,22 +84,70 @@ export class StateMatrixVisualizer {
 			this.updateMatrix(initialState);
 		}
 
+		if (this.targetContainer) {
+			this.containerObserver = new ResizeObserver(() => {
+				this.updateCenterPoint();
+				if (this.cells.length > 0) {
+					this.repositionGrid();
+				}
+			});
+			this.containerObserver.observe(this.targetContainer);
+			window.addEventListener("scroll", this.handleScroll);
+		}
+
 		this.isInitialized = true;
 	}
 
-	private createGrid(): void {
+	private handleScroll = (): void => {
+		this.updateCenterPoint();
+	};
+
+	private repositionGrid(): void {
 		const { cellSize, gap } = this.config;
 		const totalSize = 4 * cellSize + 3 * gap;
 		const startX = this.centerPoint.x - totalSize / 2 + cellSize / 2;
 		const startY = this.centerPoint.y - totalSize / 2 + cellSize / 2;
 
 		for (let row = 0; row < 4; row++) {
-			this.cells[row] = [];
 			for (let col = 0; col < 4; col++) {
 				const x = startX + col * (cellSize + gap);
 				const y = startY + row * (cellSize + gap);
 
-				const cell = this.createCell(x, y, row, col);
+				const cell = this.cells[row][col];
+				const hs = cellSize / 2;
+				cell.normalGraphics.position.set(x, y);
+				cell.highlightGraphics.position.set(x, y);
+				cell.text.position.set(x, y);
+
+				cell.normalGraphics.clear();
+				cell.normalGraphics.rect(-hs, -hs, cellSize, cellSize);
+				cell.normalGraphics.fill({ color: this.config.cellColor, alpha: 0.9 });
+				cell.normalGraphics.stroke({ color: this.config.gridColor, width: 2 });
+
+				cell.highlightGraphics.clear();
+				cell.highlightGraphics.rect(-hs, -hs, cellSize, cellSize);
+				cell.highlightGraphics.fill({ color: this.config.highlightColor, alpha: 0.9 });
+				cell.highlightGraphics.stroke({ color: this.config.gridColor, width: 2 });
+			}
+		}
+	}
+
+	private createGrid(): void {
+		const { cellSize, gap } = this.config;
+		const totalSize = 4 * cellSize + 3 * gap;
+		const startX = this.centerPoint.x - totalSize / 2;
+		const startY = this.centerPoint.y - totalSize / 2;
+
+		for (let row = 0; row < 4; row++) {
+			this.cells[row] = [];
+			for (let col = 0; col < 4; col++) {
+				const x = startX + col * (cellSize + gap) + cellSize / 2;
+				const y = startY + row * (cellSize + gap) + cellSize / 2;
+
+				const cell = this.createCell(row, col);
+				cell.normalGraphics.position.set(x, y);
+				cell.highlightGraphics.position.set(x, y);
+				cell.text.position.set(x, y);
 				this.cells[row][col] = cell;
 				this.animationContainer.addChild(cell.normalGraphics);
 				this.animationContainer.addChild(cell.highlightGraphics);
@@ -93,8 +157,6 @@ export class StateMatrixVisualizer {
 	}
 
 	private createCell(
-		x: number,
-		y: number,
 		row: number,
 		col: number,
 	): StateMatrixCell {
@@ -106,20 +168,16 @@ export class StateMatrixVisualizer {
 			textColor,
 			fontSize,
 		} = this.config;
+		const hs = cellSize / 2;
 
 		const normalGraphics = new Graphics();
-		normalGraphics.rect(x - cellSize / 2, y - cellSize / 2, cellSize, cellSize);
+		normalGraphics.rect(-hs, -hs, cellSize, cellSize);
 		normalGraphics.fill({ color: cellColor, alpha: 0.9 });
 		normalGraphics.stroke({ color: gridColor, width: 2 });
 		normalGraphics.alpha = 1;
 
 		const highlightGraphics = new Graphics();
-		highlightGraphics.rect(
-			x - cellSize / 2,
-			y - cellSize / 2,
-			cellSize,
-			cellSize,
-		);
+		highlightGraphics.rect(-hs, -hs, cellSize, cellSize);
 		highlightGraphics.fill({ color: highlightColor, alpha: 0.9 });
 		highlightGraphics.stroke({ color: gridColor, width: 2 });
 		highlightGraphics.alpha = 0;
@@ -133,8 +191,6 @@ export class StateMatrixVisualizer {
 			},
 		});
 		text.anchor.set(0.5);
-		text.x = x;
-		text.y = y;
 
 		return {
 			value: 0,
@@ -147,6 +203,7 @@ export class StateMatrixVisualizer {
 	}
 
 	updateMatrix(state: Uint8Array): void {
+		this.ensureAttached();
 		if (this.cells.length === 0) {
 			this.createGrid();
 		}
@@ -160,6 +217,7 @@ export class StateMatrixVisualizer {
 	}
 
 	updateCell(row: number, col: number, value: number): void {
+		if (!this.cells[row]?.[col]) return;
 		const cell = this.cells[row][col];
 		cell.value = value;
 		cell.text.text = value.toString(16).padStart(2, "0").toUpperCase();
@@ -436,8 +494,15 @@ export class StateMatrixVisualizer {
 		return p;
 	}
 
+	private ensureAttached(): void {
+		if (!this.root.parent) {
+			this.stage.addChild(this.root);
+		}
+	}
+
 	play(): void {
 		if (!this.isInitialized) return;
+		this.ensureAttached();
 	}
 
 	pause(): void {
@@ -465,6 +530,9 @@ export class StateMatrixVisualizer {
 		}
 		this.cells = [];
 		this.isInitialized = false;
+		this.containerObserver?.disconnect();
+		this.containerObserver = null;
+		window.removeEventListener("scroll", this.handleScroll);
 	}
 
 	onEvent(event: string, payload?: unknown): void {

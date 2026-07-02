@@ -186,9 +186,11 @@ function AESCipherContent() {
 		if (!engine) return;
 
 		const setupScene = async () => {
+			const gridContainer = document.getElementById("aes-grid-container");
 			const visualizer = new StateMatrixVisualizer(
 				engine.getApplication(),
 				engine.getApplication().stage as any,
+				gridContainer ?? undefined,
 			);
 			visualizer.masterTimeline = engine.masterTimeline;
 			await visualizer.init();
@@ -261,7 +263,7 @@ function AESCipherContent() {
 
 			{isPedagogyMode && <ConfusionDiffusionLegend />}
 
-			<div className="rounded-lg border border-surface-700/80 bg-surface-950/30 backdrop-blur-sm p-6">
+			<div id="aes-grid-container" className="rounded-lg border border-surface-700/80 bg-surface-950/30 p-6">
 				<div className="mb-4 flex items-center justify-between">
 					<h3 className="font-semibold text-white">AES State Matrix</h3>
 					<div className="flex gap-2">
