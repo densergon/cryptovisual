@@ -3,8 +3,10 @@ import { KeyRound } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { PerformanceComparison } from "@/shared/components/pedagogy/PerformanceComparison";
+import { PredictPrompt } from "@/shared/components/pedagogy/PredictPrompt";
 import { WhyAESBox } from "@/shared/components/pedagogy/WhyAESBox";
 import { StepGuide } from "@/shared/components/StepGuide";
+import { PREDICT_PROMPTS } from "@/shared/constants/predict-prompts";
 import { useCanvas } from "@/shared/providers/CanvasProvider";
 import { useCryptoWorker } from "@/shared/providers/CryptoWorkerProvider";
 import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
@@ -33,6 +35,8 @@ function Step2SessionKey() {
 		return new Uint8Array(match ? match.map((byte) => parseInt(byte, 16)) : []);
 	};
 
+	const [showPredict, setShowPredict] = useState(true);
+	const sessionPrompt = PREDICT_PROMPTS.find((p) => p.step === 2);
 	const [error, setError] = useState<string | null>(null);
 	const [keyData, setKeyData] = useState<{
 		keyBytes?: string;
@@ -171,6 +175,14 @@ function Step2SessionKey() {
 				<div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
 					{error}
 				</div>
+			)}
+
+			{isPedagogyMode && showPredict && sessionPrompt && (
+				<PredictPrompt
+					prompt={sessionPrompt}
+					onReveal={() => {}}
+					onDismiss={() => setShowPredict(false)}
+				/>
 			)}
 
 			<div className="mb-6 rounded-lg border border-symmetric-500/20 bg-surface-950/40 h-64 relative overflow-hidden">

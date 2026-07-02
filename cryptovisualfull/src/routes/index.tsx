@@ -64,6 +64,11 @@ function Home() {
 							Start Tutorial
 						</a>
 					</div>
+					<p className="mx-auto mt-8 max-w-2xl text-xs text-surface-600">
+						CryptoVisual is an educational tool. It is NOT audited for
+						production cryptographic use. Do not use this code to secure real
+						data.
+					</p>
 				</div>
 			</footer>
 		</div>

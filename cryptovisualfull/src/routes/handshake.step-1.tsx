@@ -2,9 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Key } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { BruteForcePanel } from "@/features/keygen/components/BruteForcePanel";
 import { PadlockMetaphor } from "@/shared/components/pedagogy/PadlockMetaphor";
+import { PredictPrompt } from "@/shared/components/pedagogy/PredictPrompt";
 import { PrimeSearchTicker } from "@/shared/components/pedagogy/PrimeSearchTicker";
 import { StepGuide } from "@/shared/components/StepGuide";
+import { PREDICT_PROMPTS } from "@/shared/constants/predict-prompts";
 import { useCanvas } from "@/shared/providers/CanvasProvider";
 import { useCryptoWorker } from "@/shared/providers/CryptoWorkerProvider";
 import { usePedagogyMode } from "@/shared/providers/PedagogyModeProvider";
@@ -20,9 +23,12 @@ function Step1Keygen() {
 	const worker = useCryptoWorker();
 	const keygenSceneRef = useRef<KeygenVisualizer | null>(null);
 	const [isGenerating, setIsGenerating] = useState(false);
-	const [keySize, setKeySize] = useState<1024 | 2048 | 4096>(2048);
+	const [keySize, setKeySize] = useState<16 | 1024 | 2048 | 4096>(2048);
+	const [showBruteForce, setShowBruteForce] = useState(false);
 	const { goNext, rsaKeyPair, send } = useWizard();
 	const { isPedagogyMode } = usePedagogyMode();
+	const [showPredict, setShowPredict] = useState(true);
+	const keygenPrompt = PREDICT_PROMPTS.find((p) => p.step === 1);
 	const [error, setError] = useState<string | null>(null);
 	const [keyData, setKeyData] = useState<{
 		publicKey?: JsonWebKey;
@@ -62,6 +68,7 @@ function Step1Keygen() {
 		setError(null);
 		try {
 			if (!worker) throw new Error("Crypto worker not ready");
+			if (keySize === 16) return;
 			const result = await worker.generateRSAKeyPair(keySize);
 			if (!result.publicKey || !result.privateKey)
 				throw new Error("Key generation failed");
@@ -130,28 +137,40 @@ function Step1Keygen() {
 				you keep guarded to unlock them.
 			</p>
 
-			<div className="mb-6 rounded-lg border border-asymmetric-500/20 bg-surface-950/40 h-64 relative overflow-hidden">
-				{!isGenerating && !keyData && (
-					<div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
-						<div className="h-12 w-12 rounded-full border-2 border-dashed border-surface-700 flex items-center justify-center">
-							<Key size={20} className="text-surface-600" />
-						</div>
-						<p className="text-sm text-surface-500 font-medium">
-							Click "Generate Keys" to start the animation
-						</p>
-					</div>
-				)}
-				{isGenerating && (
-					<div className="absolute inset-0 flex items-center justify-center">
-						<div className="flex items-center gap-3 rounded-lg bg-surface-950/80 px-4 py-2">
-							<div className="h-2 w-2 rounded-full bg-asymmetric-400 animate-pulse" />
-							<p className="text-sm text-surface-400 font-mono">
-								Searching for massive prime numbers...
+			{isPedagogyMode && showPredict && keygenPrompt && (
+				<PredictPrompt
+					prompt={keygenPrompt}
+					onReveal={() => {}}
+					onDismiss={() => setShowPredict(false)}
+				/>
+			)}
+
+			{isPedagogyMode && showBruteForce && <BruteForcePanel />}
+
+			{!showBruteForce && (
+				<div className="mb-6 rounded-lg border border-asymmetric-500/20 bg-surface-950/40 h-64 relative overflow-hidden">
+					{!isGenerating && !keyData && (
+						<div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
+							<div className="h-12 w-12 rounded-full border-2 border-dashed border-surface-700 flex items-center justify-center">
+								<Key size={20} className="text-surface-600" />
+							</div>
+							<p className="text-sm text-surface-500 font-medium">
+								Click "Generate Keys" to start the animation
 							</p>
 						</div>
-					</div>
-				)}
-			</div>
+					)}
+					{isGenerating && (
+						<div className="absolute inset-0 flex items-center justify-center">
+							<div className="flex items-center gap-3 rounded-lg bg-surface-950/80 px-4 py-2">
+								<div className="h-2 w-2 rounded-full bg-asymmetric-400 animate-pulse" />
+								<p className="text-sm text-surface-400 font-mono">
+									Searching for massive prime numbers...
+								</p>
+							</div>
+						</div>
+					)}
+				</div>
+			)}
 
 			{error && (
 				<div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
@@ -171,14 +190,19 @@ function Step1Keygen() {
 					<select
 						id="key-size-select"
 						value={keySize}
-						onChange={(e) =>
-							setKeySize(Number(e.target.value) as 1024 | 2048 | 4096)
-						}
+						onChange={(e) => {
+							const val = Number(e.target.value) as 16 | 1024 | 2048 | 4096;
+							setKeySize(val);
+							setShowBruteForce(val === 16);
+						}}
 						disabled={isGenerating || !!keyData}
 						className="rounded-lg border border-surface-700 bg-surface-900 px-3 py-2.5 text-sm text-surface-200 focus:border-asymmetric-500 focus:outline-none focus:ring-1 focus:ring-asymmetric-500 disabled:opacity-50 disabled:cursor-not-allowed"
 					>
 						<option value={2048}>2048 bits (standard)</option>
 						<option value={4096}>4096 bits (high security, ~4x slower)</option>
+						<option value={16} className="text-red-400">
+							16 bits (break me)
+						</option>
 					</select>
 				</div>
 				<button

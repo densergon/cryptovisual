@@ -4,8 +4,10 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Celebration } from "../shared/components/Celebration";
 import { KeyMatchGlow } from "../shared/components/pedagogy/KeyMatchGlow";
+import { PredictPrompt } from "../shared/components/pedagogy/PredictPrompt";
 import { TwoStepUnlock } from "../shared/components/pedagogy/TwoStepUnlock";
 import { StepGuide } from "../shared/components/StepGuide";
+import { PREDICT_PROMPTS } from "../shared/constants/predict-prompts";
 import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
 import { usePedagogyMode } from "../shared/providers/PedagogyModeProvider";
 import { useWizard } from "../state/wizard-provider";
@@ -24,6 +26,8 @@ function Step6Decrypt() {
 	const [aesDuration, setAesDuration] = useState<number | undefined>();
 	const [tampered, setTampered] = useState(false);
 	const [shouldDecrypt, setShouldDecrypt] = useState(true);
+	const [showPredict, setShowPredict] = useState(true);
+	const decryptPrompt = PREDICT_PROMPTS.find((p) => p.step === 6);
 
 	const uint8ArrayToHex = (arr: Uint8Array) =>
 		Array.from(arr)
@@ -126,6 +130,14 @@ function Step6Decrypt() {
 						Unwrapping envelope and decrypting payload...
 					</span>
 				</div>
+			)}
+
+			{isPedagogyMode && showPredict && decryptPrompt && (
+				<PredictPrompt
+					prompt={decryptPrompt}
+					onReveal={() => {}}
+					onDismiss={() => setShowPredict(false)}
+				/>
 			)}
 
 			{isPedagogyMode && decryptedText && <TwoStepUnlock />}

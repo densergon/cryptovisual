@@ -36,7 +36,11 @@ export class StateMatrixVisualizer {
 	private targetContainer: HTMLElement | null = null;
 	private containerObserver: ResizeObserver | null = null;
 
-	constructor(app: Application, stage: Container, targetContainer?: HTMLElement) {
+	constructor(
+		app: Application,
+		stage: Container,
+		targetContainer?: HTMLElement,
+	) {
 		this.app = app;
 		this.stage = stage;
 		this.root = new Container();
@@ -127,8 +131,14 @@ export class StateMatrixVisualizer {
 
 				cell.highlightGraphics.clear();
 				cell.highlightGraphics.rect(-hs, -hs, cellSize, cellSize);
-				cell.highlightGraphics.fill({ color: this.config.highlightColor, alpha: 0.9 });
-				cell.highlightGraphics.stroke({ color: this.config.gridColor, width: 2 });
+				cell.highlightGraphics.fill({
+					color: this.config.highlightColor,
+					alpha: 0.9,
+				});
+				cell.highlightGraphics.stroke({
+					color: this.config.gridColor,
+					width: 2,
+				});
 			}
 		}
 	}
@@ -157,10 +167,7 @@ export class StateMatrixVisualizer {
 		}
 	}
 
-	private createCell(
-		row: number,
-		col: number,
-	): StateMatrixCell {
+	private createCell(row: number, col: number): StateMatrixCell {
 		const {
 			cellSize,
 			gridColor,

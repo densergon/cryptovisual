@@ -7,7 +7,9 @@ import { AESEngine, AESVisualEngine } from "../crypto-engine";
 import { LiveRegion } from "../shared/components/LiveRegion";
 import { ConfusionDiffusionLegend } from "../shared/components/pedagogy/ConfusionDiffusionLegend";
 import { OperationLegend } from "../shared/components/pedagogy/OperationLegend";
+import { PredictPrompt } from "../shared/components/pedagogy/PredictPrompt";
 import { StepGuide } from "../shared/components/StepGuide";
+import { PREDICT_PROMPTS } from "../shared/constants/predict-prompts";
 import { useAnimationSpeed } from "../shared/providers/AnimationSpeedProvider";
 import { useCanvas } from "../shared/providers/CanvasProvider";
 import { useCryptoWorker } from "../shared/providers/CryptoWorkerProvider";
@@ -25,6 +27,8 @@ function AESCipherContent() {
 	const [currentOperation, setCurrentOperation] = useState<string>("");
 	const [authTagHex, setAuthTagHex] = useState<string | null>(null);
 	const { isPedagogyMode } = usePedagogyMode();
+	const [showPredict, setShowPredict] = useState(true);
+	const aesPrompt = PREDICT_PROMPTS.find((p) => p.step === 3);
 
 	const runAESAnimation = async () => {
 		if (!visualizerRef.current || !engine || isAnimating) return;
@@ -217,7 +221,7 @@ function AESCipherContent() {
 			animate={{ opacity: 1 }}
 			transition={{ delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
 		>
-			<LiveRegion message={currentOperation} />
+			<LiveRegion message={currentOperation} prefix="AES Cipher" />
 			<div className="mb-6 flex items-center gap-3">
 				<div className="flex h-10 w-10 items-center justify-center rounded-lg bg-symmetric-500/10">
 					<Grid3x3 size={20} className="text-symmetric-400" />
@@ -261,9 +265,20 @@ function AESCipherContent() {
 				indistinguishable from random noise.
 			</p>
 
+			{isPedagogyMode && showPredict && aesPrompt && (
+				<PredictPrompt
+					prompt={aesPrompt}
+					onReveal={() => {}}
+					onDismiss={() => setShowPredict(false)}
+				/>
+			)}
+
 			{isPedagogyMode && <ConfusionDiffusionLegend />}
 
-			<div id="aes-grid-container" className="rounded-lg border border-symmetric-500/20 bg-surface-950/40 p-6">
+			<div
+				id="aes-grid-container"
+				className="rounded-lg border border-symmetric-500/20 bg-surface-950/40 p-6"
+			>
 				<div className="mb-4 flex items-center justify-between flex-wrap gap-3">
 					<h3 className="font-semibold text-white">AES State Matrix</h3>
 					<div className="flex gap-2 flex-wrap">
@@ -312,7 +327,9 @@ function AESCipherContent() {
 							<div className="flex flex-col items-center gap-3">
 								<Grid3x3 size={24} className="text-surface-600" />
 								<span className="text-sm text-surface-500 font-medium">
-									{!aesKey ? "Generate a session key in Step 2 first" : "Press Play Animation to visualize AES"}
+									{!aesKey
+										? "Generate a session key in Step 2 first"
+										: "Press Play Animation to visualize AES"}
 								</span>
 							</div>
 						)}

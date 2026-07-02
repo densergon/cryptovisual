@@ -30,6 +30,7 @@ export class VisualizationEngine {
 	};
 	public readonly masterTimeline = gsap.timeline({ paused: true });
 	public speedMultiplier = 1;
+	public sceneStatusListeners: Set<(message: string) => void> = new Set();
 	public breakpointConfig: BreakpointConfig = getBreakpointConfig(
 		window.innerWidth,
 	);
@@ -145,6 +146,17 @@ export class VisualizationEngine {
 
 		return () => {
 			this.eventListeners.get(event)?.delete(callback);
+		};
+	}
+
+	emitSceneStatus(message: string): void {
+		this.sceneStatusListeners.forEach((cb) => cb(message));
+	}
+
+	onSceneStatus(callback: (message: string) => void): () => void {
+		this.sceneStatusListeners.add(callback);
+		return () => {
+			this.sceneStatusListeners.delete(callback);
 		};
 	}
 

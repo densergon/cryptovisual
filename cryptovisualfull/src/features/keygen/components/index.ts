@@ -1,1 +1,1 @@
-// features/keygen/components
+export { BruteForcePanel } from "./BruteForcePanel";

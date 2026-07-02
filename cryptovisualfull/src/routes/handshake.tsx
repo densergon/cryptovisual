@@ -138,6 +138,11 @@ function HandshakeLayout() {
 					</div>
 				</div>
 
+				<div className="border-t border-surface-800 px-6 py-2 text-center">
+					<p className="text-[10px] text-surface-600">
+						CryptoVisual is an educational tool. Not audited for production use.
+					</p>
+				</div>
 				<div className="flex-1 relative overflow-hidden">
 					<div
 						ref={canvasRef}
