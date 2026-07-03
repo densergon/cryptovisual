@@ -30,8 +30,23 @@ This starts:
 ---
 
 ## Manual Deployment
-
 ---
+
+## Vercel Deployment (Monorepo)
+
+You can deploy both frontend and backend from this repository using Vercel Services.
+
+### Backend (NestJS)
+1. Create a new project in Vercel.
+2. Set the **Root Directory** to `cryptovisualback`.
+3. Vercel uses the `vercel.json` in the backend directory to configure the serverless function entry point (`src/main.ts`).
+4. Configure environment variables in the Vercel dashboard.
+
+### Frontend (TanStack Start)
+1. Create a new project in Vercel.
+2. Set the **Root Directory** to `cryptovisualfull`.
+3. Deploy as a standard TanStack Start project.
+4. Configure environment variables (e.g., `VITE_API_URL`, `VITE_WS_URL`) to point to your deployed backend.
 
 ## Architecture
 
