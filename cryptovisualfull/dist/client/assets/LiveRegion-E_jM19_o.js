@@ -1,0 +1,1 @@
+import{a as e}from"./rolldown-runtime-CNC7AqOf.js";import{l as t,u as n}from"./motion-vendor-BKoj5nGw.js";var r=e(n(),1),i=t();function a({message:e,prefix:t}){let[n,a]=(0,r.useState)(``);return(0,r.useEffect)(()=>{e&&a(t?`${t}: ${e}`:e)},[e,t]),n?(0,i.jsx)(`div`,{"aria-live":`polite`,"aria-atomic":`true`,className:`sr-only`,children:n}):null}export{a as t};
